@@ -7,3 +7,5 @@ Software architecture
 * Discovery service
 
 ## FrontEnd
+
+    - Samuel
