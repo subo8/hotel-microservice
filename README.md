@@ -8,5 +8,4 @@ Software architecture
 
 ## FrontEnd
 
-    - Samuelddfsd
-sdadsadsadasdsa
+    - Samuel is ready to push and merge
