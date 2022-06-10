@@ -34,7 +34,14 @@ Change your <span style="color:red">username</span> in https://hub.docker.com/
 docker push --all-tags xocbayar/sample-project
 ```
 ##### Result
->
+>The push refers to repository [docker.io/xocbayar/sample-project]
+8ccf80b306ba: Pushed
+b94d198181e9: Pushed
+7b85482b08d6: Pushed
+dc9fa3d8b576: Mounted from xocbayar/discovery-service
+27ee19dc88f2: Mounted from xocbayar/discovery-service
+c8dd97366670: Mounted from xocbayar/discovery-service
+Post "https://registry-1.docker.io/v2/xocbayar/sample-project/blobs/uploads/": net/http: TLS handshake timeout
 
 ### Check in docker hub
 if it's succesfull pushed in hub. Please check https://hub.docker.com/repositories address exists.
@@ -74,10 +81,19 @@ Check config file in k8s/config folder
 ```
 kubectl apply -f dev-configmap.yaml
 ```
+##### Result
+> configmap/spring-config created
 #### Check ConfigMap is present 
 ```
 kubectl get configmaps
 ```
+##### Result
+
+> NAME               DATA   AGE
+
+> kube-root-ca.crt   1      3d13h
+
+> spring-config      1      23m
 ### Secret
 Check config file in k8s/secret folder
 
@@ -87,12 +103,16 @@ Check config file in k8s/secret folder
 ```
 kubectl apply -f sample-pod.yaml
 ```
-
+##### Result
+> pod/sample-project created
 ### Check the Pod is running
 ```
 kubectl get pods
 ```
+##### Result
+> NAME             READY   STATUS   RESTARTS   AGE
 
+> sample-project   0/1     Error    0          96m
 ### Port forward
 ```
 kubectl port-forward pod/sample-project 8080:8080
