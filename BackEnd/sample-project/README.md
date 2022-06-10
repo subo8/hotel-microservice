@@ -25,12 +25,16 @@ Change your <span style="color:red">username</span> in https://hub.docker.com/
 ```
 docker build --tag xocbayar/sample-project .
 ```
+##### Result
+> [+] Building 90.8s (18/18) FINISHED
 
 ### Docker push to docker hub
 Change your <span style="color:red">username</span> in https://hub.docker.com/
 ```
 docker push --all-tags xocbayar/sample-project
 ```
+##### Result
+>
 
 ### Check in docker hub
 if it's succesfull pushed in hub. Please check https://hub.docker.com/repositories address exists.
