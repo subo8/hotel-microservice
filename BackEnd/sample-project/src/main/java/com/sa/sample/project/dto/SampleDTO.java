@@ -1,5 +1,5 @@
-package com.sa.sample.project.dto;
-
-public class SampleDTO {
-
-}
+//package com.sa.sample.project.dto;
+//
+//public class SampleDTO {
+//
+//}
