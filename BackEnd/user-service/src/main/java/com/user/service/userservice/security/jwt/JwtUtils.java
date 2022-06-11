@@ -17,13 +17,13 @@ import java.util.Date;
 public class JwtUtils {
   private static final Logger logger = LoggerFactory.getLogger(JwtUtils.class);
 
-  @Value("${bezkoder.app.jwtSecret}")
+  @Value("${subo8.app.jwtSecret}")
   private String jwtSecret;
 
-  @Value("${bezkoder.app.jwtExpirationMs}")
+  @Value("${subo8.app.jwtExpirationMs}")
   private int jwtExpirationMs;
 
-  @Value("${bezkoder.app.jwtCookieName}")
+  @Value("${subo8.app.jwtCookieName}")
   private String jwtCookie;
 
   public String getJwtFromCookies(HttpServletRequest request) {
@@ -36,7 +36,7 @@ public class JwtUtils {
   }
 
   public ResponseCookie generateJwtCookie(UserDetailsImpl userPrincipal) {
-    String jwt = generateTokenFromUsername(userPrincipal.getUsername());
+    String jwt = generateTokenFromUsername(userPrincipal.getUsername(), userPrincipal.getId());
     ResponseCookie cookie = ResponseCookie.from(jwtCookie, jwt).path("/api").maxAge(24 * 60 * 60).httpOnly(true).build();
     return cookie;
   }
@@ -46,7 +46,13 @@ public class JwtUtils {
     return cookie;
   }
 
+  //Get id from jwt cookie
   public String getUserNameFromJwtToken(String token) {
+    Claims claims = Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token).getBody();
+    String print1 = claims.getSubject();
+    String print2 = (String) claims.get("userId");
+    System.out.println(print1);
+    System.out.println(print2);
     return Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token).getBody().getSubject();
   }
 
@@ -69,9 +75,9 @@ public class JwtUtils {
     return false;
   }
   
-  public String generateTokenFromUsername(String username) {
+  public String generateTokenFromUsername(String username, String userid) {
     return Jwts.builder()
-        .setSubject(username)
+        .setSubject(username).claim("userId", userid)
         .setIssuedAt(new Date())
         .setExpiration(new Date((new Date()).getTime() + jwtExpirationMs))
         .signWith(SignatureAlgorithm.HS512, jwtSecret)
