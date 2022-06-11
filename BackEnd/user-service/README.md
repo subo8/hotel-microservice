@@ -1,4 +1,4 @@
-~## User service
+## User service
 
 ### Signup and Signin user with different roles, after successfully sign in with registered user, system response will be session contains JWT tokens
 
