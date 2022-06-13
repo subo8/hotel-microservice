@@ -8,10 +8,9 @@ public class Rate {
     @Id
     private String id;
 
-
-    private int roomId = 1;
-    private int userId = 1;
-    private int star = 1;
+    private int roomId;
+    private int userId;
+    private int star;
 
     public Rate(int roomId, int userId, int star) {
         this.roomId = roomId;
@@ -25,6 +24,10 @@ public class Rate {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public String getId() {
+        return id;
     }
 
     public void setRoomId(int roomId) {

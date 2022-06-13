@@ -10,7 +10,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-//@RequestMapping("/api/v1/")
+@RequestMapping("/api/v1/")
 public class RateController {
 
     @Autowired
@@ -27,20 +27,20 @@ public class RateController {
     @PostMapping("/rate")
     public ResponseEntity<?> addProduct(@RequestBody Rate rate) {
         rateService.addRate(rate);
-        return new ResponseEntity<>("Rate has been added", HttpStatus.CREATED);
+        return new ResponseEntity<>("Rate has been added successfully.", HttpStatus.CREATED);
     }
 
     @PutMapping("/rate/{rateID}")
     public ResponseEntity<?> updateRate(@PathVariable("rateID") String rateID,
                                            @RequestBody @Valid Rate rate) {
         rateService.updateRate(rateID,rate);
-        return new ResponseEntity<>("Rate has been updated", HttpStatus.OK);
+        return new ResponseEntity<>("Rate has been updated successfully.", HttpStatus.OK);
     }
 
     @DeleteMapping("/rate/{rateID}")
     public ResponseEntity<?> deleteRate(@PathVariable("rateID") String rateID) {
         rateService.deleteRate(rateID);
-        return new ResponseEntity<>("Rate deleted", HttpStatus.OK);
+        return new ResponseEntity<>("Rate has been deleted successfully.", HttpStatus.OK);
     }
 
 }
