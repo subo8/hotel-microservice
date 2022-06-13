@@ -1,6 +1,8 @@
 package com.sa.sample.project.service;
 
 
+import com.sa.sample.project.dto.UserDTO;
+import com.sa.sample.project.jwt.JwtUtils;
 import com.sa.sample.project.model.Booking;
 import com.sa.sample.project.repository.BookingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +33,9 @@ public class BookingHotelService {
 //        // System.out.println("Hotel booking: " + bookHotel.getRooms());
 //        // if(room!=null) bookHotel.getRooms().add(room);
 //        bookHotel.getUserDetails().add(retrivedUser);
+        //jwtUtils.getUserNameFromJwtToken(booking.setUserName())
+//        UserDTO userDTO =
+//        booking.setUserName(jwtUtils.getUserNameFromJwtToken(jwtUtils.getJwtFromCookies()));
         return bookingRepository.save(booking);
     }
 

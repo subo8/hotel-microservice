@@ -29,6 +29,7 @@ public class Booking {
     private LocalDate dateOfDeparture;
     private int numberOfRooms;
     private String otherReservations;
+    private String userName;
 
     public Booking(LocalDate of, LocalDate of1, int i, String any_other_reservation) {
         this.dateOfArrival = of;
