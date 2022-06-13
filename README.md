@@ -7,3 +7,5 @@ Software architecture
 * Discovery service
 
 ## FrontEnd
+
+    - Samuel is ready to push and merge
