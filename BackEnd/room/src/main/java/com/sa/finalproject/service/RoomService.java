@@ -10,4 +10,6 @@ public interface RoomService {
     public abstract void deleteRoom(String roomId);
     public abstract Room updateRoom(String roomId,Room room);
     public abstract Room findByRoomNumber(Integer roomNumber);
+    public abstract Room bookRoomAvailability(String roomId);
+    public abstract Room releaseRoomAvailability(String roomId);
 }
