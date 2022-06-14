@@ -1,27 +1,28 @@
-package sc.miu.edu.payment_service.domain;
+package cs.miu.edu.domain;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
-@Data
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 @Builder
-public class Paypal {
+@Data
+public class BankAccount {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer paypalId;
+    private Integer id;
+    private Integer routingNumber;
+    private String bankAccountNumber;
     private String firstName;
     private String lastName;
-    private String secureKey;
     private String emailAddress;
     private Double balance;
+    @Enumerated(EnumType.STRING)
+    private AccountType type;
+
 }

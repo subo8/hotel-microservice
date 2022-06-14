@@ -1,4 +1,4 @@
-package sc.miu.edu.payment_service.domain;
+package cs.miu.edu.domain;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,21 +9,21 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import java.time.LocalDate;
+import java.util.function.DoubleUnaryOperator;
 
 @Entity
+@NoArgsConstructor
+@AllArgsConstructor
 @Builder
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
-public class CreditCard {
+public class Paypal {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer creditCardId;
+    private Integer id;
     private String firstName;
     private String lastName;
-    private String cardNumebr;
-    private String ccv;
-    private LocalDate expiryDate;
+    private String emailAddress;
+    private String secureKey;
     private Double balance;
+
 }

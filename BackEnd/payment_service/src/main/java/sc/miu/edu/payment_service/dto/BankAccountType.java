@@ -1,5 +1,5 @@
 package sc.miu.edu.payment_service.domain;
 
-public enum AccountType {
+public enum BankAccountType {
     CHECKING,SAVING
 }
