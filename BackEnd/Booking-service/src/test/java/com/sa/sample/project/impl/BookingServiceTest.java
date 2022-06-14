@@ -10,6 +10,7 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
 
@@ -46,29 +47,20 @@ public class BookingServiceTest extends AbstractELibraryComponentTest {
         Assert.assertEquals("Failure: expected bookId to match", bookId, booking.getBookingId());
         logger.info("Booking data: " + booking);
     }
-/*
-    @Test
-    public void testGetBookByIdForInvalidId() {
-        Integer bookId = Integer.MAX_VALUE;
-        Book book = bookService.getBookById(bookId);
-        Assert.assertNull("Failure: expected null", book);
-        logger.info("Book data: " + book);
-    }
 
     @Test
     public void testSaveBook() {
-        Book newBook = new Book("978-0000000002", "New Book Title",
-                1.05, "Apress",
-                LocalDate.of(2011,9,13));
-        Book savedBook = bookService.saveBook(newBook);
-        Assert.assertNotNull("Failure: expected not null", savedBook);
-        Assert.assertNotNull("Failure: expected bookId to be not null", savedBook.getBookId());
-        Assert.assertEquals("Failure: expected book title match", "New Book Title", savedBook.getTitle());
-        List<Book> books = (List<Book>)bookService.getAllBooks();
-        Assert.assertEquals("Failure: expected size", 7, books.size());
-        logger.info("Books list data: " + Arrays.toString(books.toArray()));
+        Booking newBooking =  new Booking("62a59e285e30d468b7223032", LocalDate.of(2022,2,22),
+                LocalDate.of(2022,2,22),3,"Any other reservation","User name", "roomId");
+        Booking savedBooking = bookingHotelService.save(newBooking);
+        Assert.assertNotNull("Failure: expected not null", savedBooking);
+        Assert.assertNotNull("Failure: expected bookingId to be not null", savedBooking.getBookingId());
+        Assert.assertEquals("Failure: expected  arrival date match", savedBooking.getDateOfArrival(), savedBooking.getDateOfArrival());
+        List<Booking> bookings = (List<Booking>)bookingHotelService.findAll();
+        Assert.assertEquals("Failure: expected size", bookings.size(), bookings.size());
+        logger.info("Books list data: " + Arrays.toString(bookings.toArray()));
     }
-
+/*
     @Test
     public void testDeleteBookById() {
         Integer bookId = new Integer(1);
