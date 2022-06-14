@@ -1,11 +1,9 @@
 package com.example.rateservice.service;
-
 import com.example.rateservice.exception.RateNotExistException;
 import com.example.rateservice.model.Rate;
 import com.example.rateservice.repository.RateRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.Optional;
 
 @Service

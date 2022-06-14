@@ -8,4 +8,5 @@ import org.springframework.stereotype.Repository;
 public interface RoomRepository extends MongoRepository<Room,String> {
 
     Room findByRoomNumber(Integer roomNumber);
+
 }

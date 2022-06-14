@@ -11,8 +11,7 @@ import org.springframework.web.util.WebUtils;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
-import java.util.Collection;
-import java.util.Date;
+import java.util.*;
 
 @Component
 public class JwtUtils {
@@ -37,7 +36,19 @@ public class JwtUtils {
   }
 
   public ResponseCookie generateJwtCookie(UserDetailsImpl userPrincipal) {
-    String jwt = generateTokenFromUsername(userPrincipal.getUsername(), userPrincipal.getId(), userPrincipal.getAuthorities());
+
+   List<?> list = new ArrayList<>(userPrincipal.getAuthorities());
+
+   for(int i=0; i<list.size(); i++) {
+     System.out.println(list.get(i).toString());
+     if (list.get(i).toString() == "ROLE_USER") {
+       System.out.println("yes");
+     } else {
+       System.out.println("no");
+     }
+   }
+
+    String jwt = generateTokenFromUsername(userPrincipal.getUsername(), userPrincipal.getId(), list);
     ResponseCookie cookie = ResponseCookie.from(jwtCookie, jwt).path("/").maxAge(24 * 60 * 60).httpOnly(true).build();
     return cookie;
   }
@@ -54,8 +65,7 @@ public class JwtUtils {
 //    String print2 = (String) claims.get("userId");
 //    System.out.println(print1);
 //    System.out.println(print2);
-//    return Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token).getBody().getSubject();
-    return claims.getSubject();
+    return Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token).getBody().getSubject();
   }
 
   public boolean validateJwtToken(String authToken) {
@@ -77,9 +87,9 @@ public class JwtUtils {
     return false;
   }
   
-  public String generateTokenFromUsername(String username, String userid, Collection userRole) {
+  public String generateTokenFromUsername(String username, String userid, List roles) {
     return Jwts.builder()
-        .setSubject(username).claim("userId", userid).claim("role", userRole)
+        .setSubject(username).claim("userId", userid).claim("role", roles.get(0).toString())
         .setIssuedAt(new Date())
         .setExpiration(new Date((new Date()).getTime() + jwtExpirationMs))
         .signWith(SignatureAlgorithm.HS512, jwtSecret)
