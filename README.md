@@ -9,3 +9,4 @@ Software architecture
 ## FrontEnd
 
     - Samuel is ready to push and merge
+    - Priya is ready to push and merge
