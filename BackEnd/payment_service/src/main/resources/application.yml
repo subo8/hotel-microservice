@@ -1,0 +1,12 @@
+server:
+  port: 9004
+
+spring:
+  application:
+    name: payment-service
+spring:
+  data:
+    mongodb:
+      host: localhost
+      port: 27017
+      database: PaymentInformation

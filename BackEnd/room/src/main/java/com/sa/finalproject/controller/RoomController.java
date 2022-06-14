@@ -5,6 +5,7 @@ import com.sa.finalproject.security.jwt.JwtUtils;
 import com.sa.finalproject.service.RoomService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -102,30 +103,9 @@ public class RoomController {
         return roomService.updateRoom(roomId, room);
     }
 
-    @GetMapping("/book/{roomId}")
-    public ResponseEntity<Object> bookRoomById(HttpServletRequest request,@PathVariable String roomId) throws AuthenticationException {
-        Cookie cookie = WebUtils.getCookie(request, jwtCookie);
-        String jwt = cookie.getValue();
 
-        String userRole = jwtUtils.getUserRoleFromJwtToken(jwt);
-        //System.out.println("User Role "+userRole);
-        if(!userRole.equals("ROLE_ADMIN") )
-            throw new AuthenticationException();
-        Room room = null;
-
-        try {
-            room = roomService.bookRoomAvailability(roomId);
-        }catch (IllegalStateException e){
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.CONFLICT);
-        }catch (IllegalArgumentException e){
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
-        }
-
-        return new ResponseEntity<>(room, HttpStatus.OK);
-    }
-
-    @PutMapping("/checkout/{roomId}")
-    public ResponseEntity<Object> roomCheckout(HttpServletRequest request,@PathVariable String roomId) throws AuthenticationException {
+    @GetMapping("/checkout/{roomId}")
+    public ResponseEntity<Object> releaseRoomById(HttpServletRequest request,@PathVariable String roomId) throws AuthenticationException {
         Cookie cookie = WebUtils.getCookie(request, jwtCookie);
         String jwt = cookie.getValue();
 

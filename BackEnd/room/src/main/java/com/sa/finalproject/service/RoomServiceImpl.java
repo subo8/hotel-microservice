@@ -1,5 +1,6 @@
 package com.sa.finalproject.service;
 
+import com.mongodb.DuplicateKeyException;
 import com.sa.finalproject.model.Room;
 import com.sa.finalproject.repository.RoomRepository;
 import org.springframework.stereotype.Service;
@@ -39,9 +40,7 @@ public class RoomServiceImpl implements RoomService{
     @Override
     public void deleteRoom(String roomId) {
         roomRepository.deleteById(roomId);
-
     }
-
     @Override
     public Room updateRoom(String roomId, Room room) {
         roomRepository.findById(roomId);
@@ -70,14 +69,18 @@ public class RoomServiceImpl implements RoomService{
         return coreRoom;
     }
 
+
     public Room roomCheckout(String roomId){
+
         Optional<Room> room =   roomRepository.findById(roomId);
 
         if(room.isEmpty())
             throw new IllegalArgumentException("Room not exist by id :"+roomId);
         Room coreRoom = room.get();
         if(coreRoom.isAvailable()==true)
-            throw new IllegalStateException("Room ID: "+roomId+" is  free.");
+
+            throw new IllegalStateException("Room ID: "+roomId+" is already free.");
+
 
         coreRoom.setAvailable(true);
         coreRoom =  roomRepository.save(coreRoom);

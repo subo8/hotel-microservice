@@ -12,4 +12,5 @@ public interface RoomService {
     public abstract Room findByRoomNumber(Integer roomNumber);
     public abstract Room bookRoomAvailability(String roomId);
     public abstract Room roomCheckout(String roomId);
+
 }
