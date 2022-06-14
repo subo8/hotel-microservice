@@ -27,11 +27,11 @@ public class RateController {
     @Autowired
     JwtUtils jwtUtils;
 
-    @GetMapping("/rate")
+    @GetMapping("/")
     public List<Rate> findAll() {
         return raterepository.findAll();
     }
-    @PostMapping("/rate")
+    @PostMapping("/")
     public ResponseEntity<?> addProduct(@RequestBody Rate rate, HttpServletRequest request) {
         Cookie cookie = WebUtils.getCookie(request, "subo8");
         if(cookie!=null){
@@ -48,14 +48,14 @@ public class RateController {
 
     }
 
-    @PutMapping("/rate/{rateID}")
+    @PutMapping("/{rateID}")
     public ResponseEntity<?> updateRate(@PathVariable("rateID") String rateID,
                                            @RequestBody @Valid Rate rate) {
         rateService.updateRate(rateID,rate);
         return new ResponseEntity<>("Rate has been updated successfully.", HttpStatus.OK);
     }
 
-    @DeleteMapping("/rate/{rateID}")
+    @DeleteMapping("/{rateID}")
     public ResponseEntity<?> deleteRate(@PathVariable("rateID") String rateID) {
         rateService.deleteRate(rateID);
         return new ResponseEntity<>("Rate has been deleted successfully.", HttpStatus.OK);
