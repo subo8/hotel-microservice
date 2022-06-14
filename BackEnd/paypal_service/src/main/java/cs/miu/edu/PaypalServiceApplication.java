@@ -13,7 +13,7 @@ import java.util.Arrays;
 import java.util.List;
 
 @SpringBootApplication
-@EnableDiscoveryClient
+//@EnableDiscoveryClient
 public class PaypalServiceApplication implements CommandLineRunner {
     @Autowired
     private PaypalRepo paypalRepo;
@@ -24,34 +24,60 @@ public class PaypalServiceApplication implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        loadData();
+        loadPaypalData();
     }
 
-    public void loadData() {
-
+    public void loadPaypalData() {
         List<Paypal> paypalList = Arrays.asList(Paypal.builder()
-                        .firstName("Prabhat")
-                        .lastName("Gyawali")
-                        .emailAddress("gyawali@gmail")
-                        .balance(3000.0)
-                        .secureKey("2118")
-                        .build(),
-                Paypal.builder()
                         .firstName("Priya")
                         .lastName("Giri")
-                        .emailAddress("giripriya@gmail")
-                        .balance(500.0)
-                        .secureKey("2399")
+                        .emailAddress("giripriya@gmail.com")
+                        .balance(8000.0)
+                        .secureKey("1111")
                         .build(),
                 Paypal.builder()
-                        .firstName("Ram")
-                        .lastName("Thakali")
-                        .emailAddress("ram@gmail")
-                        .balance(1500.0)
-                        .secureKey("1111")
+                        .firstName("Su")
+                        .lastName("Yandar")
+                        .emailAddress("yandarsu@gmail.com")
+                        .balance(7000.0)
+                        .secureKey("2222")
+                        .build(),
+                Paypal.builder()
+                        .firstName("Samuel")
+                        .lastName("Valiente")
+                        .emailAddress("valientesaluel@gmail.com")
+                        .balance(3000.0)
+                        .secureKey("3333")
+                        .build(),
+                Paypal.builder()
+                        .firstName("Byambadorj")
+                        .lastName("Batsukh")
+                        .emailAddress("batsukhbyambadorj@gmail.com")
+                        .balance(4000.0)
+                        .secureKey("4444")
+                        .build(),
+                Paypal.builder()
+                        .firstName("Sopheary")
+                        .lastName("Rin")
+                        .emailAddress("rinsopheary@gmail.com")
+                        .balance(8000.0)
+                        .secureKey("5555")
+                        .build()
+                , Paypal.builder()
+                        .firstName("Godwin")
+                        .lastName("Tuslme")
+                        .emailAddress("tuslmegodwin@gmail.com")
+                        .balance(5044.0)
+                        .secureKey("6666")
+                        .build(),
+                Paypal.builder()
+                        .firstName("Khosbayar")
+                        .lastName("Sandag")
+                        .emailAddress("sandagkhosbayar@gmail.com")
+                        .balance(8000.0)
+                        .secureKey("7777")
                         .build());
         paypalRepo.saveAll(paypalList);
-        System.out.println("paypal accounts has been successfully save");
-
+        System.out.println("All paypal account has been saved");
     }
 }

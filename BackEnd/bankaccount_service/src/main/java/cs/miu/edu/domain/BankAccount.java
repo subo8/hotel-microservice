@@ -17,7 +17,7 @@ public class BankAccount {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private Integer routingNumber;
-    private String bankAccountNumber;
+    private String accountNumber;
     private String firstName;
     private String lastName;
     private String emailAddress;

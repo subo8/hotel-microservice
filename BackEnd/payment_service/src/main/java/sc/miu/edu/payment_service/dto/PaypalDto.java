@@ -4,18 +4,19 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import sc.miu.edu.payment_service.domain.AccountType;
 
-import java.time.LocalDate;
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class CreditCardDto {
-    private Integer customerId;
+public class PaypalDto {
 
-    private String cardNumber;
-    private String ccv;
-    private LocalDate expiryDate;
-    private  Double balance;
+    private String emailAddress;
+    private String secureKey;
+    private Double balance;
+    private Integer customerId;
+    private String fullName;
+
 
 }

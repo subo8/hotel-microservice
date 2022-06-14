@@ -13,7 +13,7 @@ import java.util.Optional;
 public interface BankAccountRepo extends JpaRepository<BankAccount,Integer> {
 
 
-    @Query("select bankaccount from BankAccount  bankaccount where bankaccount.bankAccountNumber=?1 and bankaccount.type =?2 and bankaccount.routingNumber=?3")
+    @Query("select bankaccount from BankAccount  bankaccount where bankaccount.accountNumber=?1 and bankaccount.type =?2 and bankaccount.routingNumber=?3")
   public Optional<BankAccount> getBankaccountByAccountNoAccountTypeRoutingNo(String accountNo, AccountType accountType,Integer routingNo);
 
 

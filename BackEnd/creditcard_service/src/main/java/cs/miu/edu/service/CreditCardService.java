@@ -35,7 +35,6 @@ public class CreditCardService {
     }
 
     public Status verifyPurchase(CreditCardDto creditCardDto) {
-      //  CreditCard creditCard = mapper.mapToTransaction(Cre)
        Optional<CreditCard> creditCard= creditCardRepo.getCreditCardByCardNoCardExpiryDateCcvCardLimit(creditCardDto.getCardNumber(), creditCardDto.getExpiryDate(), creditCardDto.getCcv());
         if(creditCard.isEmpty()) {
             System.out.println("Invalid card");
@@ -49,10 +48,13 @@ public class CreditCardService {
         }
         Double currentPurchaseBalalnce= creditCardDto.getBalance();
          Double totalNewBalance=  currentPurchaseBalalnce+ creditCard.get().getBalance();
-        if(creditCard.get().getCardLimit()< totalNewBalance) {
-            System.out.println("Limitation of card has been exceed");
-            return  Status.FAILURE;
-        }
+         if(creditCard.get().getCardLimit() != null){
+             if(creditCard.get().getCardLimit()< totalNewBalance) {
+                 System.out.println("Limitation of card has been exceed");
+                 return  Status.FAILURE;
+             }
+         }
+
          creditCard.get().setBalance(totalNewBalance);
          creditCardRepo.save(creditCard.get());
         return  Status.SUCCESS;
@@ -60,11 +62,5 @@ public class CreditCardService {
     }
 
 
-
-//    public CreditCardDto getCreditCardById(Integer id) {
-//        Optional<CreditCard> creditCardOptional= creditCardRepo.getCreditCardByAccountId(id);
-//        if(creditCardOptional.isEmpty()) return  null;
-//        return  mapper.mapToDto(creditCardOptional.get());
-//    }
 
 }

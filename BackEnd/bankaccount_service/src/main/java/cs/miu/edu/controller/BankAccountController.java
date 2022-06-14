@@ -14,14 +14,9 @@ public class BankAccountController {
     private BankAccountService bankAccountService;
 
 
-    @PostMapping
-    public ResponseEntity<?> saveTransaction(@RequestBody BankAccountDto bankAccountDto) {
-        ResponseEntity<BankAccountDto> response = new ResponseEntity<>(bankAccountService.saveBankAccount(bankAccountDto), HttpStatus.OK);
-        return response;
-    }
 
     @PutMapping("/verify-purchase")
-    public ResponseEntity<?> verifyPurchase(@RequestBody BankAccountDto bankAccountDto) {
+    public ResponseEntity<?> verifyPayment(@RequestBody BankAccountDto bankAccountDto) {
         ResponseEntity<?> response = new ResponseEntity<>(bankAccountService.verifyPurchase(bankAccountDto), HttpStatus.OK);
         return response;
     }
