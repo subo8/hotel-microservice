@@ -1,12 +1,17 @@
-package com.miu.edu.cs590.project.notification.messaging;
+package com.miu.edu.cs590.project.notification.common;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.Indexed;
+import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.MongoId;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Document
 public class InformationTest {
 
     private String customerName;
