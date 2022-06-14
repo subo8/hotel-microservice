@@ -11,25 +11,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.test.web.servlet.MockMvc;
-
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
-
-import static org.hamcrest.Matchers.iterableWithSize;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @RunWith(SpringRunner.class)
 @WebMvcTest(controllers = BookingController.class)
 public class BookControllerTest {
     @Autowired
-   // private MockMvc mockMvc;
-
     @MockBean
     private BookingHotelService bookingHotelService;
-
     @Before
     public void setUp() {
         List<Booking> bookings = Arrays.asList(

@@ -16,16 +16,16 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @AllArgsConstructor
-@RequestMapping("/api/v1/booking")
+@RequestMapping("/booking")
 @RestController
 public class BookingController {
      private final BookingHotelService bookingService;
 
-@Autowired
-     JwtUtils jwtUtils;
+     @Autowired
+             JwtUtils jwtUtils;
 
     @PostMapping("/")
-    public String saveBooking(@RequestBody Booking booking, HttpServletRequest request) {
+    public String saveBooking(@RequestBody Booking booking, HttpServletRequest request ) {
         Cookie cookie = WebUtils.getCookie(request, "subo8");
     //    Cookie cookie = WebUtils.getCookie(request, jwtCookie);
         if (cookie !=null){
@@ -38,9 +38,8 @@ public class BookingController {
 //        System.out.println(cookie.getValue());
             booking.setUserName(username);
            bookingService.save(booking);
-        }
-
-
+           return "Booking saved successfully";
+        }else
         return "Please login";
     }
     @PutMapping("/{bookingId}")
