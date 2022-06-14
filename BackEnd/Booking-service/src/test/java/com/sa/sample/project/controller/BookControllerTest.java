@@ -25,9 +25,9 @@ public class BookControllerTest {
     public void setUp() {
         List<Booking> bookings = Arrays.asList(
                 new Booking("62a59e285e30d468b7223032", LocalDate.of(2022,2,22),
-                        LocalDate.of(2022,2,22),3,"Any other reservation","User name"),
-                new Booking(LocalDate.of(2022,2,22),
-                        LocalDate.of(2022,2,22),3,"Any other reservation")
+                        LocalDate.of(2022,2,22),3,"Any other reservation","User name","roomId"),
+                new Booking("62a59e285e30d468b7223032",LocalDate.of(2022,2,22),
+                        LocalDate.of(2022,2,22),3,"Any other reservation", "User name","roomId")
         );
         Mockito.when(bookingHotelService.findAll()).thenReturn(bookings);
     }
