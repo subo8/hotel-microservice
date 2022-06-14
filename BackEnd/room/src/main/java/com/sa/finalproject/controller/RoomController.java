@@ -17,7 +17,8 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @RestController
-@RequestMapping("/room")
+@RequestMapping("/")
+//@RequestMapping("/room")
 public class RoomController {
 
     //    @Value("${subo8.app.jwtSecret}")
