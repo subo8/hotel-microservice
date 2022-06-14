@@ -21,7 +21,7 @@ public class RoomServiceImpl implements RoomService{
     }
 
     @Override
-    public Room findById(Long roomId) {
+    public Room findById(String roomId) {
         return roomRepository.findById(roomId).orElseThrow(() -> new IllegalArgumentException("No room with this Id found"));
     }
 
@@ -31,13 +31,11 @@ public class RoomServiceImpl implements RoomService{
     }
 
     @Override
-    public void deleteRoom(Long roomId) {
+    public void deleteRoom(String roomId) {
         roomRepository.deleteById(roomId);
-
     }
-
     @Override
-    public Room updateRoom(Long roomId, Room room) {
+    public Room updateRoom(String roomId, Room room) {
         roomRepository.findById(roomId);
         room.setRoomId(roomId);
         return roomRepository.save(room);

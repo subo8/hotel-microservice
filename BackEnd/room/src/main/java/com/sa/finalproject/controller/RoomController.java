@@ -22,7 +22,7 @@ public class RoomController {
 
 
     @GetMapping("/{roomId}")
-    public Room getRoomById(@PathVariable Long roomId) {
+    public Room getRoomById(@PathVariable String roomId) {
         return roomService.findById(roomId);
     }
 
@@ -32,12 +32,12 @@ public class RoomController {
     }
 
     @DeleteMapping("/{roomId}")
-    public void deleteRoom(@PathVariable Long roomId) {
+    public void deleteRoom(@PathVariable String roomId) {
         roomService.deleteRoom(roomId);
     }
 
     @PutMapping("/{roomId}")
-    public Room updateRoom(@PathVariable Long roomId, @RequestBody Room room) {
+    public Room updateRoom(@PathVariable String roomId, @RequestBody Room room) {
         return roomService.updateRoom(roomId, room);
     }
 }
