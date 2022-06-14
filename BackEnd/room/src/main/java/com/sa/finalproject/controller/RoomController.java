@@ -1,5 +1,7 @@
 package com.sa.finalproject.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sa.finalproject.model.Room;
 import com.sa.finalproject.service.RoomService;
 import org.springframework.web.bind.annotation.*;
@@ -36,8 +38,16 @@ public class RoomController {
         roomService.deleteRoom(roomId);
     }
 
-    @PutMapping("/{roomId}")
-    public Room updateRoom(@PathVariable String roomId, @RequestBody Room room) {
-        return roomService.updateRoom(roomId, room);
+    @PutMapping("/")
+    public Room updateRoomServiceLevel(@RequestBody String room) {
+        ObjectMapper objectMapper = new ObjectMapper();
+
+        Room room1 = null;
+        try {
+            room1 = objectMapper.readValue(room, Room.class);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+        return roomService.updateRoomServiceCommunication(room1);
     }
 }

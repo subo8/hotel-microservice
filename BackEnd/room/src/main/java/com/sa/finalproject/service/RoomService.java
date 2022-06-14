@@ -8,6 +8,6 @@ public interface RoomService {
     public abstract Room findById(String roomId);
     public abstract Room createRoom(Room room);
     public abstract void deleteRoom(String roomId);
-    public abstract Room updateRoom(String roomId,Room room);
+    public abstract Room updateRoomServiceCommunication(Room room);
     public abstract Room findByRoomNumber(Integer roomNumber);
 }

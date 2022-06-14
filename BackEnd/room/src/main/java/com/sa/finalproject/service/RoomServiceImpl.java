@@ -35,9 +35,9 @@ public class RoomServiceImpl implements RoomService{
         roomRepository.deleteById(roomId);
     }
     @Override
-    public Room updateRoom(String roomId, Room room) {
-        roomRepository.findById(roomId);
-        room.setRoomId(roomId);
+    public Room updateRoomServiceCommunication(Room room) {
+//        roomRepository.findById(roomId);
+//        room.setRoomId(roomId);
         return roomRepository.save(room);
     }
 
