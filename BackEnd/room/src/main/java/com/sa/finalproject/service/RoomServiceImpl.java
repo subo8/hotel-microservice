@@ -40,9 +40,7 @@ public class RoomServiceImpl implements RoomService{
     @Override
     public void deleteRoom(String roomId) {
         roomRepository.deleteById(roomId);
-
     }
-
     @Override
     public Room updateRoom(String roomId, Room room) {
         roomRepository.findById(roomId);

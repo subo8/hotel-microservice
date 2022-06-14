@@ -70,7 +70,6 @@ public class RoomController {
 
     @PutMapping("/{roomId}")
     public Room updateRoom(@PathVariable String roomId, @RequestBody Room room) {
-
         return roomService.updateRoom(roomId, room);
 
     }
