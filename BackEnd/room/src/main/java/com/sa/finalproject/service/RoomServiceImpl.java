@@ -69,14 +69,18 @@ public class RoomServiceImpl implements RoomService{
         return coreRoom;
     }
 
-    public Room releaseRoomAvailability(String roomId){
+
+    public Room roomCheckout(String roomId){
+
         Optional<Room> room =   roomRepository.findById(roomId);
 
         if(room.isEmpty())
             throw new IllegalArgumentException("Room not exist by id :"+roomId);
         Room coreRoom = room.get();
         if(coreRoom.isAvailable()==true)
+
             throw new IllegalStateException("Room ID: "+roomId+" is already free.");
+
 
         coreRoom.setAvailable(true);
         coreRoom =  roomRepository.save(coreRoom);
