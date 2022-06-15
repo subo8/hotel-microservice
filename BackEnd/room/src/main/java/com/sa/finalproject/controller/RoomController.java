@@ -22,9 +22,8 @@ import java.util.List;
 //@RequestMapping("/")
 @RequestMapping("/room")
 public class RoomController {
-
     //    @Value("${subo8.app.jwtSecret}")
-//    private String jwtSecret;
+    //    private String jwtSecret;
     @Value("${subo8.app.jwtCookieName}")
     private String jwtCookie;
 
