@@ -18,7 +18,6 @@ public class GeneratorClass {
     private PaymentRepo paymentRepo;
 
 
-
     public String transactionCodeGenerator() {
         try{
             PaymentInformation paymentInformation= paymentRepo.findTopByOrderByTransactionDateDesc();

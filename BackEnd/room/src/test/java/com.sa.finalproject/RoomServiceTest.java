@@ -41,6 +41,8 @@ public class RoomServiceTest{
     @Test
     public void updateRoom(){
         createdRoom.setNumberOfBeds(2);
+        createdRoom.setPrice(110.00);
+        createdRoom.setSmoking(false);
         createdRoom =  roomService.updateRoom(createdRoomId,createdRoom);
         Assert.assertEquals(Optional.ofNullable(2), Optional.ofNullable(createdRoom.getNumberOfBeds()));
     }
