@@ -31,6 +31,7 @@ public class BookingHotelService {
         //UserAccount account = restTemplate.getForObject("http://ACCOUNT-SERVICE/account-internal/{accountId}",UserAccount.class,order1.getUserAccountId());
         assert room != null;
         room.setAvailable(false);
+
         responseEntityDTO.setBooking(booking1);
         responseEntityDTO.setRoom(room);
    //     User retrivedUser = userRepository.findByEmail(email);

@@ -5,6 +5,7 @@ import com.sa.finalproject.model.Room;
 import com.sa.finalproject.repository.RoomRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.DuplicateFormatFlagsException;
 import java.util.List;
 import java.util.Optional;
@@ -36,7 +37,12 @@ public class RoomServiceImpl implements RoomService{
 
         return roomRepository.save(room);
     }
-
+    @Override
+    public Room updateRoomServiceCommunication(Room room) {
+//        roomRepository.findById(roomId);
+//        room.setRoomId(roomId);
+        return roomRepository.save(room);
+    }
     @Override
     public void deleteRoom(String roomId) {
         roomRepository.deleteById(roomId);
@@ -88,5 +94,30 @@ public class RoomServiceImpl implements RoomService{
         return coreRoom;
     }
 
+    @Override
+    public List<Room> availableRooms() {
+        List<Room> rooms = roomRepository.findAll();
+        List<Room> availableRooms = new ArrayList<>();
+        for(int i=0; i<rooms.size(); i++){
+            if(rooms.get(i).isAvailable() == true){
+                availableRooms.add(rooms.get(i));
+            }
+        }
+        if(availableRooms.size()>0) return availableRooms;
+        return new ArrayList<>();
+    }
+
+    @Override
+    public List<Room> notAvailableRooms() {
+        List<Room> rooms = roomRepository.findAll();
+        List<Room> availableRooms = new ArrayList<>();
+        for(int i=0; i<rooms.size(); i++){
+            if(rooms.get(i).isAvailable() != true){
+                availableRooms.add(rooms.get(i));
+            }
+        }
+        if(availableRooms.size()>0) return availableRooms;
+        return new ArrayList<>();
+    }
 
 }
