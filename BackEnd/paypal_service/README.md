@@ -14,7 +14,6 @@ docker push --all-tags xocbayar/paypal-service
 ## Kubernetes
 ```
 $ helm repo add cnieg https://cnieg.github.io/helm-charts
-$ helm install BankAccountDb cnieg/h2-database --version 1.0.3
 $ helm install paypal-db cnieg/h2-database --version 1.0.3
 
 $ kubectl create deployment paypal-service --image=xocbayar/paypal-service --dry-run=client -o=yaml > paypal-deployment.yaml 
