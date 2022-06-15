@@ -5,6 +5,7 @@ spring:
   application:
     name: PAYPAL-SERVICE
   datasource:
+    # url: jdbc:h2:mem:paypal-db
     url: jdbc:h2:mem:BankAccountDb
     username: sa
     password:

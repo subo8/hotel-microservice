@@ -15,6 +15,37 @@ Open you terminal type following command:
    { name: "ROLE_ADMIN" },
 ])
 ```
+## Docker 
+
+1. Build docker image
+```
+$ docker build --tag xocbayar/user-service .
+```
+2. Push docker image to docker hub
+```
+$ docker push --all-tags xocbayar/user-service
+```
+### Kubernetes
+```
+$ helm repo add bitnami https://charts.bitnami.com/bitnami
+$ helm install hotel-mongodb \
+    --set auth.rootPassword=secretpassword,auth.username=hoteluser,auth.password=hotelpass,auth.database=user_DB \
+    bitnami/mongodb
+
+$ kubectl create deployment user-service --image=xocbayar/user-service --dry-run=client -o=yaml > user-deployment.yaml 
+
+$ echo --- >> user-deployment.yaml
+
+$ kubectl create service clusterip user-service --tcp=8080:8080 --dry-run=client -o=yaml >> user-deployment.yaml
+
+$ kubectl apply -f user-deployment.yaml
+
+$ kubectl port-forward svc/user-service 8080:8080
+```
+#### Application properties
+```
+spring.data.mongodb.uri=mongodb://hoteluser:hotelpass@hotel-mongodb.default.svc.cluster.local:27017/user_DB
+```
 
 ### Endpoints
 

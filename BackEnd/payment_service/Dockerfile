@@ -33,4 +33,4 @@ COPY --from=build ${DEPENDENCY}/BOOT-INF/lib /app/lib
 COPY --from=build ${DEPENDENCY}/META-INF /app/META-INF
 COPY --from=build ${DEPENDENCY}/BOOT-INF/classes /app
 
-ENTRYPOINT ["java","-cp","app:app/lib/*","com.example.rateservice.RateServiceApplication"]
+ENTRYPOINT ["java","-cp","app:app/lib/*","sc.miu.edu.payment_service.PaymentServiceApplication"]
