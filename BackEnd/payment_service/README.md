@@ -4,11 +4,11 @@
 
 1. Build docker image
 ```
-docker build --tag xocbayar/payment-service .
+$ docker build --tag xocbayar/payment-service .
 ```
 2. Push docker image to docker hub
 ```
-docker push --all-tags xocbayar/payment-service
+$ docker push --all-tags xocbayar/payment-service
 ```
 
 ## Kubernetes
