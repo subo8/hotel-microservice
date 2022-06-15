@@ -1,10 +1,7 @@
 package com.sa.finalproject.service;
-
-
 import com.sa.finalproject.model.Room;
 import com.sa.finalproject.repository.RoomRepository;
 import org.springframework.stereotype.Service;
-
 import java.util.ArrayList;
 import java.util.DuplicateFormatFlagsException;
 import java.util.List;
@@ -17,11 +14,9 @@ public class RoomServiceImpl implements RoomService{
     public RoomServiceImpl(RoomRepository roomRepository) {
         this.roomRepository = roomRepository;
     }
-
     @Override
     public List<Room> getRooms() {
         return roomRepository.findAll();
-
     }
 
     @Override
