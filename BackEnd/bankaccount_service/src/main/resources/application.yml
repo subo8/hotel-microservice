@@ -1,6 +1,8 @@
 server:
   port: 9003
-
+bankaccount:
+  service:
+    key: bankaccount-service
 spring:
   application:
     name: BANKACCOUNT-SERVICE

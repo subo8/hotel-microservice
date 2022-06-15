@@ -47,7 +47,7 @@ public class CreditCardService {
             return  Status.FAILURE;
         }
         Double currentPurchaseBalalnce= creditCardDto.getBalance();
-         Double totalNewBalance=  currentPurchaseBalalnce+ creditCard.get().getBalance();
+        Double totalNewBalance=  currentPurchaseBalalnce+ creditCard.get().getBalance();
          if(creditCard.get().getCardLimit() != null){
              if(creditCard.get().getCardLimit()< totalNewBalance) {
                  System.out.println("Limitation of card has been exceed");
