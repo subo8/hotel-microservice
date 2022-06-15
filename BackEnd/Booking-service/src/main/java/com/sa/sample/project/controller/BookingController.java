@@ -16,7 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @AllArgsConstructor
-@RequestMapping("/booking")
+@RequestMapping("/")
 @RestController
 public class BookingController {
      private final BookingHotelService bookingService;
@@ -26,15 +26,15 @@ public class BookingController {
 
     @PostMapping("/")
     public ResponseEntity<?> saveBooking(@RequestBody Booking booking, HttpServletRequest request ) throws JsonProcessingException {
-        Cookie cookie = WebUtils.getCookie(request, "subo8");
-        if (cookie !=null){
-            String jwt = cookie.getValue();
-            String username = jwtUtils.getUserNameFromJwtToken(jwt);
-            booking.setUserName(username);
-           bookingService.save(booking);
-           return bookingService.save(booking);
-        }else
-        return new ResponseEntity<String>("Please Login", HttpStatus.FORBIDDEN);
+//        Cookie cookie = WebUtils.getCookie(request, "subo8");
+//        if (cookie !=null){
+//            String jwt = cookie.getValue();
+//            String username = jwtUtils.getUserNameFromJwtToken(jwt);
+//            booking.setUserName(username);
+//         //  bookingService.save(booking, request);
+//           return bookingService.save(booking,request);
+//        }else
+       return new ResponseEntity<String>("Please Login", HttpStatus.FORBIDDEN);
     }
 
     @GetMapping("/")
@@ -47,10 +47,10 @@ public class BookingController {
     }
 
     @PutMapping("/{bookingId}")
-    public ResponseEntity<?> updateBooking(@PathVariable ("bookingId") String bookingId, @RequestBody Booking booking) throws JsonProcessingException {
+    public ResponseEntity<?> updateBooking(@PathVariable ("bookingId") String bookingId, @RequestBody Booking booking, HttpServletRequest request) throws JsonProcessingException {
         bookingService.findById(bookingId);
         booking.setBookingId(bookingId);
-        return bookingService.save(booking);
+        return bookingService.save(booking,request);
     }
 
     @DeleteMapping("/{bookingId}")
