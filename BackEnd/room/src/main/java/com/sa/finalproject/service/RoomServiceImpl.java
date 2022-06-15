@@ -1,6 +1,6 @@
 package com.sa.finalproject.service;
 
-import com.mongodb.DuplicateKeyException;
+
 import com.sa.finalproject.model.Room;
 import com.sa.finalproject.repository.RoomRepository;
 import org.springframework.stereotype.Service;
@@ -38,15 +38,17 @@ public class RoomServiceImpl implements RoomService{
         return roomRepository.save(room);
     }
 
-    @Override
-    public void deleteRoom(String roomId) {
-        roomRepository.deleteById(roomId);
-    }
+
     @Override
     public Room updateRoomServiceCommunication(Room room) {
-//        roomRepository.findById(roomId);
-//        room.setRoomId(roomId);
+
         return roomRepository.save(room);
+    }
+
+    @Override
+    public void deleteRoom(String roomId) {
+
+        roomRepository.deleteById(roomId);
     }
 
     @Override
@@ -58,9 +60,11 @@ public class RoomServiceImpl implements RoomService{
 
     @Override
     public Room findByRoomNumber(Integer roomNumber) {
+
         return roomRepository.findByRoomNumber(roomNumber);
     }
 
+    @Override
     public Room bookRoomAvailability(String roomId){
 
         Optional<Room> room =   roomRepository.findById(roomId);
@@ -77,18 +81,16 @@ public class RoomServiceImpl implements RoomService{
         return coreRoom;
     }
 
-
+    @Override
     public Room roomCheckout(String roomId){
 
         Optional<Room> room =   roomRepository.findById(roomId);
-
         if(room.isEmpty())
             throw new IllegalArgumentException("Room not exist by id :"+roomId);
         Room coreRoom = room.get();
         if(coreRoom.isAvailable())
 
             throw new IllegalStateException("Room ID: "+roomId+" is already free.");
-
 
         coreRoom.setAvailable(true);
         coreRoom =  roomRepository.save(coreRoom);
@@ -121,5 +123,4 @@ public class RoomServiceImpl implements RoomService{
         if(availableRooms.size()>0) return availableRooms;
         return new ArrayList<>();
     }
-
 }

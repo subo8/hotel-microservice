@@ -29,6 +29,8 @@ class RoomsComponent extends React.Component {
         smoking: "",
         description: "",
         available: "",
+        roomRating: "",
+        totalRatings: "",
       },
       roomToEdit: {
         roomId: "",
@@ -41,6 +43,8 @@ class RoomsComponent extends React.Component {
         smoking: "",
         description: "",
         available: "",
+        roomRating: "",
+        totalRatings: "",
       },
       rooms: [],
     };
@@ -93,10 +97,12 @@ class RoomsComponent extends React.Component {
       smoking: roomToEdit.smoking,
       description: roomToEdit.description,
       available: roomToEdit.available,
+      roomRating: roomToEdit.roomRating,
+      totalRatings: roomToEdit.totalRatings,
     };
 
     axios
-      .put(`http://localhost:8088/${roomToEdit.roomId}`, roomDetails, {
+      .put(`http://localhost:8088/room/${roomToEdit.roomId}`, roomDetails, {
         headers: {
           Authorization:
             "Bearer " + localStorage.getItem("variableName").replace(/"/g, ""),
@@ -240,6 +246,7 @@ class RoomsComponent extends React.Component {
                     onChange={this.changeHandler2}
                   />
                 </Form.Group>
+
                 <Form.Group as={Col} controlId="formBasicEmail">
                   <Form.Label>Max Number Of Guests </Form.Label>
                   <Form.Control
@@ -250,6 +257,33 @@ class RoomsComponent extends React.Component {
                   />
                 </Form.Group>
               </Row>
+
+              <Row className="mb-6">
+                <Form.Group
+                  as={Col}
+                  className="mb-3"
+                  controlId="formBasicEmail"
+                >
+                  <Form.Label>Room Rating</Form.Label>
+                  <Form.Control
+                    type="text"
+                    name="roomRating"
+                    value={roomToEdit.roomRating}
+                    onChange={this.changeHandler2}
+                  />
+                </Form.Group>
+
+                <Form.Group as={Col} controlId="formBasicEmail">
+                  <Form.Label>Total Ratings </Form.Label>
+                  <Form.Control
+                    type="text"
+                    name="totalRatings"
+                    value={roomToEdit.totalRatings}
+                    onChange={this.changeHandler2}
+                  />
+                </Form.Group>
+              </Row>
+
               <Row className="mb-6">
                 <Form.Group
                   as={Col}

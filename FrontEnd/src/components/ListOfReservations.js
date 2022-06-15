@@ -51,6 +51,7 @@ class ListOfReservations extends React.Component {
                     <th>Other Services</th>
                     <th>Reserved By?</th>
                     <th>Room Number</th>
+                    <th>Room Rating</th>
                     <th colSpan={2} style={{ textAlign: "center" }}>
                       Action
                     </th>
@@ -65,6 +66,7 @@ class ListOfReservations extends React.Component {
                       <td>{booking.otherReservations}</td>
                       <td>{booking.userName}</td>
                       <td>{booking.roomId}</td>
+                      <td>5 Star</td>
                       {/* <td>
                         {booking.rooms
                           .map((room) => "room: " + room.roomNumber)

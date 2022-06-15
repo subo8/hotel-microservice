@@ -41,7 +41,7 @@ class Booking extends React.Component {
   getRooms = () => {
     axios
       // .get(BACK_END_URL + "/api/rooms/", {
-      .get("http://localhost:8088/", {
+      .get("http://localhost:8088/room", {
         headers: {
           Authorization:
             "Bearer " + localStorage.getItem("variableName").replace(/"/g, ""),

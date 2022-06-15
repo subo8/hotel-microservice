@@ -12,7 +12,7 @@ class MyReservations extends React.Component {
     };
   }
   componentDidMount() {
-    axios.get(BACK_END_URL + "/booking/").then((res) => {
+    axios.get("http://localhost:8999/").then((res) => {
       this.setState({
         bookings: res.data.map((booking) => {
           return {

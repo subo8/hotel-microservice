@@ -12,7 +12,7 @@ class RoomsList extends React.Component {
   }
   componentDidMount() {
     axios
-      .get("http://localhost:8088/", {
+      .get("http://localhost:8088/room", {
         headers: {
           Authorization:
             "Bearer " + localStorage.getItem("variableName").replace(/"/g, ""),
