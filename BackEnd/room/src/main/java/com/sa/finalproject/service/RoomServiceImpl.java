@@ -37,6 +37,8 @@ public class RoomServiceImpl implements RoomService{
 
         return roomRepository.save(room);
     }
+
+
     @Override
     public Room updateRoomServiceCommunication(Room room) {
 
@@ -51,8 +53,8 @@ public class RoomServiceImpl implements RoomService{
 
     @Override
     public Room updateRoom(String roomId, Room room) {
-        roomRepository.findById(roomId);
-        room.setRoomId(roomId);
+                roomRepository.findById(roomId);
+                room.setRoomId(roomId);
         return roomRepository.save(room);
     }
 
@@ -70,7 +72,7 @@ public class RoomServiceImpl implements RoomService{
         if(room.isEmpty())
             throw new IllegalArgumentException("Room not exist by id :"+roomId);
         Room coreRoom = room.get();
-        if(coreRoom.isAvailable()==false)
+        if(!coreRoom.isAvailable())
             throw new IllegalStateException("Room ID: "+roomId+" is already booked. Not available and cannot be booked at this time.");
 
         coreRoom.setAvailable(false);
@@ -86,7 +88,7 @@ public class RoomServiceImpl implements RoomService{
         if(room.isEmpty())
             throw new IllegalArgumentException("Room not exist by id :"+roomId);
         Room coreRoom = room.get();
-        if(coreRoom.isAvailable()==true)
+        if(coreRoom.isAvailable())
 
             throw new IllegalStateException("Room ID: "+roomId+" is already free.");
 

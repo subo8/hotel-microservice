@@ -10,7 +10,7 @@ import org.springframework.data.annotation.Id;
 @AllArgsConstructor
 public class Room {
     @Id
-    private Long roomId;
+    private String roomId;
     private Integer roomNumber;
     private String type;
     private Double price;

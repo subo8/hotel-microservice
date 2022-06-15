@@ -31,6 +31,7 @@ public class Booking {
     private String otherReservations;
     private String userName;
     private String roomId;
+//    private Long paymentMethodId;
 
     public Booking(LocalDate of, LocalDate of1, int i, String any_other_reservation) {
         this.dateOfArrival = of;

@@ -18,8 +18,8 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
+//@CrossOrigin(origins = "http://localhost:3000/")
 @RestController
-//@RequestMapping("/")
 @RequestMapping("/room")
 public class RoomController {
     //    @Value("${subo8.app.jwtSecret}")
@@ -36,8 +36,9 @@ public class RoomController {
     }
 
     @GetMapping
-    public List<Room> getRooms(HttpServletRequest request) //throws AuthenticationException
-    {
+    @CrossOrigin("http://localhost:3000")
+    public List<Room> getRooms(HttpServletRequest request) throws AuthenticationException {
+
 //        Cookie cookie = WebUtils.getCookie(request, jwtCookie);
 //        String jwt = cookie.getValue();
 //
@@ -45,33 +46,28 @@ public class RoomController {
 //        //System.out.println("User Role "+userRole);
 //        if(!userRole.equals("ROLE_ADMIN") && !userRole.equals("ROLE_USER"))
 //            throw new AuthenticationException();
+        //System.out.println("Incorrect "+userRole);
 //        //System.out.println("Incorrect "+userRole);
         //System.out.println("Show Room");
         return roomService.getRooms();
-
-
     }
 
-
     @GetMapping("/{roomId}")
-    public Room getRoomById(HttpServletRequest request,@PathVariable String roomId) //throws AuthenticationException
-    {
-
-//        Cookie cookie = WebUtils.getCookie(request, jwtCookie);
+    @CrossOrigin("http://localhost:3000")
+    public Room getRoomById(HttpServletRequest request,@PathVariable String roomId) throws AuthenticationException {
+//        Cookie cookie = WebUtils.getCookie(request, "subo8");
 //        String jwt = cookie.getValue();
 //
 //        String userRole = jwtUtils.getUserRoleFromJwtToken(jwt);
-//        //System.out.println("User Role "+userRole);
-//        if(!userRole.equals("ROLE_ADMIN") && !userRole.equals("ROLE_USER"))
-//            throw new AuthenticationException();
+//        System.out.println("User Role "+userRole);
+
         return roomService.findById(roomId);
-
-
     }
 
     @PostMapping("/")
     public Room createRoom(HttpServletRequest request,@RequestBody Room room) //throws AuthenticationException
     {
+
 
        /* Cookie cookie = WebUtils.getCookie(request, jwtCookie);
         String jwt = cookie.getValue();
@@ -81,28 +77,31 @@ public class RoomController {
         if(!userRole.equals("ROLE_ADMIN"))
             throw new AuthenticationException();*/
         //System.out.println("Create Room");
+
         return roomService.createRoom(room);
     }
 
     @DeleteMapping("/{roomId}")
-    public void deleteRoom(HttpServletRequest request,@PathVariable String roomId) //throws AuthenticationException
-    {
+    @CrossOrigin(origins = "http://localhost:3000")
+    public void deleteRoom(HttpServletRequest request,@PathVariable String roomId) throws AuthenticationException {
+
         /*Cookie cookie = WebUtils.getCookie(request, jwtCookie);
         String jwt = cookie.getValue();
 
         String userRole = jwtUtils.getUserRoleFromJwtToken(jwt);
+        System.out.println(userRole);
         //System.out.println("User Role "+userRole);
-        if(!userRole.equals("ROLE_ADMIN"))
-            throw new AuthenticationException();
+
         */
+
         roomService.deleteRoom(roomId);
 
 
     }
-
     @PutMapping("/{roomId}")
-    public Room updateRoom(HttpServletRequest request,@PathVariable String roomId, @RequestBody Room room) //throws AuthenticationException
-    {
+    @CrossOrigin("http://localhost:3000")
+    public Room updateRoom(HttpServletRequest request,@PathVariable String roomId, @RequestBody Room room) throws AuthenticationException {
+
        /* Cookie cookie = WebUtils.getCookie(request, jwtCookie);
         String jwt = cookie.getValue();
 
@@ -137,7 +136,6 @@ public class RoomController {
         return roomService.updateRoomServiceCommunication(room1);
 
     }
-
     @GetMapping("/checkout/{roomId}")
     public ResponseEntity<Object> releaseRoomById(HttpServletRequest request,@PathVariable String roomId) //throws AuthenticationException
     {
