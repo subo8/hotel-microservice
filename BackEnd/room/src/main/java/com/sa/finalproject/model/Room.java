@@ -14,7 +14,6 @@ public class Room {
     @Id
     //@GeneratedValue(strategy = GenerationType.IDENTITY)
     private String roomId;
-
     private Integer roomNumber;
     private String type;
     private Double price;

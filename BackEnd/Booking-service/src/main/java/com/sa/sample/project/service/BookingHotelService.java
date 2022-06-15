@@ -40,28 +40,28 @@ public class BookingHotelService {
         ObjectMapper objectMapper = new ObjectMapper();
         ResponseEntityDTO responseEntityDTO = new ResponseEntityDTO();
         Booking booking1 = new Booking();
-
         Cookie cookie = WebUtils.getCookie(request, "subo8");
-        if (cookie !=null){
+        if (cookie != null) {
             String jwt = cookie.getValue();
             String username = jwtUtils.getUserNameFromJwtToken(jwt);
             booking.setUserName(username);
-            Room room = restTemplate.getForObject("http://localhost:8088/{roomId}" , Room.class,booking.getRoomId());
+            Room room = restTemplate.getForObject("http://localhost:8088/{roomId}", Room.class, booking.getRoomId());
             System.out.println("++++++++++++ Room Before" + room);
             assert room != null;
             room.setAvailable(false);
             String roomString = objectMapper.writeValueAsString(room);
-            restTemplate.put("http://localhost:8088/" , roomString, String.class);
+
+            restTemplate.put("http://localhost:8088/", roomString, String.class);
             responseEntityDTO.setBooking(booking1);
             responseEntityDTO.setRoom(room);
             System.out.println("++++++++++++ Room After" + room);
-            if (!room.isAvailable()){
-                return   new ResponseEntity<String>("Room already booked", HttpStatus.NOT_ACCEPTABLE);
-            }else
+            if (!room.isAvailable()) {
+                return new ResponseEntity<String>("Room already booked", HttpStatus.NOT_ACCEPTABLE);
+            } else
                 return new ResponseEntity<Booking>(bookingRepository.save(booking), HttpStatus.CREATED);
         }else
-            return new ResponseEntity<String>("Please Login", HttpStatus.FORBIDDEN);
-
+        return new ResponseEntity<String>("Please Login", HttpStatus.FORBIDDEN);
+    }
 
 
 //        Room room = restTemplate.getForObject("http://localhost:8088/{roomId}" , Room.class,booking.getRoomId());
@@ -104,7 +104,7 @@ public class BookingHotelService {
 //        booking.setUserName(jwtUtils.getUserNameFromJwtToken(jwtUtils.getJwtFromCookies()));
   //      return bookingRepository.save(booking);
 
-    }
+
 
     public ResponseEntityDTO findById(String bookingId) {
         Booking booking = bookingRepository.findById(bookingId).get();

@@ -18,9 +18,9 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
-@CrossOrigin(origins = "http://localhost:3000/**")
+//@CrossOrigin(origins = "http://localhost:3000/")
 @RestController
-@RequestMapping("/")
+@RequestMapping("/room")
 public class RoomController {
 
     //    @Value("${subo8.app.jwtSecret}")
@@ -37,6 +37,7 @@ public class RoomController {
     }
 
     @GetMapping
+    @CrossOrigin("http://localhost:3000")
     public List<Room> getRooms(HttpServletRequest request) throws AuthenticationException {
 //        Cookie cookie = WebUtils.getCookie(request, jwtCookie);
 //        String jwt = cookie.getValue();
@@ -52,14 +53,13 @@ public class RoomController {
     }
 
     @GetMapping("/{roomId}")
+    @CrossOrigin("http://localhost:3000")
     public Room getRoomById(HttpServletRequest request,@PathVariable String roomId) throws AuthenticationException {
-
-
-        Cookie cookie = WebUtils.getCookie(request, "subo8");
-        String jwt = cookie.getValue();
-
-        String userRole = jwtUtils.getUserRoleFromJwtToken(jwt);
-        System.out.println("User Role "+userRole);
+//        Cookie cookie = WebUtils.getCookie(request, "subo8");
+//        String jwt = cookie.getValue();
+//
+//        String userRole = jwtUtils.getUserRoleFromJwtToken(jwt);
+//        System.out.println("User Role "+userRole);
 
 //        Cookie cookie = WebUtils.getCookie(request, jwtCookie);
 //        String jwt = cookie.getValue();
@@ -114,6 +114,7 @@ public class RoomController {
          */
     }
     @PutMapping("/{roomId}")
+    @CrossOrigin("http://localhost:3000")
     public Room updateRoom(HttpServletRequest request,@PathVariable String roomId, @RequestBody Room room) throws AuthenticationException {
        /* Cookie cookie = WebUtils.getCookie(request, jwtCookie);
         String jwt = cookie.getValue();

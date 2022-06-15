@@ -21,6 +21,5 @@ public class Room {
     private String description;
     private boolean available;
     private String roomRating;
-
     private  Integer totalRatings;
 }

@@ -15,7 +15,6 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class Rate {
     @Id
     private String id;
-
     private String roomId;
     private String userId;
     private Integer rating;

@@ -32,11 +32,11 @@ public class BookingController {
 //            String username = jwtUtils.getUserNameFromJwtToken(jwt);
 //            booking.setUserName(username);
 //         //  bookingService.save(booking, request);
-//           return bookingService.save(booking,request);
+         return bookingService.save(booking,request);
 //        }else
-       return new ResponseEntity<String>("Please Login", HttpStatus.FORBIDDEN);
+//       return new ResponseEntity<String>("Please Login", HttpStatus.FORBIDDEN);
     }
-
+@CrossOrigin("http://localhost:3000")
     @GetMapping("/")
     private List<Booking> bookings() {
         return bookingService.findAll();
