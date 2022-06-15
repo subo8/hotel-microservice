@@ -3,6 +3,7 @@ import com.example.rateservice.jwt.JwtUtils;
 import com.example.rateservice.model.Rate;
 import com.example.rateservice.repository.RateRepository;
 import com.example.rateservice.service.RateService;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -31,7 +32,7 @@ public class RateController {
         return raterepository.findAll();
     }
     @PostMapping("/")
-    public ResponseEntity<?> addProduct(@RequestBody Rate rate, HttpServletRequest request) {
+    public ResponseEntity<?> addProduct(@RequestBody Rate rate, HttpServletRequest request) throws JsonProcessingException {
         Cookie cookie = WebUtils.getCookie(request, "subo8");
         if(cookie!=null){
             String jwt = cookie.getValue();

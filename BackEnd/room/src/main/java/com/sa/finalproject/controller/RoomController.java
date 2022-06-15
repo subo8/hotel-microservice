@@ -1,5 +1,7 @@
 package com.sa.finalproject.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sa.finalproject.model.Room;
 import com.sa.finalproject.security.jwt.JwtUtils;
 import com.sa.finalproject.service.RoomService;
@@ -36,14 +38,14 @@ public class RoomController {
 
     @GetMapping
     public List<Room> getRooms(HttpServletRequest request) throws AuthenticationException {
-        Cookie cookie = WebUtils.getCookie(request, jwtCookie);
-        String jwt = cookie.getValue();
-
-        String userRole = jwtUtils.getUserRoleFromJwtToken(jwt);
-        //System.out.println("User Role "+userRole);
-        if(!userRole.equals("ROLE_ADMIN") && !userRole.equals("ROLE_USER"))
-            throw new AuthenticationException();
-        //System.out.println("Incorrect "+userRole);
+//        Cookie cookie = WebUtils.getCookie(request, jwtCookie);
+//        String jwt = cookie.getValue();
+//
+//        String userRole = jwtUtils.getUserRoleFromJwtToken(jwt);
+//        //System.out.println("User Role "+userRole);
+//        if(!userRole.equals("ROLE_ADMIN") && !userRole.equals("ROLE_USER"))
+//            throw new AuthenticationException();
+//        //System.out.println("Incorrect "+userRole);
         return roomService.getRooms();
 
 
@@ -53,13 +55,13 @@ public class RoomController {
     @GetMapping("/{roomId}")
     public Room getRoomById(HttpServletRequest request,@PathVariable String roomId) throws AuthenticationException {
 
-        Cookie cookie = WebUtils.getCookie(request, jwtCookie);
-        String jwt = cookie.getValue();
-
-        String userRole = jwtUtils.getUserRoleFromJwtToken(jwt);
-        //System.out.println("User Role "+userRole);
-        if(!userRole.equals("ROLE_ADMIN") && !userRole.equals("ROLE_USER"))
-            throw new AuthenticationException();
+//        Cookie cookie = WebUtils.getCookie(request, jwtCookie);
+//        String jwt = cookie.getValue();
+//
+//        String userRole = jwtUtils.getUserRoleFromJwtToken(jwt);
+//        //System.out.println("User Role "+userRole);
+//        if(!userRole.equals("ROLE_ADMIN") && !userRole.equals("ROLE_USER"))
+//            throw new AuthenticationException();
         return roomService.findById(roomId);
 
 
@@ -104,6 +106,29 @@ public class RoomController {
         return roomService.updateRoom(roomId, room);
     }
 
+    @GetMapping("/available")
+    public List<Room> availableRooms(){
+        return roomService.availableRooms();
+    }
+
+    @GetMapping("/not-available")
+    public List<Room> noAvailableRooms(){
+        return roomService.notAvailableRooms();
+    }
+
+    @PutMapping("/")
+    public Room updateRoomServiceLevel(@RequestBody String room) {
+        ObjectMapper objectMapper = new ObjectMapper();
+
+        Room room1 = null;
+        try {
+            room1 = objectMapper.readValue(room, Room.class);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+        return roomService.updateRoomServiceCommunication(room1);
+
+    }
 
     @GetMapping("/checkout/{roomId}")
     public ResponseEntity<Object> releaseRoomById(HttpServletRequest request,@PathVariable String roomId) throws AuthenticationException {
