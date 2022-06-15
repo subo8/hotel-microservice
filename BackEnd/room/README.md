@@ -1,4 +1,4 @@
-# Room service
+git# Room service
 Admin can create, update and delete room data
 
 ## Docker 
@@ -41,12 +41,18 @@ spring.data.mongodb.uri=mongodb://hoteluser:hotelpass@hotel-mongodb.default.svc.
 POST http://localhost:8088/room/
 Content-Type: application/json
 
-
 {
-    "roomId":2,
-    "roomNumber":"303",
-    "type" : "Delux",
-    "price" : 150
+    "roomNumber": 601,
+    "type": "Single",
+    "price": 120.0,
+    "bedType": null,
+    "numberOfBeds": null,
+    "maxNumberOfGuests": null,
+    "smoking": false,
+    "description": null,
+    "available": false,
+    "roomRating":null,
+    "totalRatings": 1
 }
 ~~~
 
