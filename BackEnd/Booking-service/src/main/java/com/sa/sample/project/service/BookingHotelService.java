@@ -40,6 +40,7 @@ public class BookingHotelService {
         ObjectMapper objectMapper = new ObjectMapper();
         ResponseEntityDTO responseEntityDTO = new ResponseEntityDTO();
         Booking booking1 = new Booking();
+
         Cookie cookie = WebUtils.getCookie(request, "subo8");
         if (cookie !=null){
             String jwt = cookie.getValue();
@@ -79,6 +80,30 @@ public class BookingHotelService {
 //            return   new ResponseEntity<String>("Room already booked", HttpStatus.NOT_ACCEPTABLE);
 //        }else
 //        return new ResponseEntity<Booking>(bookingRepository.save(booking), HttpStatus.CREATED);
+
+//        Room room = restTemplate.getForObject("http://localhost:8088/room" , Room.class,booking.getRoomId());
+//        System.out.println(room);
+//        //UserAccount account = restTemplate.getForObject("http://ACCOUNT-SERVICE/account-internal/{accountId}",UserAccount.class,order1.getUserAccountId());
+//        assert room != null;
+//        room.setAvailable(false);
+//
+//        responseEntityDTO.setBooking(booking1);
+//        responseEntityDTO.setRoom(room);
+   //     User retrivedUser = userRepository.findByEmail(email);
+//        var rooms = bookHotel.getRooms().stream().map(room -> {
+//            Room aRoom = (Room) roomService.findById(room.getRoomId());
+//            aRoom.setBookHotel(bookHotel);
+//            return aRoom;
+//        }).toList();
+//        bookHotel.setRooms(rooms);
+//        // System.out.println("Hotel booking: " + bookHotel.getRooms());
+//        // if(room!=null) bookHotel.getRooms().add(room);
+//        bookHotel.getUserDetails().add(retrivedUser);
+        //jwtUtils.getUserNameFromJwtToken(booking.setUserName())
+//        UserDTO userDTO =
+//        booking.setUserName(jwtUtils.getUserNameFromJwtToken(jwtUtils.getJwtFromCookies()));
+  //      return bookingRepository.save(booking);
+
     }
 
     public ResponseEntityDTO findById(String bookingId) {

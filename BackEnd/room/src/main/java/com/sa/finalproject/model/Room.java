@@ -24,4 +24,6 @@ public class Room {
     private boolean smoking;
     private String description;
     private boolean available;
+    private String roomRating;
+    private  Integer totalRatings;
 }

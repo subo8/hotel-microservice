@@ -1,6 +1,7 @@
 package sc.miu.edu.payment_service.service;
 
 
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -17,6 +18,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Service
+@AllArgsConstructor
 public class PaymentService {
 
     @Autowired
@@ -65,24 +67,23 @@ public class PaymentService {
 
     public PaymentInformationResponse verifyPaypalAndSavePayment(PaypalDto paypalDto) {
         ResponseEntity<PaymentInformationResponse> response = paypalFeignClient.verifyPurchase(paypalDto);
-        if (response.getBody().getStatus() == Status.FAILURE) return returnPaypalFailureMessage();
+        if (response.getBody().getStatus() == Status.FAILURE)
+            return returnPaypalFailureMessage();
 
-        PaymentInformation paymentInformation = paymentRepo.save(PaymentInformation.builder()
-                        .transactionCode(generatorClass.transactionCodeGenerator())
+        PaymentInformation toSave = PaymentInformation.builder()
+                .transactionCode(generatorClass.transactionCodeGenerator())
                 .accountType(AccountType.PAYPAL)
                 .customerId(paypalDto.getCustomerId())
                 .totalPayment(paypalDto.getBalance())
                 .transactionDate(LocalDateTime.now())
-                .build());
-
+                .build();
+        PaymentInformation paymentInformation = paymentRepo.save(toSave);
         return returnSuccessPaymentResponse(paymentInformation);
-
     }
 
     public PaymentInformationResponse verifyCreditCardAndSavePayment(CreditCardDto creditCardDto) {
         ResponseEntity<PaymentInformationResponse> response = creditCardFeignClient.check(creditCardDto);
         if (response.getBody().getStatus() == Status.FAILURE) return returnCreditCardFailureMessage();
-
         PaymentInformation paymentInformation = paymentRepo.save(PaymentInformation.builder()
                 .accountType(AccountType.CREDITCARD)
                 .customerId(creditCardDto.getCustomerId())
@@ -90,28 +91,23 @@ public class PaymentService {
                 .transactionDate(LocalDateTime.now())
                 .transactionCode(generatorClass.transactionCodeGenerator())
                 .build());
-
         return returnSuccessPaymentResponse(paymentInformation);
-
     }
+
 
     public PaymentInformationResponse verifyBankAccountAndSavePayment(BankAccountDto bankAccountDto) {
         ResponseEntity<PaymentInformationResponse> response = bankAccountFeignClient.verifyPayment(bankAccountDto);
-        if (response.getBody().getStatus() == Status.FAILURE) return returnBankAccountFailureMessage();
-
+        if (response.getBody().getStatus() == Status.FAILURE)
+            return returnBankAccountFailureMessage();
         PaymentInformation paymentInformation = paymentRepo.save(PaymentInformation.builder()
-
                 .accountType(AccountType.BANKACCOUNT)
                 .customerId(bankAccountDto.getCustomerId())
                 .totalPayment(bankAccountDto.getBalance())
                 .transactionCode(generatorClass.transactionCodeGenerator())
                 .transactionDate(LocalDateTime.now())
                 .build());
-
         return returnSuccessPaymentResponse(paymentInformation);
-
     }
-
 
     public PaymentInformationResponse deleteAlldata() {
         paymentRepo.deleteAll();
