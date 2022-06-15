@@ -8,34 +8,38 @@ public class Rate {
     @Id
     private String id;
 
+    private String roomId;
+    private String userId;
+    private int star;
 
-    private int roomId = 1;
-    private int userId = 1;
-    private int star = 1;
-
-    public Rate(int roomId, int userId, int star) {
+    public Rate(String id, String roomId, String userId, int star) {
+        this.id = id;
         this.roomId = roomId;
         this.userId = userId;
         this.star = star;
     }
 
-    public int getRoomId() {
-        return roomId;
+    public String getId() {
+        return id;
     }
 
     public void setId(String id) {
         this.id = id;
     }
 
-    public void setRoomId(int roomId) {
+    public String getRoomId() {
+        return roomId;
+    }
+
+    public void setRoomId(String roomId) {
         this.roomId = roomId;
     }
 
-    public int getUserId() {
+    public String getUserId() {
         return userId;
     }
 
-    public void setUserId(int userId) {
+    public void setUserId(String userId) {
         this.userId = userId;
     }
 
