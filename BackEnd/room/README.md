@@ -15,9 +15,7 @@ $ docker push --all-tags xocbayar/room-service
 ## Kubernetes
 ```
 $ helm repo add bitnami https://charts.bitnami.com/bitnami
-$ helm install hotel-room-mongodb \
-    --set auth.rootPassword=secretpassword,auth.username=hoteluser,auth.password=hotelpass,auth.database=room_DB \
-    bitnami/mongodb
+$ helm install hotel-mongodb --set auth.rootPassword=secretpassword bitnami/mongodb
 
 $ kubectl create deployment room-service --image=xocbayar/room-service --dry-run=client -o=yaml > room-deployment.yaml 
 
@@ -31,7 +29,7 @@ $ kubectl port-forward svc/room-service 8088:8088
 ```
 ### Application properties
 ```
-spring.data.mongodb.uri=mongodb://hoteluser:hotelpass@hotel-room-mongodb.default.svc.cluster.local:27017/room_DB
+spring.data.mongodb.uri=mongodb://root:secretpassword@hotel-mongodb.default.svc.cluster.local:27017/room_DB?authSource=admin
 ```
 
 ## Endpoints
