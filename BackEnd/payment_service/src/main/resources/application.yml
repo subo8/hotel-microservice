@@ -4,13 +4,13 @@ server:
 spring:
   application:
     name: payment-service
-# spring:
-#   data:
-#     mongodb:
-#       host: localhost
-#       port: 27017
-#       database: PaymentInformation
 spring:
   data:
     mongodb:
-      uri: mongodb://hoteluser:hotelpass@hotel-payment-mongodb.default.svc.cluster.local.local:27017/payment_DB
+      host: localhost
+      port: 27017
+      database: PaymentInformation
+# spring:
+#   data:
+#     mongodb:
+#       uri: mongodb://hoteluser:hotelpass@hotel-payment-mongodb.default.svc.cluster.local.local:27017/payment_DB
