@@ -15,7 +15,16 @@ Open you terminal type following command:
    { name: "ROLE_ADMIN" },
 ])
 ```
+## Docker 
 
+1. Build docker image
+```
+$ docker build --tag xocbayar/user-service .
+```
+2. Push docker image to docker hub
+```
+$ docker push --all-tags xocbayar/user-service
+```
 ### Kubernetes
 ```
 $ helm repo add bitnami https://charts.bitnami.com/bitnami

@@ -4,11 +4,11 @@
 
 1. Build docker image
 ```
-docker build --tag xocbayar/rate-service .
+$ docker build --tag xocbayar/rate-service .
 ```
 2. Push docker image to docker hub
 ```
-docker push --all-tags xocbayar/rate-service
+$ docker push --all-tags xocbayar/rate-service
 ```
 
 ## Kubernetes

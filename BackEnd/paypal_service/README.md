@@ -4,11 +4,11 @@
 
 1. Build docker image
 ```
-docker build --tag xocbayar/paypal-service .
+$ docker build --tag xocbayar/paypal-service .
 ```
 2. Push docker image to docker hub
 ```
-docker push --all-tags xocbayar/paypal-service
+$ docker push --all-tags xocbayar/paypal-service
 ```
 
 ## Kubernetes

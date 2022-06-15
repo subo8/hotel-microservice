@@ -5,11 +5,11 @@ Admin can create, update and delete room data
 
 1. Build docker image
 ```
-docker build --tag xocbayar/room-service .
+$ docker build --tag xocbayar/room-service .
 ```
 2. Push docker image to docker hub
 ```
-docker push --all-tags xocbayar/room-service
+$ docker push --all-tags xocbayar/room-service
 ```
 
 ## Kubernetes
