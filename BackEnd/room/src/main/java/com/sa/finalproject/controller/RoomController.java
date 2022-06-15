@@ -19,8 +19,8 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @RestController
-@RequestMapping("/")
-//@RequestMapping("/room")
+//@RequestMapping("/")
+@RequestMapping("/room")
 public class RoomController {
 
     //    @Value("${subo8.app.jwtSecret}")
@@ -37,7 +37,8 @@ public class RoomController {
     }
 
     @GetMapping
-    public List<Room> getRooms(HttpServletRequest request) throws AuthenticationException {
+    public List<Room> getRooms(HttpServletRequest request) //throws AuthenticationException
+    {
 //        Cookie cookie = WebUtils.getCookie(request, jwtCookie);
 //        String jwt = cookie.getValue();
 //
@@ -54,7 +55,8 @@ public class RoomController {
 
 
     @GetMapping("/{roomId}")
-    public Room getRoomById(HttpServletRequest request,@PathVariable String roomId) throws AuthenticationException {
+    public Room getRoomById(HttpServletRequest request,@PathVariable String roomId) //throws AuthenticationException
+    {
 
 //        Cookie cookie = WebUtils.getCookie(request, jwtCookie);
 //        String jwt = cookie.getValue();
@@ -69,7 +71,8 @@ public class RoomController {
     }
 
     @PostMapping("/")
-    public Room createRoom(HttpServletRequest request,@RequestBody Room room) throws AuthenticationException {
+    public Room createRoom(HttpServletRequest request,@RequestBody Room room) //throws AuthenticationException
+    {
 
        /* Cookie cookie = WebUtils.getCookie(request, jwtCookie);
         String jwt = cookie.getValue();
@@ -78,12 +81,13 @@ public class RoomController {
         //System.out.println("User Role "+userRole);
         if(!userRole.equals("ROLE_ADMIN"))
             throw new AuthenticationException();*/
-        System.out.println("Create Room");
+        //System.out.println("Create Room");
         return roomService.createRoom(room);
     }
 
     @DeleteMapping("/{roomId}")
-    public void deleteRoom(HttpServletRequest request,@PathVariable String roomId) throws AuthenticationException {
+    public void deleteRoom(HttpServletRequest request,@PathVariable String roomId) //throws AuthenticationException
+    {
         /*Cookie cookie = WebUtils.getCookie(request, jwtCookie);
         String jwt = cookie.getValue();
 
@@ -91,14 +95,15 @@ public class RoomController {
         //System.out.println("User Role "+userRole);
         if(!userRole.equals("ROLE_ADMIN"))
             throw new AuthenticationException();
-
+        */
         roomService.deleteRoom(roomId);
 
-         */
+
     }
 
     @PutMapping("/{roomId}")
-    public Room updateRoom(HttpServletRequest request,@PathVariable String roomId, @RequestBody Room room) throws AuthenticationException {
+    public Room updateRoom(HttpServletRequest request,@PathVariable String roomId, @RequestBody Room room) //throws AuthenticationException
+    {
        /* Cookie cookie = WebUtils.getCookie(request, jwtCookie);
         String jwt = cookie.getValue();
 
@@ -135,7 +140,8 @@ public class RoomController {
     }
 
     @GetMapping("/checkout/{roomId}")
-    public ResponseEntity<Object> releaseRoomById(HttpServletRequest request,@PathVariable String roomId) throws AuthenticationException {
+    public ResponseEntity<Object> releaseRoomById(HttpServletRequest request,@PathVariable String roomId) //throws AuthenticationException
+    {
         /*Cookie cookie = WebUtils.getCookie(request, jwtCookie);
         String jwt = cookie.getValue();
 

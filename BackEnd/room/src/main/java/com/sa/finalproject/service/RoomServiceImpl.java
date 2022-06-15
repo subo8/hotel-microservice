@@ -59,6 +59,7 @@ public class RoomServiceImpl implements RoomService{
         return roomRepository.findByRoomNumber(roomNumber);
     }
 
+    @Override
     public Room bookRoomAvailability(String roomId){
 
         Optional<Room> room =   roomRepository.findById(roomId);
@@ -75,7 +76,7 @@ public class RoomServiceImpl implements RoomService{
         return coreRoom;
     }
 
-
+    @Override
     public Room roomCheckout(String roomId){
 
         Optional<Room> room =   roomRepository.findById(roomId);

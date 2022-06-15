@@ -28,7 +28,7 @@ public class RoomServiceTest{
     @Test
     public void createRoom() {
         Room room = new Room();
-        room.setRoomNumber(5032);
+        room.setRoomNumber(606);
         room.setType("Single");
         room.setPrice(120.0);
 
