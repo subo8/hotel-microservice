@@ -12,7 +12,7 @@ import lombok.*;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class BankAccountDto {
     private Integer customerId;
-    private Integer routingNumber;
+    private String routingNumber;
     private String bankAccountNumber;
     private String emailAddress;
     private Double balance;
