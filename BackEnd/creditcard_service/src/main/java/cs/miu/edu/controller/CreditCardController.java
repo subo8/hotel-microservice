@@ -3,14 +3,21 @@ package cs.miu.edu.controller;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import cs.miu.edu.domain.CreditCard;
+import cs.miu.edu.jwt.JwtUtils;
 import cs.miu.edu.service.CreditCardService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.util.WebUtils;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 
 @RestController
 @RequestMapping("/creditcards")
 public class CreditCardController {
+
+    @Autowired
+    JwtUtils jwtUtils;
 
     private final CreditCardService creditCardService;
 
@@ -21,8 +28,17 @@ public class CreditCardController {
 
 
 @PostMapping
-public  CreditCard saveCreditCard(@RequestBody CreditCard creditCard , HttpServletRequest httpServletRequest){
-    return creditCardService.saveCreditCard(creditCard, httpServletRequest);
+public  CreditCard saveCreditCard(@RequestBody CreditCard creditCard , HttpServletRequest request){
+
+    Cookie cookie = WebUtils.getCookie(request, "subo8");
+    if (cookie != null) {
+        String jwt = cookie.getValue();
+        String username = jwtUtils.getUserNameFromJwtToken(jwt);
+        return creditCardService.saveCreditCard(creditCard, username);
+
+    }
+    return null;
+
 }
 
 @GetMapping("/{creditCardId}")
