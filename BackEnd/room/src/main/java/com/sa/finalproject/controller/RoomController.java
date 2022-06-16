@@ -38,27 +38,12 @@ public class RoomController {
     @GetMapping
     @CrossOrigin("http://localhost:3000")
     public List<Room> getRooms(HttpServletRequest request) throws AuthenticationException {
-
-        Cookie cookie = WebUtils.getCookie(request, "subo8");
-        String jwt = cookie.getValue();
-        String userRole = jwtUtils.getUserRoleFromJwtToken(jwt);
-        System.out.println("User Role "+userRole);
-        if(!userRole.equals("ROLE_ADMIN") && !userRole.equals("ROLE_USER"))
-            throw new AuthenticationException();
-        //System.out.println("Show Room");
         return roomService.getRooms();
     }
 
     @GetMapping("/{roomId}")
     @CrossOrigin("http://localhost:3000")
     public Room getRoomById(HttpServletRequest request,@PathVariable String roomId) throws AuthenticationException {
-
-        Cookie cookie = WebUtils.getCookie(request, "subo8");
-        String jwt = cookie.getValue();
-        String userRole = jwtUtils.getUserRoleFromJwtToken(jwt);
-        //System.out.println("User Role "+userRole);
-        if(!userRole.equals("ROLE_ADMIN") && !userRole.equals("ROLE_USER"))
-            throw new AuthenticationException();
         return roomService.findById(roomId);
     }
 

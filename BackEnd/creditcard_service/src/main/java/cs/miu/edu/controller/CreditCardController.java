@@ -40,7 +40,7 @@ public  CreditCard saveCreditCard(@RequestBody CreditCard creditCard , HttpServl
 
     @PutMapping("/{creditCardId}")
     public   CreditCard updateCreditCard(@PathVariable String creditCardId, @RequestBody CreditCard creditCard){
-        return  creditCardService.updateCreditCard(creditCard);
+        return  creditCardService.updateCreditCardLocal(creditCard, creditCardId);
     }
 
     @PutMapping("/")

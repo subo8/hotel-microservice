@@ -16,11 +16,10 @@ import java.util.List;
 public class CreditCardService {
 
 
-  private final CreditCardRepository creditCardRepository;
+    private final CreditCardRepository creditCardRepository;
 
     @Autowired
     JwtUtils jwtUtils;
-
 
 
     public CreditCardService(CreditCardRepository creditCardRepository) {
@@ -28,10 +27,8 @@ public class CreditCardService {
     }
 
 
-
-
-    public  CreditCard saveCreditCard(CreditCard creditCard, HttpServletRequest request) {
-     //   CreditCard booking1 = new CreditCard();
+    public CreditCard saveCreditCard(CreditCard creditCard, HttpServletRequest request) {
+        //   CreditCard booking1 = new CreditCard();
         Cookie cookie = WebUtils.getCookie(request, "subo8");
         if (cookie != null) {
             String jwt = cookie.getValue();
@@ -42,23 +39,36 @@ public class CreditCardService {
         return null;
     }
 
-    public List<CreditCard> getCreditCards(){
-        return  creditCardRepository.findAll();
-    }
-    public CreditCard getCreditCards(String creditCardId){
-        return  creditCardRepository.findById(creditCardId).get();
+    public List<CreditCard> getCreditCards() {
+        return creditCardRepository.findAll();
     }
 
-    public  CreditCard updateCreditCard(CreditCard creditCard){
+    public CreditCard getCreditCards(String creditCardId) {
+        return creditCardRepository.findById(creditCardId).get();
+    }
+
+    public CreditCard updateCreditCard(CreditCard creditCard) {
 //        creditCardRepository.findById(creditCardId);
 //        creditCard.setCreditCardId(creditCardId);
-        return  creditCardRepository.save(creditCard);
+        return creditCardRepository.save(creditCard);
     }
+
+    public CreditCard updateCreditCardLocal(CreditCard creditCard, String creditCardId) {
+
+       CreditCard creditCard1= creditCardRepository.findById(creditCardId).get();
+       creditCard1.setBalance(creditCard1.getBalance()+creditCard.getBalance());
+        creditCard.setCreditCardId(creditCardId);
+        creditCard.setBalance(creditCard1.getBalance());
+
+//        creditCardRepository.findById(creditCardId);
+//        creditCard.setCreditCardId(creditCardId);
+        return creditCardRepository.save(creditCard);
 
 // @Autowired
 //    private CreditCardRepo creditCardRepo;
 
     }
+}
 
 
 

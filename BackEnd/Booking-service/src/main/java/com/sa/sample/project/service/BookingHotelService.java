@@ -10,10 +10,7 @@ import com.sa.sample.project.model.Booking;
 import com.sa.sample.project.repository.BookingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.WebUtils;
@@ -42,42 +39,48 @@ public class BookingHotelService {
     public ResponseEntity<?> save(Booking booking, HttpServletRequest request) throws JsonProcessingException {
         ObjectMapper objectMapper = new ObjectMapper();
         ResponseEntityDTO responseEntityDTO = new ResponseEntityDTO();
-        String cookieFrontEnd = request.getHeader("Headers");
-        System.out.println("What is this "+ cookieFrontEnd);
+//        String cookieFrontEnd = request.getHeader("Headers");
+//        System.out.println("What is this "+ cookieFrontEnd);
         Booking booking1 = new Booking();
         Cookie cookie = WebUtils.getCookie(request, "subo8");
-        System.out.println("Do we get the cookie? " + cookie);
+//        System.out.println("Do we get the cookie? " + cookie);
 //        HttpHeaders headers = new HttpHeaders();
 //        assert cookie != null;
 //        headers.add("subo8", cookie.getValue());
 //        HttpEntity<?> entity = new HttpEntity<>(headers);
 
+        //  Byambad add start
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("subo8", cookie.getValue());
+        HttpEntity<?> entity = new HttpEntity<>(headers);
+        //  Byambad add end
+
         if (cookie!= null) {
          //   System.out.println(cookie.getValue());
          //   String jwt = cookie.getValue();
             String jwt = cookie.getValue();
-        System.out.println(jwt);
             String username = jwtUtils.getUserNameFromJwtToken(jwt);
             booking.setUserName(username);
-            Room room = restTemplate.getForObject("http://localhost:8088/room/{roomId}", Room.class, booking.getRoomId());
+            ResponseEntity<Room> room = restTemplate.exchange("http://localhost:8088/room/{roomId}", HttpMethod.GET, entity, Room.class, booking.getRoomId());
+
             CreditCardDto creditCardDto = restTemplate.getForObject("http://localhost:9001/creditcards/{creditCardId}", CreditCardDto.class, booking.getCreditCardId());
             assert room != null;
-            System.out.println("++++++++++++ Room Before" + room.isAvailable());
+            System.out.println("++++++++++++ Room Before" + room.getBody().isAvailable());
            // assert room != null;
-            room.setAvailable(false);
+            room.getBody().setAvailable(false);
             assert creditCardDto != null;
-            if (booking.getAmount() > creditCardDto.getBalance() && !room.isAvailable()){
+            if (booking.getAmount() > creditCardDto.getBalance() && room.getBody().isAvailable()){
                 System.out.println("You have  insufficient amount");
                 return null;
             }else
             creditCardDto.setBalance(creditCardDto.getBalance()-booking.getAmount());
-            String roomString = objectMapper.writeValueAsString(room);
+            String roomString = objectMapper.writeValueAsString(room.getBody());
             String creditCardString = objectMapper.writeValueAsString(creditCardDto);
             restTemplate.put("http://localhost:8088/room/", roomString, String.class);
             restTemplate.put("http://localhost:9001/creditcards/", creditCardString, String.class);
 
             responseEntityDTO.setBooking(booking1);
-            responseEntityDTO.setRoom(room);
+            responseEntityDTO.setRoom(room.getBody());
             responseEntityDTO.setCreditCardDto(creditCardDto);
             System.out.println("++++++++++++ Room After" + room);
 //            if (!room.isAvailable()) {
