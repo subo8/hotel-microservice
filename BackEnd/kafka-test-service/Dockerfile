@@ -9,4 +9,4 @@ ARG JAR_FILE=target/*.jar
 COPY ${JAR_FILE} kafka-test-service-0.0.1-SNAPSHOT.jar
 
 #execute the application
-ENTRYPOINT ["java","-jar","/kafka-test-service-0.0.1-SNAPSHOT"]
+ENTRYPOINT ["java","-jar","/kafka-test-service-0.0.1-SNAPSHOT.jar"]
