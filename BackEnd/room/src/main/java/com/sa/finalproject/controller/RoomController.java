@@ -99,17 +99,21 @@ public class RoomController {
         return roomService.updateRoom(roomId, room);
     }
 
+    //for Room Rating Service
     @GetMapping("/available")
     public List<Room> availableRooms(){
+
         return roomService.availableRooms();
     }
 
+    //for Room Rating Service
     @GetMapping("/not-available")
     public List<Room> noAvailableRooms(){
+
         return roomService.notAvailableRooms();
     }
 
-
+    //for Room Booking
     @PutMapping("/")
     public Room updateRoomServiceLevel(@RequestBody String room) {
         ObjectMapper objectMapper = new ObjectMapper();
