@@ -20,6 +20,10 @@ public class User {
   private String username;
 
   @NotBlank
+  @Size(max = 80)
+  private String fullname;
+
+  @NotBlank
   @Size(max = 50)
   @Email
   private String email;
@@ -34,8 +38,9 @@ public class User {
   public User() {
   }
 
-  public User(String username, String email, String password) {
+  public User(String username, String fullname, String email, String password) {
     this.username = username;
+    this.fullname = fullname;
     this.email = email;
     this.password = password;
   }
@@ -56,6 +61,13 @@ public class User {
     this.username = username;
   }
 
+  public String getFullname(){
+    return fullname;
+  }
+
+  public void setFullname(String fullname) {
+    this.fullname = fullname;
+  }
   public String getEmail() {
     return email;
   }

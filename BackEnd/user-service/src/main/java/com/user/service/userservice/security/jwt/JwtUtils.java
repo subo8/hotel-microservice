@@ -36,19 +36,8 @@ public class JwtUtils {
   }
 
   public ResponseCookie generateJwtCookie(UserDetailsImpl userPrincipal) {
-
-   List<?> list = new ArrayList<>(userPrincipal.getAuthorities());
-
-   for(int i=0; i<list.size(); i++) {
-     System.out.println(list.get(i).toString());
-     if (list.get(i).toString() == "ROLE_USER") {
-       System.out.println("yes");
-     } else {
-       System.out.println("no");
-     }
-   }
-
-    String jwt = generateTokenFromUsername(userPrincipal.getUsername(), userPrincipal.getId(), list);
+    List<?> list = new ArrayList<>(userPrincipal.getAuthorities());
+    String jwt = generateTokenFromUsername(userPrincipal.getUsername(), userPrincipal.getId(), list, userPrincipal.getFullname());
     ResponseCookie cookie = ResponseCookie.from(jwtCookie, jwt).path("/").maxAge(24 * 60 * 60).httpOnly(true).build();
     return cookie;
   }
@@ -58,14 +47,10 @@ public class JwtUtils {
     return cookie;
   }
 
-  //Get id from jwt cookie
+  //Get username from jwt cookie
   public String getUserNameFromJwtToken(String token) {
     Claims claims = Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token).getBody();
-//    String print1 = claims.getSubject();
-//    String print2 = (String) claims.get("userId");
-//    System.out.println(print1);
-//    System.out.println(print2);
-    return Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token).getBody().getSubject();
+    return claims.getSubject();
   }
 
   public boolean validateJwtToken(String authToken) {
@@ -87,9 +72,9 @@ public class JwtUtils {
     return false;
   }
   
-  public String generateTokenFromUsername(String username, String userid, List roles) {
+  public String generateTokenFromUsername(String username, String userid, List roles, String fullname) {
     return Jwts.builder()
-        .setSubject(username).claim("userId", userid).claim("role", roles.get(0).toString())
+        .setSubject(username).claim("userId", userid).claim("role", roles.get(0).toString()).claim("name",fullname)
         .setIssuedAt(new Date())
         .setExpiration(new Date((new Date()).getTime() + jwtExpirationMs))
         .signWith(SignatureAlgorithm.HS512, jwtSecret)
