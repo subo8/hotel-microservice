@@ -7,6 +7,7 @@ import cs.miu.edu.service.CreditCardService;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 @RestController
 @RequestMapping("/creditcards")
@@ -21,13 +22,20 @@ public class CreditCardController {
 
 
 @PostMapping
+@CrossOrigin("http://localhost:3000")
 public  CreditCard saveCreditCard(@RequestBody CreditCard creditCard , HttpServletRequest httpServletRequest){
     return creditCardService.saveCreditCard(creditCard, httpServletRequest);
 }
 
 @GetMapping("/{creditCardId}")
+@CrossOrigin("http://localhost:3000")
     public   CreditCard findCardById(@PathVariable String creditCardId){
         return  creditCardService.getCreditCards(creditCardId);
+}
+@GetMapping
+@CrossOrigin("http://localhost:3000")
+    public List<CreditCard> getCreditCards(){
+        return creditCardService.getCreditCards();
 }
 
     @PutMapping("/{creditCardId}")

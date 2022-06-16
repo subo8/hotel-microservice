@@ -71,13 +71,13 @@ public class JwtUtils {
 
     return false;
   }
-  
+
   public String generateTokenFromUsername(String username, String userid, List roles, String fullname) {
     return Jwts.builder()
-        .setSubject(username).claim("userId", userid).claim("role", roles.get(0).toString()).claim("name",fullname)
-        .setIssuedAt(new Date())
-        .setExpiration(new Date((new Date()).getTime() + jwtExpirationMs))
-        .signWith(SignatureAlgorithm.HS512, jwtSecret)
-        .compact();
+            .setSubject(username).claim("userId", userid).claim("role", roles.get(0).toString()).claim("name",fullname)
+            .setIssuedAt(new Date())
+            .setExpiration(new Date((new Date()).getTime() + jwtExpirationMs))
+            .signWith(SignatureAlgorithm.HS512, jwtSecret)
+            .compact();
   }
 }
