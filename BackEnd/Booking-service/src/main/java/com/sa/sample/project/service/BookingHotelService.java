@@ -1,13 +1,24 @@
 package com.sa.sample.project.service;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.sa.sample.project.dto.CreditCardDto;
 import com.sa.sample.project.dto.ResponseEntityDTO;
 import com.sa.sample.project.dto.Room;
+import com.sa.sample.project.jwt.JwtUtils;
 import com.sa.sample.project.model.Booking;
 import com.sa.sample.project.repository.BookingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.util.WebUtils;
+
+import javax.security.sasl.AuthenticationException;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @Service
@@ -19,20 +30,77 @@ public class BookingHotelService {
     @Autowired
     RestTemplate restTemplate;
 
+    @Autowired
+    JwtUtils jwtUtils;
+
     public BookingHotelService(BookingRepository bookingRepository) {
         this.bookingRepository = bookingRepository;
     }
 
-    public Booking save(Booking booking) {
+    public ResponseEntity<?> save(Booking booking, HttpServletRequest request) throws JsonProcessingException {
+        ObjectMapper objectMapper = new ObjectMapper();
         ResponseEntityDTO responseEntityDTO = new ResponseEntityDTO();
         Booking booking1 = new Booking();
-        Room room = restTemplate.getForObject("http://localhost:8088/room" , Room.class,booking.getRoomId());
-        System.out.println(room);
-        //UserAccount account = restTemplate.getForObject("http://ACCOUNT-SERVICE/account-internal/{accountId}",UserAccount.class,order1.getUserAccountId());
-        assert room != null;
-        room.setAvailable(false);
-        responseEntityDTO.setBooking(booking1);
-        responseEntityDTO.setRoom(room);
+        Cookie cookie = WebUtils.getCookie(request, "subo8");
+        if (cookie != null) {
+            String jwt = cookie.getValue();
+            String username = jwtUtils.getUserNameFromJwtToken(jwt);
+            booking.setUserName(username);
+            Room room = restTemplate.getForObject("http://localhost:8088/room/{roomId}", Room.class, booking.getRoomId());
+            CreditCardDto creditCardDto = restTemplate.getForObject("http://localhost:9001/creditcards/{creditCardId}", CreditCardDto.class, booking.getCreditCardId());
+            System.out.println("++++++++++++ Room Before" + room);
+            assert room != null;
+            room.setAvailable(false);
+            assert creditCardDto != null;
+            if (booking.getAmount() > creditCardDto.getBalance()){
+                System.out.println("You have  insufficient amount");
+                return null;
+            }else
+            creditCardDto.setBalance(creditCardDto.getBalance()-booking.getAmount());
+            String roomString = objectMapper.writeValueAsString(room);
+            String creditCardString = objectMapper.writeValueAsString(creditCardDto);
+            restTemplate.put("http://localhost:8088/room/", roomString, String.class);
+            restTemplate.put("http://localhost:9001/creditcards/", creditCardString, String.class);
+
+            responseEntityDTO.setBooking(booking1);
+            responseEntityDTO.setRoom(room);
+            responseEntityDTO.setCreditCardDto(creditCardDto);
+            System.out.println("++++++++++++ Room After" + room);
+            if (!room.isAvailable()) {
+           //     return new ResponseEntity<>("Room already booked", HttpStatus.NOT_ACCEPTABLE);
+                return null;
+            } else
+                return new ResponseEntity<>(bookingRepository.save(booking), HttpStatus.CREATED);
+        }else
+        return new ResponseEntity<String>("Please Login", HttpStatus.FORBIDDEN);
+    }
+
+
+//        Room room = restTemplate.getForObject("http://localhost:8088/{roomId}" , Room.class,booking.getRoomId());
+//        System.out.println("++++++++++++ Room Before" + room);
+//        assert room != null;
+//        room.setAvailable(false);
+//        String roomString = objectMapper.writeValueAsString(room);
+//       // System.out.println("++++++++++++ Room After" + room);
+//        restTemplate.put("http://localhost:8088/" , roomString, String.class);
+//        //UserAccount account = restTemplate.getForObject("http://ACCOUNT-SERVICE/account-internal/{accountId}",UserAccount.class,order1.getUserAccountId());
+//
+//        responseEntityDTO.setBooking(booking1);
+//        responseEntityDTO.setRoom(room);
+//        System.out.println("++++++++++++ Room After" + room);
+//        if (!room.isAvailable()){
+//            return   new ResponseEntity<String>("Room already booked", HttpStatus.NOT_ACCEPTABLE);
+//        }else
+//        return new ResponseEntity<Booking>(bookingRepository.save(booking), HttpStatus.CREATED);
+
+//        Room room = restTemplate.getForObject("http://localhost:8088/room" , Room.class,booking.getRoomId());
+//        System.out.println(room);
+//        //UserAccount account = restTemplate.getForObject("http://ACCOUNT-SERVICE/account-internal/{accountId}",UserAccount.class,order1.getUserAccountId());
+//        assert room != null;
+//        room.setAvailable(false);
+//
+//        responseEntityDTO.setBooking(booking1);
+//        responseEntityDTO.setRoom(room);
    //     User retrivedUser = userRepository.findByEmail(email);
 //        var rooms = bookHotel.getRooms().stream().map(room -> {
 //            Room aRoom = (Room) roomService.findById(room.getRoomId());
@@ -46,11 +114,16 @@ public class BookingHotelService {
         //jwtUtils.getUserNameFromJwtToken(booking.setUserName())
 //        UserDTO userDTO =
 //        booking.setUserName(jwtUtils.getUserNameFromJwtToken(jwtUtils.getJwtFromCookies()));
-        return bookingRepository.save(booking);
-    }
+  //      return bookingRepository.save(booking);
 
-    public Booking findById(String string) {
-        return bookingRepository.findById(string).get();
+
+
+    public ResponseEntityDTO findById(String bookingId) {
+        Booking booking = bookingRepository.findById(bookingId).get();
+        Room room = restTemplate.getForObject("http://localhost:8088/room/{roomId}" , Room.class,booking.getRoomId());
+        CreditCardDto creditCardDto = restTemplate.getForObject("http://localhost:9001/{creditCardId}", CreditCardDto.class, booking.getCreditCardId());
+        return new ResponseEntityDTO(booking,room, creditCardDto);
+
     }
     public List<Booking> findAll() {
         return bookingRepository.findAll();

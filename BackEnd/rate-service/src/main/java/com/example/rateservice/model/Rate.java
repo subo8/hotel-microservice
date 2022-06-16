@@ -1,23 +1,22 @@
 package com.example.rateservice.model;
 
+import lombok.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@ToString
+@Builder
 
 @Document(collection = "rate")
 public class Rate {
+
     @Id
     private String id;
-
     private String roomId;
     private String userId;
-    private int star;
-
-    public Rate(String id, String roomId, String userId, int star) {
-        this.id = id;
-        this.roomId = roomId;
-        this.userId = userId;
-        this.star = star;
-    }
+    private Integer rating;
 
     public String getId() {
         return id;
@@ -43,21 +42,11 @@ public class Rate {
         this.userId = userId;
     }
 
-    public int getStar() {
-        return star;
+    public Integer getRating() {
+        return rating;
     }
 
-    public void setStar(int star) {
-        this.star = star;
-    }
-
-    @Override
-    public String toString() {
-        return "Rate{" +
-                "id='" + id + '\'' +
-                ", roomId=" + roomId +
-                ", userId=" + userId +
-                ", star=" + star +
-                '}';
+    public void setRating(Integer rating) {
+        this.rating = rating;
     }
 }

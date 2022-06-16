@@ -1,5 +1,6 @@
 package com.sa.sample.project.model;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -31,6 +32,8 @@ public class Booking {
     private String otherReservations;
     private String userName;
     private String roomId;
+    private Double amount;
+   private String creditCardId;
 
 
     public Booking(LocalDate of, LocalDate of1, int i, String any_other_reservation) {
