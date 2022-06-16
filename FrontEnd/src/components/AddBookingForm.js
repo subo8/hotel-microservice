@@ -11,6 +11,9 @@ class AddBookingForm extends React.Component {
     numberOfRooms: "",
     totalPrice: "",
     numberOfGuests: "",
+    roomId: "",
+    amount: "",
+    creditCardId: "",
   };
 
   changeHandler = (event) => {

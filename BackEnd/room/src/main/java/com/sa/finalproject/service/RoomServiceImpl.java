@@ -36,7 +36,6 @@ public class RoomServiceImpl implements RoomService{
 
     @Override
     public Room updateRoomServiceCommunication(Room room) {
-
         return roomRepository.save(room);
     }
 
