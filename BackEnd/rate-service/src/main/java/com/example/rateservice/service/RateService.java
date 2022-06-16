@@ -23,7 +23,7 @@ public class RateService {
     @Autowired
     private RestTemplate restTemplate;
 
-    public void addRate(Rate rate) throws JsonProcessingException {
+    public Rate addRate(Rate rate) throws JsonProcessingException {
         ResponseEntityDTO vo = new ResponseEntityDTO();
         ObjectMapper objectMapper = new ObjectMapper();
         Rate rate1 = new Rate();
@@ -42,7 +42,7 @@ public class RateService {
         restTemplate.put("http://localhost:8088/", roomString,String.class);
         vo.setRate(rate1);
         vo.setRoom(room);
-        rateRepository.save(rate);
+        return rateRepository.save(rate);
     }
 
     public boolean updateRate(String rateID,Rate rate) {
