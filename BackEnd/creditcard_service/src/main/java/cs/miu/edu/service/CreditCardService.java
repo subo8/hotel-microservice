@@ -35,7 +35,7 @@ public class CreditCardService {
 
     }
 
-    public List<CreditCard> getAllCreditCards() {
+    public List<CreditCard> getCreditCards() {
         return creditCardRepository.findAll();
     }
 

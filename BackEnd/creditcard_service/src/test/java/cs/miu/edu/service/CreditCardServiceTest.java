@@ -80,7 +80,7 @@ class CreditCardServiceTest {
                         .ccv("2222")
                         .build());
         when(creditCardRepository.findAll()).thenReturn(creditCards);
-        List<CreditCard> response = creditCardService.getAllCreditCards();
+        List<CreditCard> response = creditCardService.getCreditCards();
         assertThat(response).isNotNull();
         assertThat(response).isEqualTo(creditCards);
     }

@@ -11,6 +11,7 @@ import org.springframework.web.util.WebUtils;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 @RestController
 @RequestMapping("/creditcards")
@@ -28,7 +29,8 @@ public class CreditCardController {
 
 
 @PostMapping
-public  CreditCard saveCreditCard(@RequestBody CreditCard creditCard , HttpServletRequest request){
+@CrossOrigin("http://localhost:3000")
+public  CreditCard saveCreditCard(@RequestBody CreditCard creditCard , HttpServletRequest request) {
 
     Cookie cookie = WebUtils.getCookie(request, "subo8");
     if (cookie != null) {
@@ -38,12 +40,19 @@ public  CreditCard saveCreditCard(@RequestBody CreditCard creditCard , HttpServl
 
     }
     return null;
-
 }
 
+
+
 @GetMapping("/{creditCardId}")
+@CrossOrigin("http://localhost:3000")
     public   CreditCard findCardById(@PathVariable String creditCardId){
         return  creditCardService.getCreditCards(creditCardId);
+}
+@GetMapping
+@CrossOrigin("http://localhost:3000")
+    public List<CreditCard> getCreditCards(){
+        return creditCardService.getCreditCards();
 }
 
     @PutMapping("/{creditCardId}")

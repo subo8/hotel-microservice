@@ -1,9 +1,9 @@
 package com.miu.edu.cs590.project.producer.service;
 
-import com.miu.edu.cs590.project.producer.domain.InformationTest;
+import com.miu.edu.cs590.project.producer.common.NotificationInfo;
 
 public interface KafkaSenderService {
 
-    void receiveEvent(InformationTest informationTest);
+    void receiveEvent(NotificationInfo notificationInfo);
 
 }
