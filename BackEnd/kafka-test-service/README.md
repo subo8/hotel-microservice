@@ -19,7 +19,7 @@ $ kubectl create deployment kafka-service --image=xocbayar/kafka-service --dry-r
 
 $ echo --- >> kafka-service-deployment.yaml
 
-$ kubectl create service loadbalancer kafka-service --tcp=8100:8100 --dry-run=client -o=yaml >> kafka-service-deployment.yaml
+$ kubectl create service clusterip kafka-service --tcp=8100:8100 --dry-run=client -o=yaml >> kafka-service-deployment.yaml
 
 $ kubectl apply -f kafka-service-deployment.yaml
 

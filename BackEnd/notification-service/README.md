@@ -20,7 +20,7 @@ $ kubectl create deployment notification-service --image=xocbayar/notification-s
 
 $ echo --- >> notification-service-deployment.yaml
 
-$ kubectl create service loadbalancer notification-service --tcp=8110:8110 --dry-run=client -o=yaml >> notification-service-deployment.yaml
+$ kubectl create service clusterip notification-service --tcp=8110:8110 --dry-run=client -o=yaml >> notification-service-deployment.yaml
 
 $ kubectl apply -f notification-service-deployment.yaml
 
