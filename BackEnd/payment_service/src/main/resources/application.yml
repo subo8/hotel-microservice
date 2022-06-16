@@ -10,6 +10,10 @@ spring:
       host: localhost
       port: 27017
       database: PaymentInformation
+creditcard:
+  service:
+    key: creditcard-service
+
 # spring:
 #   data:
 #     mongodb:

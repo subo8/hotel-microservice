@@ -14,6 +14,8 @@ public interface PaypalRepo extends JpaRepository<Paypal,Integer> {
     @Query("select paypal from Paypal  paypal where paypal.emailAddress=?1 and paypal.secureKey=?2")
    public Optional<Paypal> getPaypal(String email,String secureKey);
 
+    public Optional<Paypal> getPaypalByUserName(String username);
+
 
 
 }

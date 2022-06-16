@@ -30,6 +30,7 @@ public class PaypalServiceApplication implements CommandLineRunner {
     public void loadPaypalData() {
         List<Paypal> paypalList = Arrays.asList(Paypal.builder()
                         .firstName("Priya")
+                        .userName("admin")
                         .lastName("Giri")
                         .emailAddress("giripriya@gmail.com")
                         .balance(8000.0)
@@ -40,11 +41,14 @@ public class PaypalServiceApplication implements CommandLineRunner {
                         .lastName("Yandar")
                         .emailAddress("yandarsu@gmail.com")
                         .balance(7000.0)
+                        .userName("admin1")
+
                         .secureKey("2222")
                         .build(),
                 Paypal.builder()
                         .firstName("Samuel")
                         .lastName("Valiente")
+                        .userName("admin2")
                         .emailAddress("valientesaluel@gmail.com")
                         .balance(3000.0)
                         .secureKey("3333")
@@ -54,6 +58,7 @@ public class PaypalServiceApplication implements CommandLineRunner {
                         .lastName("Batsukh")
                         .emailAddress("batsukhbyambadorj@gmail.com")
                         .balance(4000.0)
+                        .userName("admin3")
                         .secureKey("4444")
                         .build(),
                 Paypal.builder()
@@ -61,6 +66,7 @@ public class PaypalServiceApplication implements CommandLineRunner {
                         .lastName("Rin")
                         .emailAddress("rinsopheary@gmail.com")
                         .balance(8000.0)
+                        .userName("admin4")
                         .secureKey("5555")
                         .build()
                 , Paypal.builder()
@@ -68,6 +74,7 @@ public class PaypalServiceApplication implements CommandLineRunner {
                         .lastName("Tuslme")
                         .emailAddress("tuslmegodwin@gmail.com")
                         .balance(5044.0)
+                        .userName("admin5")
                         .secureKey("6666")
                         .build(),
                 Paypal.builder()
@@ -75,6 +82,7 @@ public class PaypalServiceApplication implements CommandLineRunner {
                         .lastName("Sandag")
                         .emailAddress("sandagkhosbayar@gmail.com")
                         .balance(8000.0)
+                        .userName("admin6")
                         .secureKey("7777")
                         .build());
         paypalRepo.saveAll(paypalList);

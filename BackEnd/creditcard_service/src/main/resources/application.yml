@@ -19,6 +19,3 @@ spring:
     hibernate:
       ddl-auto: create
 
-bankaccount:
-  service:
-    key: creditcard-service

@@ -32,6 +32,7 @@ public class Booking {
     private String userName;
     private String roomId;
 
+
     public Booking(LocalDate of, LocalDate of1, int i, String any_other_reservation) {
         this.dateOfArrival = of;
         this.dateOfDeparture = of1;
