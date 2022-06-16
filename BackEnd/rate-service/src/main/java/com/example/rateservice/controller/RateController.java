@@ -4,6 +4,7 @@ import com.example.rateservice.model.Rate;
 import com.example.rateservice.repository.RateRepository;
 import com.example.rateservice.service.RateService;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +16,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
+@ApiResponse(description = "Rating service for rating room of MIU hotel")
 public class RateController {
 
     @Autowired

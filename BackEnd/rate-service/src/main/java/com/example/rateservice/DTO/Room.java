@@ -1,6 +1,8 @@
 package com.example.rateservice.DTO;
+import lombok.AllArgsConstructor;
 import org.springframework.data.annotation.Id;
 
+@AllArgsConstructor
 public class Room {
 
     @Id
