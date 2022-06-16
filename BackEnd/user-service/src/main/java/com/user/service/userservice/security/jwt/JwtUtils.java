@@ -41,7 +41,7 @@ public class JwtUtils {
 
    for(int i=0; i<list.size(); i++) {
      System.out.println(list.get(i).toString());
-     if (list.get(i).toString() == "ROLE_USER") {
+     if (list.get(i).toString() .equals( "ROLE_USER")) {
        System.out.println("yes");
      } else {
        System.out.println("no");
@@ -49,10 +49,10 @@ public class JwtUtils {
    }
 
     String jwt = generateTokenFromUsername(userPrincipal.getUsername(), userPrincipal.getId(), list);
-    ResponseCookie cookie = ResponseCookie.from(jwtCookie, jwt).path("/").maxAge(24 * 60 * 60).httpOnly(true).build();
+    ResponseCookie cookie = ResponseCookie.from(jwtCookie, jwt).path("/").maxAge(24 * 60 * 60)
+            .build();
     return cookie;
   }
-
   public ResponseCookie getCleanJwtCookie() {
     ResponseCookie cookie = ResponseCookie.from(jwtCookie, null).path("/").build();
     return cookie;
