@@ -1,29 +1,21 @@
-package cs.miu.edu.domain;
+package com.sa.sample.project.dto;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
+import nonapi.io.github.classgraph.json.Id;
 import org.springframework.format.annotation.DateTimeFormat;
-
 
 import java.time.LocalDate;
 import java.util.Date;
 
-//@Entity
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
-//@Builder
-@Document
-@Data
-public class CreditCard {
+public class CreditCardDto {
     @Id
-
     private String creditCardId;
-   //private String roomId;
+    //    private String firstName;
     private String userName;
     private String cardNumber;
     private String ccv;

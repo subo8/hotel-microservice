@@ -126,7 +126,6 @@ public class RoomController {
     @PutMapping("/")
     public Room updateRoomServiceLevel(@RequestBody String room) {
         ObjectMapper objectMapper = new ObjectMapper();
-
         Room room1 = null;
         try {
             room1 = objectMapper.readValue(room, Room.class);
