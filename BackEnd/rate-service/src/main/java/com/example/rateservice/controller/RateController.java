@@ -1,5 +1,4 @@
 package com.example.rateservice.controller;
-
 import com.example.rateservice.jwt.JwtUtils;
 import com.example.rateservice.model.Rate;
 import com.example.rateservice.repository.RateRepository;
@@ -30,9 +29,20 @@ public class RateController {
     JwtUtils jwtUtils;
 
     @GetMapping("/")
-    public List<Rate> findAll() {
-        return raterepository.findAll();
+    public ResponseEntity<List<Rate>> findAll() {
+        try{
+            List<Rate> rates = rateService.findAll();
+            return new ResponseEntity<List<Rate>>(rates, HttpStatus.FOUND);
+        }
+        catch (Exception e){
+            return new ResponseEntity<List<Rate>>(HttpStatus.NOT_FOUND);
+        }
     }
+
+//    @GetMapping("/")
+//    public List<Rate> findAll(){
+//        return raterepository.findAll();
+//    }
 
     @PostMapping("/")
     public ResponseEntity<?> addRate(@RequestBody Rate rate, HttpServletRequest request)

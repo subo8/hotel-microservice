@@ -38,6 +38,6 @@ spec:
     targetPort: 8110
   selector:
     app: notification-service
-  type: LoadBalancer
+  type: ClusterIP
 status:
   loadBalancer: {}
