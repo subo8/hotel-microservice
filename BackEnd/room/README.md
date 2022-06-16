@@ -21,10 +21,11 @@ $ kubectl create deployment room-service --image=xocbayar/room-service --dry-run
 
 $ echo --- >> room-deployment.yaml
 
-$ kubectl create service clusterip room-service --tcp=8088:8088 --dry-run=client -o=yaml >> room-deployment.yaml
+$ kubectl create service loadbalancer room-service --tcp=8088:8088 --dry-run=client -o=yaml >> room-deployment.yaml
 
 $ kubectl apply -f room-deployment.yaml
 
+$ minikube tunnel
 $ kubectl port-forward svc/room-service 8088:8088
 ```
 ### Application properties
