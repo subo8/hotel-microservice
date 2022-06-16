@@ -18,6 +18,12 @@ public class Rate {
     private String userId;
     private Integer rating;
 
+    public Rate(String roomId, String userId, Integer rating) {
+        this.roomId = roomId;
+        this.userId = userId;
+        this.rating = rating;
+    }
+
     public String getId() {
         return id;
     }

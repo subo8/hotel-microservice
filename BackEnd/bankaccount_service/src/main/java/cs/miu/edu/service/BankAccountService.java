@@ -1,43 +1,61 @@
 package cs.miu.edu.service;
 
 import cs.miu.edu.domain.BankAccount;
-import cs.miu.edu.dto.BankAccountDto;
-import cs.miu.edu.dto.Status;
-import cs.miu.edu.dto.ResponseStatus;
+
 
 import cs.miu.edu.repository.BankAccountRepo;
+import cs.miu.edu.security.jwt.JwtUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.util.WebUtils;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 import java.util.Optional;
 
 
 @Service
 public class BankAccountService {
 
+
+
+    private final BankAccountRepo bankAccountRepo;
+
     @Autowired
-    private BankAccountRepo bankAccountRepo;
+    JwtUtils jwtUtils;
 
 
 
-
-    //to verify account
-    public ResponseStatus verifyPurchase(BankAccountDto bankAccountDto) {
-        Optional<BankAccount> bankAccountOptional = bankAccountRepo.getBankaccountByAccountNoAccountTypeRoutingNo(bankAccountDto.getBankAccountNumber(),
-                bankAccountDto.getType(), bankAccountDto.getRoutingNumber());
-        if (bankAccountOptional.isEmpty()) {
-            System.out.println("Invalid account");
-            return new ResponseStatus(Status.FAILURE);
-        }
-        BankAccount bankAccount = bankAccountOptional.get();
-        Double bankAccountBalance = bankAccount.getBalance() - bankAccountDto.getBalance();
-        if (bankAccountBalance < 0) {
-            System.out.println("Insufficient balance to purchase item");
-            return new ResponseStatus(Status.FAILURE);
-        }
-        bankAccount.setBalance(bankAccountBalance);
-        bankAccountRepo.save(bankAccount);
-        return new ResponseStatus(Status.SUCCESS);
+    public BankAccountService(BankAccountRepo bankAccountRepo) {
+        this.bankAccountRepo = bankAccountRepo;
     }
 
+
+
+    public BankAccount saveBankAccount(BankAccount bankAccount, HttpServletRequest request) {
+        Cookie cookie = WebUtils.getCookie(request, "subo8");
+        if (cookie != null) {
+            String jwt = cookie.getValue();
+            String username = jwtUtils.getUserNameFromJwtToken(jwt);
+            bankAccount.setUserName(username);
+            return bankAccountRepo.save(bankAccount);
+        }
+        return null;
+    }
+
+    public List<BankAccount> getCreditCards(){
+        return  bankAccountRepo.findAll();
+    }
+    public BankAccount getBankAccountById(String creditCardId) {
+        return bankAccountRepo.findById(creditCardId).get();
+    }
+
+    public BankAccount updateBankAccount(BankAccount bankAccount,String bankAccountId) {
+      BankAccount bankAccount1= getBankAccountById(bankAccountId);
+      if(bankAccount.getBalance() != null){
+          bankAccount1.setBalance(bankAccount.getBalance());
+      }
+      return bankAccountRepo.save(bankAccount);
+    }
 }

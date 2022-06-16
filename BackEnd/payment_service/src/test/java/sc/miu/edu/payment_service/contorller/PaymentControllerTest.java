@@ -112,7 +112,7 @@ class PaymentControllerTest {
                 .type(BankAccountType.SAVING)
                 .bankAccountNumber("11111111")
                 .balance(12.0)
-                .routingNumber("1111")
+                .routingNumber(1111)
                 .build();
         when(paymentService.verifyBankAccountAndSavePayment(bankAccountDtoArgumentCaptor.capture())).thenReturn(paymentInformationResponse);
 

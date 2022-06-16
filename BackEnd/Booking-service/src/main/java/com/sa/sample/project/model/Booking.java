@@ -35,6 +35,7 @@ public class Booking {
     private Double amount;
    private String creditCardId;
 
+
     public Booking(LocalDate of, LocalDate of1, int i, String any_other_reservation) {
         this.dateOfArrival = of;
         this.dateOfDeparture = of1;

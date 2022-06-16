@@ -1,7 +1,7 @@
 git# Room service
 Admin can create, update and delete room data
 
-## Docker 
+## Docker
 
 1. Build docker image
 ```
@@ -15,7 +15,9 @@ $ docker push --all-tags xocbayar/room-service
 ## Kubernetes
 ```
 $ helm repo add bitnami https://charts.bitnami.com/bitnami
-$ helm install hotel-mongodb --set auth.rootPassword=secretpassword bitnami/mongodb
+$ helm install hotel-room-mongodb \
+    --set auth.rootPassword=secretpassword,auth.username=hoteluser,auth.password=hotelpass,auth.database=room_DB \
+    bitnami/mongodb
 
 $ kubectl create deployment room-service --image=xocbayar/room-service --dry-run=client -o=yaml > room-deployment.yaml 
 
@@ -29,7 +31,7 @@ $ kubectl port-forward svc/room-service 8088:8088
 ```
 ### Application properties
 ```
-spring.data.mongodb.uri=mongodb://root:secretpassword@hotel-mongodb.default.svc.cluster.local:27017/room_DB?authSource=admin
+spring.data.mongodb.uri=mongodb://hoteluser:hotelpass@hotel-room-mongodb.default.svc.cluster.local:27017/room_DB
 ```
 
 ## Endpoints
@@ -43,34 +45,44 @@ Content-Type: application/json
     "roomNumber": 601,
     "type": "Single",
     "price": 120.0,
-    "bedType": null,
+    "bedType": "Single",
     "numberOfBeds": null,
     "maxNumberOfGuests": null,
     "smoking": false,
     "description": null,
-    "available": false,
+    "available": true,
     "roomRating":null,
     "totalRatings": 1
 }
 ~~~
 
 ### Delete Room
+```
+replce room id auto generate from sysem with 1 at url
+```
 ~~~
 DELETE http://localhost:8088/room/1
 
 ~~~
 
 ## Update Room
-
+```
+replce room id auto generate from sysem with 1 at url
+```
 ~~~
-PUT http://localhost:8088/room/2
+PUT http://localhost:8088/room/1
 Content-Type: application/json
 
 {
-    "roomId":2,
-    "roomNumber":"303",
-    "type" : "Delux",
-    "price" : 160
+    "roomNumber": 201,
+    "type": Single,
+    "price": 200.00,
+    "bedType": Single,
+    "numberOfBeds": 3,
+    "maxNumberOfGuests": 3,
+    "smoking": false,
+    "description": null,
+    "available": true
 }
 
 
@@ -79,4 +91,14 @@ Content-Type: application/json
 ~~~
 GET http://localhost:8088/room/
 Content-Type: application/json
+~~~
+
+
+### Checkout Room
+```
+replce room id auto generate from sysem with 1 at url
+```
+~~~
+GET http://localhost:8088/room/checkout/1
+
 ~~~
