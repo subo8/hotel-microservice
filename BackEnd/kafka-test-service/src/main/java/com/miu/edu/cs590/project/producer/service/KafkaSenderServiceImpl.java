@@ -2,7 +2,7 @@ package com.miu.edu.cs590.project.producer.service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.miu.edu.cs590.project.producer.domain.InformationTest;
+import com.miu.edu.cs590.project.producer.common.NotificationInfo;
 import com.miu.edu.cs590.project.producer.domain.Sender;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,19 +19,19 @@ public class KafkaSenderServiceImpl implements KafkaSenderService {
     private String topic;
 
     @Override
-    public void receiveEvent(InformationTest informationTest) {
+    public void receiveEvent(NotificationInfo notificationInfo) {
 
-        log.info("Object: " + informationTest);
+        log.info("Object: " + notificationInfo);
         ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.findAndRegisterModules();
         String createInformationTestAsString = null;
         try {
             log.info("Before Sending Topic");
-            createInformationTestAsString = objectMapper.writeValueAsString(informationTest);
+            createInformationTestAsString = objectMapper.writeValueAsString(notificationInfo);
             sender.send(topic, createInformationTestAsString);
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
         }
 
-        sender.send(topic, createInformationTestAsString);
     }
 }

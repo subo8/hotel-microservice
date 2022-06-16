@@ -4,26 +4,24 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import java.util.function.DoubleUnaryOperator;
 
-@Entity
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 @Data
+@Document
 public class Paypal {
+
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
-    private String firstName;
-    private String lastName;
+    private String id;
+    private String userName;
+
     private String emailAddress;
     private String secureKey;
     private Double balance;
+
 
 }

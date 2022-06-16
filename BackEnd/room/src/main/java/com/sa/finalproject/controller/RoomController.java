@@ -18,13 +18,12 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
+//@CrossOrigin(origins = "http://localhost:3000/")
 @RestController
-@RequestMapping("/")
-//@RequestMapping("/room")
+@RequestMapping("/room")
 public class RoomController {
-
     //    @Value("${subo8.app.jwtSecret}")
-//    private String jwtSecret;
+    //    private String jwtSecret;
     @Value("${subo8.app.jwtCookieName}")
     private String jwtCookie;
 
@@ -37,7 +36,9 @@ public class RoomController {
     }
 
     @GetMapping
+    @CrossOrigin("http://localhost:3000")
     public List<Room> getRooms(HttpServletRequest request) throws AuthenticationException {
+
 //        Cookie cookie = WebUtils.getCookie(request, jwtCookie);
 //        String jwt = cookie.getValue();
 //
@@ -45,31 +46,28 @@ public class RoomController {
 //        //System.out.println("User Role "+userRole);
 //        if(!userRole.equals("ROLE_ADMIN") && !userRole.equals("ROLE_USER"))
 //            throw new AuthenticationException();
+        //System.out.println("Incorrect "+userRole);
 //        //System.out.println("Incorrect "+userRole);
         //System.out.println("Show Room");
         return roomService.getRooms();
-
-
     }
 
-
     @GetMapping("/{roomId}")
+    @CrossOrigin("http://localhost:3000")
     public Room getRoomById(HttpServletRequest request,@PathVariable String roomId) throws AuthenticationException {
-
-//        Cookie cookie = WebUtils.getCookie(request, jwtCookie);
+//        Cookie cookie = WebUtils.getCookie(request, "subo8");
 //        String jwt = cookie.getValue();
 //
 //        String userRole = jwtUtils.getUserRoleFromJwtToken(jwt);
-//        //System.out.println("User Role "+userRole);
-//        if(!userRole.equals("ROLE_ADMIN") && !userRole.equals("ROLE_USER"))
-//            throw new AuthenticationException();
+//        System.out.println("User Role "+userRole);
+
         return roomService.findById(roomId);
-
-
     }
 
     @PostMapping("/")
-    public Room createRoom(HttpServletRequest request,@RequestBody Room room) throws AuthenticationException {
+    public Room createRoom(HttpServletRequest request,@RequestBody Room room) //throws AuthenticationException
+    {
+
 
        /* Cookie cookie = WebUtils.getCookie(request, jwtCookie);
         String jwt = cookie.getValue();
@@ -78,27 +76,32 @@ public class RoomController {
         //System.out.println("User Role "+userRole);
         if(!userRole.equals("ROLE_ADMIN"))
             throw new AuthenticationException();*/
-        System.out.println("Create Room");
+        //System.out.println("Create Room");
+
         return roomService.createRoom(room);
     }
 
     @DeleteMapping("/{roomId}")
+    @CrossOrigin(origins = "http://localhost:3000")
     public void deleteRoom(HttpServletRequest request,@PathVariable String roomId) throws AuthenticationException {
+
         /*Cookie cookie = WebUtils.getCookie(request, jwtCookie);
         String jwt = cookie.getValue();
 
         String userRole = jwtUtils.getUserRoleFromJwtToken(jwt);
+        System.out.println(userRole);
         //System.out.println("User Role "+userRole);
-        if(!userRole.equals("ROLE_ADMIN"))
-            throw new AuthenticationException();
+
+        */
 
         roomService.deleteRoom(roomId);
 
-         */
-    }
 
+    }
     @PutMapping("/{roomId}")
+    @CrossOrigin("http://localhost:3000")
     public Room updateRoom(HttpServletRequest request,@PathVariable String roomId, @RequestBody Room room) throws AuthenticationException {
+
        /* Cookie cookie = WebUtils.getCookie(request, jwtCookie);
         String jwt = cookie.getValue();
 
@@ -123,7 +126,6 @@ public class RoomController {
     @PutMapping("/")
     public Room updateRoomServiceLevel(@RequestBody String room) {
         ObjectMapper objectMapper = new ObjectMapper();
-
         Room room1 = null;
         try {
             room1 = objectMapper.readValue(room, Room.class);
@@ -133,9 +135,9 @@ public class RoomController {
         return roomService.updateRoomServiceCommunication(room1);
 
     }
-
     @GetMapping("/checkout/{roomId}")
-    public ResponseEntity<Object> releaseRoomById(HttpServletRequest request,@PathVariable String roomId) throws AuthenticationException {
+    public ResponseEntity<Object> releaseRoomById(HttpServletRequest request,@PathVariable String roomId) //throws AuthenticationException
+    {
         /*Cookie cookie = WebUtils.getCookie(request, jwtCookie);
         String jwt = cookie.getValue();
 
