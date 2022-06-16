@@ -28,9 +28,7 @@ $ docker push --all-tags xocbayar/user-service
 ### Kubernetes
 ```
 $ helm repo add bitnami https://charts.bitnami.com/bitnami
-$ helm install hotel-mongodb \
-    --set auth.rootPassword=secretpassword,auth.username=hoteluser,auth.password=hotelpass,auth.database=user_DB \
-    bitnami/mongodb
+$ helm install hotel-mongodb --set auth.rootPassword=secretpassword bitnami/mongodb
 
 $ kubectl create deployment user-service --image=xocbayar/user-service --dry-run=client -o=yaml > user-deployment.yaml 
 
@@ -44,7 +42,7 @@ $ kubectl port-forward svc/user-service 8080:8080
 ```
 #### Application properties
 ```
-spring.data.mongodb.uri=mongodb://hoteluser:hotelpass@hotel-mongodb.default.svc.cluster.local:27017/user_DB
+spring.data.mongodb.uri=mongodb://root:secretpassword@hotel-mongodb.default.svc.cluster.local:27017/user_DB?authSource=admin
 ```
 
 ### Endpoints

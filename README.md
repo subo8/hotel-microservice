@@ -3,9 +3,20 @@
 Software architecture
 
 ## BackEnd
-* API gateway
-* Discovery service
+### Service
+    - API gateway
+    - Hotel booking
+    - Room management
+    - Payment service
+        - Bank account
+        - Credit card
+        - Payment
+        - Paypal
+    - Rating service
+    - Notification service
+    - Logging
+### Kubernetes
+    - Discovery service
+    - Config management
+    - Secret management
 ## FrontEnd
-
-    - Samuel is ready to push and merge
-    - Priya is ready to push and merge
