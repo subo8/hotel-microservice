@@ -1,6 +1,7 @@
 package cs.miu.edu.service;
 
 import cs.miu.edu.domain.CreditCard;
+//import cs.miu.edu.mapper.Mapper;
 import cs.miu.edu.jwt.JwtUtils;
 import cs.miu.edu.repository.CreditCardRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,18 +10,16 @@ import org.springframework.web.util.WebUtils;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 
 @Service
 public class CreditCardService {
 
-
-  private final CreditCardRepository creditCardRepository;
-
     @Autowired
-    JwtUtils jwtUtils;
-
+    private final CreditCardRepository creditCardRepository;
 
 
     public CreditCardService(CreditCardRepository creditCardRepository) {
@@ -28,37 +27,31 @@ public class CreditCardService {
     }
 
 
+    public CreditCard saveCreditCard(CreditCard creditCard, String userName) {
+        //   CreditCard booking1 = new CreditCard();
 
-
-    public  CreditCard saveCreditCard(CreditCard creditCard, HttpServletRequest request) {
-     //   CreditCard booking1 = new CreditCard();
-        Cookie cookie = WebUtils.getCookie(request, "subo8");
-        if (cookie != null) {
-            String jwt = cookie.getValue();
-            String username = jwtUtils.getUserNameFromJwtToken(jwt);
-            creditCard.setUserName(username);
-            return creditCardRepository.save(creditCard);
-        }
-        return null;
-    }
-
-    public List<CreditCard> getCreditCards(){
-        return  creditCardRepository.findAll();
-    }
-    public CreditCard getCreditCards(String creditCardId){
-        return  creditCardRepository.findById(creditCardId).get();
-    }
-
-    public  CreditCard updateCreditCard(CreditCard creditCard){
-//        creditCardRepository.findById(creditCardId);
-//        creditCard.setCreditCardId(creditCardId);
-        return  creditCardRepository.save(creditCard);
-    }
-
-// @Autowired
-//    private CreditCardRepo creditCardRepo;
+        creditCard.setUserName(userName);
+        return creditCardRepository.save(creditCard);
 
     }
+
+    public List<CreditCard> getCreditCards() {
+        return creditCardRepository.findAll();
+    }
+
+    public CreditCard getCreditCards(String creditCardId) {
+        return creditCardRepository.findById(creditCardId).get();
+    }
+
+    public CreditCard updateCreditCard(CreditCard creditCard) {
+
+        return creditCardRepository.save(creditCard);
+    }
+
+
+
+
+}
 
 
 
