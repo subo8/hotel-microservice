@@ -1,14 +1,13 @@
 package com.miu.edu.cs590.project.notification.controller;
 
 
-import com.miu.edu.cs590.project.notification.common.InformationTest;
+import com.miu.edu.cs590.project.notification.model.InformationTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
 import static io.restassured.RestAssured.given;
-import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.hasItems;
 
 public class NotificationTestController {

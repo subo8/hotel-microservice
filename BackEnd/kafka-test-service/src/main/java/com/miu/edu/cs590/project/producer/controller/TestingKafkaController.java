@@ -1,6 +1,6 @@
 package com.miu.edu.cs590.project.producer.controller;
 
-import com.miu.edu.cs590.project.producer.domain.InformationTest;
+import com.miu.edu.cs590.project.producer.common.NotificationInfo;
 import com.miu.edu.cs590.project.producer.service.KafkaSenderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,8 +18,8 @@ public class TestingKafkaController {
     KafkaSenderService kafkaSenderService;
 
     @PostMapping("/producer")
-    public ResponseEntity<?> testingKafkaSender(@RequestBody InformationTest informationTest) {
-        kafkaSenderService.receiveEvent(informationTest);
+    public ResponseEntity<?> testingKafkaSender(@RequestBody NotificationInfo notificationInfo) {
+        kafkaSenderService.receiveEvent(notificationInfo);
         return new ResponseEntity<String>("New Event has been sent to the notification server", HttpStatus.OK);
     }
 
