@@ -38,6 +38,6 @@ spec:
     targetPort: 8099
   selector:
     app: rate-service
-  type: ClusterIP
+  type: LoadBalancer
 status:
   loadBalancer: {}
