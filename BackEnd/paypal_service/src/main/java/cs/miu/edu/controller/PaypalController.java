@@ -1,32 +1,40 @@
 package cs.miu.edu.controller;
 
+
 import cs.miu.edu.domain.Paypal;
-import cs.miu.edu.dto.PaypalDto;
+
 import cs.miu.edu.service.PaypalService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+
 import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletRequest;
 
 @RestController
 @RequestMapping("/paypals")
 public class PaypalController {
 
-    @Autowired
-    private PaypalService paypalService;
+
+    private  final PaypalService paypalService;
+
+    public PaypalController(PaypalService paypalService){
+        this.paypalService=paypalService;
+    }
+
+
 
     @PostMapping
-    public ResponseEntity<?> savePaypal(@RequestBody PaypalDto paypalDto){
-        ResponseEntity<?> response= new ResponseEntity<>(paypalService.savePaypal(paypalDto), HttpStatus.OK);
-        return response;
+    public Paypal savePaypal(@RequestBody Paypal paypal, HttpServletRequest httpServletRequest) {
+        return paypalService.savePaypal(paypal, httpServletRequest);
     }
 
-
-    @PutMapping("verify-purchase")
-    public ResponseEntity<?> verifyPurchase(@RequestBody PaypalDto paypalDto){
-        ResponseEntity<?> response= new ResponseEntity<>(paypalService.verifyPurchase(paypalDto), HttpStatus.OK);
-        return response;
+    @GetMapping("/{paypalId}")
+    public Paypal findPaypalById(@PathVariable String paypalId) {
+        return paypalService.paypalById(paypalId);
     }
 
-
+    @PutMapping("/{paypalId}")
+    public Paypal updatePaypal(@PathVariable String paypalId, @RequestBody Paypal paypal) {
+        return paypalService.updatePaypal(paypal,paypalId);
+    }
 }

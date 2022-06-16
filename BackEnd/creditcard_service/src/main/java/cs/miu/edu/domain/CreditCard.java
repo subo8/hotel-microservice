@@ -19,7 +19,7 @@ import java.util.Date;
 //@Builder
 @Document
 @Data
-public class CreditCard {
+public class    CreditCard {
     @Id
 
     private String creditCardId;

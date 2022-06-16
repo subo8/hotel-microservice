@@ -19,15 +19,7 @@ public class CreditCardController {
     }
 
 
-//    public CreditCardController(CreditCardService creditCardService) {
-//        this.creditCardService = creditCardService;
-//    }
 
-    //    @PostMapping
-//    public ResponseEntity<?> savePaypal(@RequestBody CreditCardDto paypalDto){
-//        ResponseEntity<?> response= new ResponseEntity<>(creditCardService.saveCreditCard(paypalDto), HttpStatus.OK);
-//        return response;
-//    }
 @PostMapping
 public  CreditCard saveCreditCard(@RequestBody CreditCard creditCard , HttpServletRequest httpServletRequest){
     return creditCardService.saveCreditCard(creditCard, httpServletRequest);
