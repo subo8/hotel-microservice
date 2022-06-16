@@ -1,7 +1,6 @@
 package com.miu.edu.cs590.project.notification.service;
 
-import com.miu.edu.cs590.project.notification.common.InformationTest;
-import lombok.AllArgsConstructor;
+import com.miu.edu.cs590.project.notification.model.NotificationInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -18,20 +17,25 @@ public class EmailServerImpl implements EmailService {
     @Value("${email.address}")
     private String emailSender;
 
-    @Value("${email.subject}")
-    private String emailSubject;
+    @Value("${email.customer.subject}")
+    private String emailCustomerSubject;
+
+    @Value("${email.owner.subject}")
+    private String emailOwnerSubject;
+    @Value("${email.owner}")
+    private String emailOwner;
 
     @Override
-    public void sendEmailWithImage(String emailInfo, InformationTest informationTest) {
+    public void sendEmailWithImage(String emailInfo, NotificationInfo notificationInfo) {
 
         MimeMessage message = javaMailSender.createMimeMessage();
         MimeMessageHelper helper;
         try {
 
             helper = new MimeMessageHelper(message, true);
-            helper.setSubject(emailSubject);
+            helper.setSubject(emailCustomerSubject);
             helper.setFrom(emailSender);
-            helper.setTo(informationTest.getEmail());
+            helper.setTo("sbartolome@miu.edu");
             helper.setText(emailInfo, true);
 
             javaMailSender.send(message);
@@ -42,5 +46,25 @@ public class EmailServerImpl implements EmailService {
 
     }
 
+    @Override
+    public void sendEmailToOwner(String emailInfo, NotificationInfo notificationInfo) {
+
+        MimeMessage message = javaMailSender.createMimeMessage();
+        MimeMessageHelper helper;
+        try {
+
+            helper = new MimeMessageHelper(message, true);
+            helper.setSubject(emailOwnerSubject);
+            helper.setFrom(emailSender);
+            helper.setTo(emailOwner);
+            helper.setText(emailInfo, true);
+
+            javaMailSender.send(message);
+
+        } catch (MessagingException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
 
 }
