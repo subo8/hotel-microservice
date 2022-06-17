@@ -105,7 +105,7 @@ class RoomsComponent extends React.Component {
       .put(`http://localhost:8088/room/${roomToEdit.roomId}`, roomDetails, {
         headers: {
           Authorization:
-            "Bearer " + localStorage.getItem("variableName").replace(/"/g, ""),
+            "Bearer " + localStorage.getItem("subo8").replace(/"/g, ""),
         },
       })
       .then((res) => {
@@ -120,8 +120,7 @@ class RoomsComponent extends React.Component {
     axios
       .delete(`http://localhost:8088/room/${roomToEdit.roomId}`, {
         headers: {
-          Authorization:
-            "Bearer " + localStorage.getItem("variableName").replace(/"/g, ""),
+          Headers: localStorage.getItem("subo8"),
         },
       })
       .then((res) => {

@@ -47,7 +47,7 @@ class Booking extends React.Component {
       // .get(BACK_END_URL + "/api/rooms/", {
       .get("http://localhost:8088/room", {
         headers: {
-          Authorization: "Bearer " + this.cookies.get("subo8"),
+          Headers: this.cookies.get("subo8"),
         },
       })
       .then((res) => {

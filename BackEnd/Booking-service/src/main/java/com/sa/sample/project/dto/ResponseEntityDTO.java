@@ -11,5 +11,5 @@ import lombok.NoArgsConstructor;
 public class ResponseEntityDTO {
     private Booking booking;
     private Room room;
-    CreditCardDto creditCardDto;
+    CreditCardDto paymentMethod;
 }

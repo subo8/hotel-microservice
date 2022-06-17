@@ -21,10 +21,10 @@ public class CreditCardService {
     @Autowired
     private final CreditCardRepository creditCardRepository;
 
-
     public CreditCardService(CreditCardRepository creditCardRepository) {
         this.creditCardRepository = creditCardRepository;
     }
+
 
 
     public CreditCard saveCreditCard(CreditCard creditCard, String userName) {
@@ -33,25 +33,48 @@ public class CreditCardService {
         creditCard.setUserName(userName);
         return creditCardRepository.save(creditCard);
 
+
     }
 
     public List<CreditCard> getCreditCards() {
         return creditCardRepository.findAll();
+
+    }
+
+    public CreditCard getCreditCard(String creditCardId) {
+        return creditCardRepository.findById(creditCardId).get();
+    }
+
+    public CreditCard updateCreditCard(CreditCard creditCard) {
+        return creditCardRepository.save(creditCard);
+    }
+
+    public CreditCard updateCreditCardLocal(CreditCard creditCard, String creditCardId) {
+
+       CreditCard creditCard1= creditCardRepository.findById(creditCardId).get();
+       creditCard1.setBalance(creditCard1.getBalance()+creditCard.getBalance());
+        creditCard.setCreditCardId(creditCardId);
+        creditCard.setBalance(creditCard1.getBalance());
+
+//        creditCardRepository.findById(creditCardId);
+//        creditCard.setCreditCardId(creditCardId);
+        return creditCardRepository.save(creditCard);
+
+// @Autowired
+//    private CreditCardRepo creditCardRepo;
+
     }
 
     public CreditCard getCreditCards(String creditCardId) {
         return creditCardRepository.findById(creditCardId).get();
     }
 
-    public CreditCard updateCreditCard(CreditCard creditCard) {
-
-        return creditCardRepository.save(creditCard);
-    }
-
-
-
-
 }
+
+
+
+
+
 
 
 

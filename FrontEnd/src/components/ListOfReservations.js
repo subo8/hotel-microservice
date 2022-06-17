@@ -15,7 +15,7 @@ class ListOfReservations extends React.Component {
     axios
       .get("http://localhost:8999/", {
         headers: {
-          Authorization: localStorage.getItem("subo8").replace(/"/g, ""),
+          Headers: localStorage.getItem("subo8"),
         },
       })
       .then((res) => {
