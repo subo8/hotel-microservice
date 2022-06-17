@@ -3,23 +3,23 @@ kind: Deployment
 metadata:
   creationTimestamp: null
   labels:
-    app: creditcard-service
-  name: creditcard-service
+    app: credit-service
+  name: credit-service
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: creditcard-service
+      app: credit-service
   strategy: {}
   template:
     metadata:
       creationTimestamp: null
       labels:
-        app: creditcard-service
+        app: credit-service
     spec:
       containers:
-      - image: xocbayar/creditcard-service
-        name: creditcard-service
+      - image: xocbayar/credit-service
+        name: credit-service
         resources: {}
 status: {}
 ---
@@ -28,8 +28,8 @@ kind: Service
 metadata:
   creationTimestamp: null
   labels:
-    app: creditcard-service
-  name: creditcard-service
+    app: credit-service
+  name: credit-service
 spec:
   ports:
   - name: 9001-9001
@@ -37,7 +37,7 @@ spec:
     protocol: TCP
     targetPort: 9001
   selector:
-    app: creditcard-service
+    app: credit-service
   type: LoadBalancer
 status:
   loadBalancer: {}
