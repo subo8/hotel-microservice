@@ -1,4 +1,4 @@
-package com.sa.sample.project.service;
+package com.sa.sample.project.kafka;
 
 import com.sa.sample.project.kafka.KafkaPackage;
 

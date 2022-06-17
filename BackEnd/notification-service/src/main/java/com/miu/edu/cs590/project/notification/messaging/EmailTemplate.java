@@ -25,7 +25,7 @@ public class EmailTemplate {
                 "    <title>Email</title>\n" +
                 "</head>\n" +
                 "<body>\n" +
-                "<div><p>Mr/Miss <b>" + notificationInfo.getUserName() + "</b></p></div>\n" +
+                "<div><p>Mr/Miss <b>" + notificationInfo.getFullName() + "</b></p></div>\n" +
                 "\n" +
                 "<div><p> Your reservation has been made successfully. Here we leave the information of your room: </p></div>\n" +
                 "<div><p> Here you have the information of your reservation: </p></div>\n" +
@@ -38,6 +38,8 @@ public class EmailTemplate {
                 "       <li> Number of beds: " + notificationInfo.getNumberOfBeds() +"</li> \n" +
                 "       <li> Number of Guests: " + notificationInfo.getMaxNumberOfGuests() + "</li> \n" +
                 "       <li> Number of rooms Booked: " + notificationInfo.getNumberOfRooms() + "</li> \n" +
+                "       <li> Price of the rooms Booked: $" + notificationInfo.getPrice() + "</li> \n" +
+                "       <li> Total Amount: $" + notificationInfo.getPrice() + "</li> \n" +
                 "       <li> Arrival Date: " + notificationInfo.getDateOfArrival() + "</li> \n" +
                 "       <li> Departure Date: " + notificationInfo.getDateOfDeparture() + "</li> \n" +
                 "       <li> Other reservations: " + notificationInfo.getOtherReservations() + "</li> \n" +
@@ -80,7 +82,7 @@ public class EmailTemplate {
                 "<div><p> Here is the customer information: </p></div>\n" +
                 "<div>"+
                 "   <ul>" +
-                "       <li> Customer UserName: " + notificationInfo.getUserName() + "</li> \n" +
+                "       <li> Customer UserName: " + notificationInfo.getFullName() + "</li> \n" +
                 "       <li> Customer email: " + notificationInfo.getEmail() + "</li> \n" +
                 "       <li> Number of rooms Booked: " + notificationInfo.getNumberOfRooms() + "</li> \n" +
                 "       <li> Room number: " + notificationInfo.getRoomNumber() + "</li> \n" +
@@ -89,6 +91,8 @@ public class EmailTemplate {
                 "       <li> Number of beds: " + notificationInfo.getNumberOfBeds() +"</li> \n" +
                 "       <li> Number of Guests: " + notificationInfo.getMaxNumberOfGuests() + "</li> \n" +
                 "       <li> Number of rooms Booked: " + notificationInfo.getNumberOfRooms() + "</li> \n" +
+                "       <li> Price of the rooms Booked: $" + notificationInfo.getPrice() + "</li> \n" +
+                "       <li> Total Amount: $" + notificationInfo.getPrice() + "</li> \n" +
                 "       <li> Arrival Date: " + notificationInfo.getDateOfArrival() + "</li> \n" +
                 "       <li> Departure Date: " + notificationInfo.getDateOfDeparture() + "</li> \n" +
                 "       <li> Other reservations: " + notificationInfo.getOtherReservations() + "</li> \n" +

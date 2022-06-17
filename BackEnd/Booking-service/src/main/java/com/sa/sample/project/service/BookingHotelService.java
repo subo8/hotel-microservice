@@ -6,7 +6,9 @@ import com.sa.sample.project.dto.CreditCardDto;
 import com.sa.sample.project.dto.ResponseEntityDTO;
 import com.sa.sample.project.dto.Room;
 import com.sa.sample.project.jwt.JwtUtils;
+import com.sa.sample.project.kafka.CookiesInfo;
 import com.sa.sample.project.kafka.KafkaPackage;
+import com.sa.sample.project.kafka.KafkaSenderService;
 import com.sa.sample.project.model.Booking;
 import com.sa.sample.project.repository.BookingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,6 +52,7 @@ public class BookingHotelService {
         Booking booking1 = new Booking();
         Cookie cookie = WebUtils.getCookie(request, "subo8");
         System.out.println("Do we get the cookie? " + cookie);
+
 //        HttpHeaders headers = new HttpHeaders();
 //        assert cookie != null;
 //        headers.add("subo8", cookie.getValue());
@@ -85,9 +88,15 @@ public class BookingHotelService {
             System.out.println("++++++++++++ Room After" + room);
 
             // Samuel's Part
+            String fullName = jwtUtils.getFullNameFromJwtToken(jwt);
+            String email = jwtUtils.getEmailFromJwtToken(jwt);
             KafkaPackage kafkaPackage = new KafkaPackage();
-            kafkaPackage.setBooking(booking1);
+            kafkaPackage.setBooking(booking);
             kafkaPackage.setRoom(room);
+            CookiesInfo cookiesInfo = new CookiesInfo();
+            cookiesInfo.setFullName(fullName);
+            cookiesInfo.setEmail(email);
+            kafkaPackage.setCookiesInfo(cookiesInfo);
             kafkaSenderService.receiveEvent(kafkaPackage);
 
 //            if (!room.isAvailable()) {

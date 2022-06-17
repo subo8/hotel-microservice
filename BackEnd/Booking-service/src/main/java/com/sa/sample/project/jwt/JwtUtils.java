@@ -54,6 +54,18 @@ public class JwtUtils {
     return Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token).getBody().getSubject();
   }
 
+//  Get email from JWT
+  public String getEmailFromJwtToken(String token) {
+    Claims claims = Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token).getBody();
+    return claims.get("email").toString();
+  }
+
+//  Get fullname from jwt
+  public String getFullNameFromJwtToken(String token) {
+    Claims claims = Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token).getBody();
+    return claims.get("name").toString();
+  }
+
 //  public boolean validateJwtToken(String authToken) {
 //    try {
 //      Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(authToken);

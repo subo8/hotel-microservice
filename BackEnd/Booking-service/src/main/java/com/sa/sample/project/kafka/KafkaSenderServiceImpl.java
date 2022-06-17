@@ -1,9 +1,7 @@
-package com.sa.sample.project.service;
+package com.sa.sample.project.kafka;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.sa.sample.project.kafka.KafkaPackage;
-import com.sa.sample.project.kafka.Sender;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;

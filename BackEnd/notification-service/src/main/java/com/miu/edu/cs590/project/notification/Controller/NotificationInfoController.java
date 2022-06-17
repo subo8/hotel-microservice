@@ -28,7 +28,7 @@ public class NotificationInfoController {
 
     // Testing Purposes Only
     @PostMapping("/notifications")
-    public void addInformation(@Valid  @RequestBody NotificationInfo notificationInfo) {
+    public void addInformation(@Valid @RequestBody NotificationInfo notificationInfo) {
         notificationInfoService.saveNotificationInfo(notificationInfo);
     }
     @DeleteMapping ("/notifications/{email}")
