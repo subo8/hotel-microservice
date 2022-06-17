@@ -33,6 +33,7 @@ $ kubectl port-forward svc/rate-service 8099:8099
 ### Application properties
 ```
 spring.data.mongodb.uri=mongodb://hoteluser:hotelpass@hotel-rate-mongodb.default.svc.cluster.local:27017/rate_DB
+<<<<<<< HEAD
 ```
 
 ## Rating Service CRUD
@@ -51,6 +52,25 @@ spring.data.mongodb.uri=mongodb://hoteluser:hotelpass@hotel-rate-mongodb.default
 - Response
 ```
 Rate has been added successfully.
+```
+- It will insert rating into room service : [ http://localhost:8088/room]( http://localhost:8088/room)
+```
+[
+    {
+        "roomId": "62a92e51b35c623b239e6488",
+        "roomNumber": 5,
+        "type": "VIP",
+        "price": 10.0,
+        "bedType": "goood",
+        "numberOfBeds": 3,
+        "maxNumberOfGuests": 10,
+        "smoking": false,
+        "description": "Good",
+        "available": false,
+        "roomRating": "5 star",
+        "totalRatings": 5
+    }
+]
 ```
 
 
@@ -98,3 +118,4 @@ Rate has been deleted successfully.
 
 ## License
 [MIU](https://gitlab.com/miu3/sa/big-project/-/tree/main)
+=======
