@@ -15,6 +15,7 @@ class AddBookingForm extends React.Component {
     amount: "",
     creditCardId: "",
     creditcards: [],
+    roomss: [],
   };
   cookies = new Cookies();
   changeHandler = (event) => {
@@ -23,36 +24,30 @@ class AddBookingForm extends React.Component {
 
   submitHandler = (event) => {
     event.preventDefault();
-    const rooms = this.props.rooms;
+    // const rooms = this.props.rooms;
     const creditcards = this.props.creditcards;
-    if (rooms != null && rooms.length < 1) return;
+    const roomss = this.props.roomss;
+    //if (rooms != null && rooms.length < 1) return;
 
-    const totalPrice = rooms.reduce(
-      (total, room) => total + (room.price || 0),
-      0
-    );
+    // const totalPrice = rooms.reduce(
+    //   (total, room) => total + (room.price || 0),
+    //   0
+    // );
 
     const bookingDetails = {
       ...this.state,
-      totalPrice,
-      rooms,
-      creditcards,
+      //  totalPrice,
+      //  rooms,
+      // creditcards,
+      // roomss,
     };
 
     console.log(bookingDetails);
     axios
       .post("http://localhost:8999/front", bookingDetails, {
         headers: {
-          Headers: localStorage.getItem("variableName").replace(/"/g, ""),
-          // withCredentials: true,
+          Headers: localStorage.getItem("sobu8"),
         },
-        // headers: { 'Content-Type': 'application/json' },
-        // withCredentials: true
-
-        // headers: {
-        //   // Headers: localStorage.getItem("subo8").replace(/"/g, ""),
-        //   Headers: localStorage.getItem("subo8"),
-        // },
       })
       .then((res) => {
         console.log(res);
@@ -60,20 +55,7 @@ class AddBookingForm extends React.Component {
       })
       .catch((err) => console.log(err));
   };
-
-  roomList = (rooms) =>
-    rooms.map((room) => {
-      return (
-        <Badge
-          pill
-          bg="secondary"
-          className="m-2"
-          key={room.roomNumber}
-        >{`Room #${room.roomNumber} selected`}</Badge>
-      );
-    });
-
-  componentDidMount() {
+  fetchCreditCard() {
     axios
       .get("http://localhost:9001/creditcards", {
         headers: {
@@ -91,9 +73,31 @@ class AddBookingForm extends React.Component {
         }).catch((error) => console.log(error));
       });
   }
+  fetchRooms() {
+    axios
+      // .get(BACK_END_URL + "/api/rooms/", {
+      .get("http://localhost:8088/room", {
+        headers: {
+          Headers: this.cookies.get("subo8"),
+        },
+      })
+      .then((res) => {
+        this.setState({
+          roomss: res.data.map((roomm) => {
+            return {
+              ...roomm,
+            };
+          }),
+        }).catch((error) => console.log(error));
+      });
+  }
+  componentDidMount() {
+    this.fetchCreditCard();
+    this.fetchRooms();
+  }
 
   render() {
-    const { rooms } = this.props;
+    // const { rooms } = this.props;
     // const { creditcards } = this.props;
 
     return (
@@ -118,10 +122,10 @@ class AddBookingForm extends React.Component {
               />
             </Form.Group>
           </Row>
+
           <Row className="mb-3">
             <Form.Group as={Col} className="mb-3" controlId="formBasicEmail">
               <Form.Label>Payment Method</Form.Label>
-
               <Form.Select
                 as={Col}
                 aria-label="Smooking"
@@ -130,7 +134,9 @@ class AddBookingForm extends React.Component {
               >
                 <option>--Select--</option>
                 {this.state.creditcards.map((creditcard) => (
-                  <option name="creditCardId">{creditcard.cardName}</option>
+                  <option name="creditCardId" value={creditcard.creditCardId}>
+                    {creditcard.cardName}
+                  </option>
                 ))}
                 ;
               </Form.Select>
@@ -145,15 +151,25 @@ class AddBookingForm extends React.Component {
               />
             </Form.Group>
           </Row>
-          {/* <Form.Group className="mb-2" controlId="formBasicEmail">
-            <Form.Label>Other Reservations</Form.Label>
-            <Form.Control
-              type="text"
-              placeholder="Enter any other service you need"
-              name="otherReservations"
-              onChange={this.changeHandler}
-            />
-          </Form.Group> */}
+          <Row className="mb-3">
+            <Form.Group as={Col} className="mb-3" controlId="formBasicEmail">
+              <Form.Label>Select A Room Type</Form.Label>
+              <Form.Select
+                as={Col}
+                aria-label="Room"
+                name="roomId"
+                onChange={this.changeHandler}
+              >
+                <option>--Select--</option>
+                {this.state.roomss.map((roomm) => (
+                  <option name="roomId" value={roomm.roomId}>
+                    {roomm.type}
+                  </option>
+                ))}
+                ;
+              </Form.Select>
+            </Form.Group>
+          </Row>
           <Row className="mb-3">
             <Form.Group className="mb-2" as={Col} controlId="formBasicEmail">
               <Form.Label>Number of Rooms</Form.Label>
@@ -175,21 +191,7 @@ class AddBookingForm extends React.Component {
               />
             </Form.Group>
           </Row>
-          <div>
-            {rooms.length > 0 ? (
-              this.roomList(rooms)
-            ) : (
-              <div className="m-2">
-                <Alert variant="danger"> No Rooms Selected </Alert>
-              </div>
-            )}
-          </div>
-          <Button
-            variant="primary"
-            id="button"
-            type="submit"
-            disabled={rooms.length < 1 ? "disabled" : ""}
-          >
+          <Button variant="primary" id="button" type="submit">
             Submit
           </Button>
         </Form>

@@ -10,8 +10,33 @@ class NavBar extends React.Component {
     super(props);
     this.state = {
       loggedIn: false,
+      currentUser: undefined,
+      // user,
     };
   }
+
+  // useEffect(() => {
+  //   const user = AuthService.getCurrentUser();
+  //   if (user) {
+  //     setCurrentUser(user);
+
+  //   }
+  //   EventBus.on("logout", () => {
+  //     logOut();
+  //   });
+  //   return () => {
+  //     EventBus.remove("logout");
+  //   };
+  // }, []);
+
+  // getCurrentUser = () => {
+  //   return JSON.parse(localStorage.getItem("subo8"));
+  // };
+  // user = getCurrentUser();
+  // if(user) {
+  //   setCurrentUser(user);
+  // }
+
   componentDidMount() {
     //localStorage.getItem("access-token");
     const accessToken = localStorage.getItem("subo8");
@@ -19,6 +44,13 @@ class NavBar extends React.Component {
       this.setState({ loggedIn: true });
     }
   }
+
+  // getCurrentUser = () => {
+  //   //return JSON.parse(localStorage.getItem("subo8"));
+  //   const userDetails = localStorage.getItem("subo8");
+  //   this.setState({ currentUser: userDetails.charAt(2) });
+  //   console.log("User details: " + userDetails);
+  // };
 
   logout = () => {
     localStorage.removeItem("subo8");
@@ -76,6 +108,11 @@ class NavBar extends React.Component {
                   <Nav.Link style={{ color: "white" }}>Logout</Nav.Link>
                 </span>
               ) : (
+                // <span>
+                //   <Nav.Link style={{ color: "white" }}>
+                //     {currentUser.username}
+                //   </Nav.Link>
+                // </span>
                 <Nav.Link href="/login" style={{ color: "white" }}>
                   Login
                 </Nav.Link>
