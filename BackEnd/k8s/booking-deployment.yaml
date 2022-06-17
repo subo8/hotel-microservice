@@ -38,6 +38,6 @@ spec:
     targetPort: 8999
   selector:
     app: booking-service
-  type: ClusterIP
+  type: LoadBalancer
 status:
   loadBalancer: {}

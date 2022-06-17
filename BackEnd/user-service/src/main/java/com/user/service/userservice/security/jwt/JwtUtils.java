@@ -37,13 +37,13 @@ public class JwtUtils {
 
   public ResponseCookie generateJwtCookie(UserDetailsImpl userPrincipal) {
     List<?> list = new ArrayList<>(userPrincipal.getAuthorities());
-    String jwt = generateTokenFromUsername(userPrincipal.getUsername(), userPrincipal.getId(), list, userPrincipal.getFullname());
+    String jwt = generateTokenFromUsername(userPrincipal.getUsername(), userPrincipal.getId(), list, userPrincipal.getFullname(), userPrincipal.getEmail());
     ResponseCookie cookie = ResponseCookie.from(jwtCookie, jwt).path("/").maxAge(24 * 60 * 60).httpOnly(true).build();
     return cookie;
   }
 
   public ResponseCookie getCleanJwtCookie() {
-    ResponseCookie cookie = ResponseCookie.from(jwtCookie, null).path("/").build();
+    ResponseCookie cookie = ResponseCookie.from(jwtCookie, null).path("/api").build();
     return cookie;
   }
 
@@ -71,13 +71,13 @@ public class JwtUtils {
 
     return false;
   }
-
-  public String generateTokenFromUsername(String username, String userid, List roles, String fullname) {
+  
+  public String generateTokenFromUsername(String username, String userid, List roles, String fullname, String email) {
     return Jwts.builder()
-            .setSubject(username).claim("userId", userid).claim("role", roles.get(0).toString()).claim("name",fullname)
-            .setIssuedAt(new Date())
-            .setExpiration(new Date((new Date()).getTime() + jwtExpirationMs))
-            .signWith(SignatureAlgorithm.HS512, jwtSecret)
-            .compact();
+        .setSubject(username).claim("userId", userid).claim("role", roles.get(0).toString()).claim("name",fullname).claim("email", email)
+        .setIssuedAt(new Date())
+        .setExpiration(new Date((new Date()).getTime() + jwtExpirationMs))
+        .signWith(SignatureAlgorithm.HS512, jwtSecret)
+        .compact();
   }
 }

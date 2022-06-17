@@ -28,16 +28,15 @@ public class BookingController {
     @PostMapping("/")
     @CrossOrigin("http://localhost:3000")
     public ResponseEntity<?> saveBooking(@RequestBody Booking booking, HttpServletRequest request ) throws JsonProcessingException {
-//        Cookie cookie = WebUtils.getCookie(request, "subo8");
-//        if (cookie !=null){
-//            String jwt = cookie.getValue();
-//            String username = jwtUtils.getUserNameFromJwtToken(jwt);
-//            booking.setUserName(username);
-//         //  bookingService.save(booking, request);
          return bookingService.save(booking,request);
-//        }else
-//       return new ResponseEntity<String>("Please Login", HttpStatus.FORBIDDEN);
     }
+
+    @PostMapping("/front")
+    @CrossOrigin("http://localhost:3000")
+    public ResponseEntity<?> saveBookingFrontEnd(@RequestBody Booking booking, HttpServletRequest request ) throws JsonProcessingException {
+        return bookingService.save(booking,request);
+    }
+
 @CrossOrigin("http://localhost:3000")
     @GetMapping("/")
     private List<Booking> bookings() {

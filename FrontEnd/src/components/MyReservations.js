@@ -12,16 +12,22 @@ class MyReservations extends React.Component {
     };
   }
   componentDidMount() {
-    axios.get("http://localhost:8999/").then((res) => {
-      this.setState({
-        bookings: res.data.map((booking) => {
-          return {
-            ...booking,
-            // available: room.available === true ? "Yes" : "No",
-          };
-        }),
-      }).catch((error) => console.log(error));
-    });
+    axios
+      .get("http://localhost:8999/", {
+        headers: {
+          Headers: localStorage.getItem("subo8"),
+        },
+      })
+      .then((res) => {
+        this.setState({
+          bookings: res.data.map((booking) => {
+            return {
+              ...booking,
+              // available: room.available === true ? "Yes" : "No",
+            };
+          }),
+        }).catch((error) => console.log(error));
+      });
   }
   render() {
     return (

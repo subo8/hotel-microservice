@@ -6,6 +6,7 @@ import { Row, Col, Form, Button } from "react-bootstrap";
 import NavBar from "./NavBar";
 import BACK_END_URL from "../services/api";
 import Cookies from "universal-cookie";
+import AuthService from "../services/auth.service";
 class Login extends React.Component {
   state = {
     username: "",
@@ -23,13 +24,14 @@ class Login extends React.Component {
       .post("http://localhost:8080/auth/signin", temp)
       // .post(BACK_END_URL + "/api/authenticate", temp)
       .then((res) => {
-        localStorage.setItem("variableName", JSON.stringify(res.data));
+        localStorage.setItem("subo8", JSON.stringify(res.data));
         // let head = res.headers;
         // console.log(head);
-        this.cookies.set("subo8", JSON.stringify(res.data));
+        //this.cookies.set("subo8", JSON.stringify(res.data));
         console.log(res.data);
         // window.location = "/booking";
       })
+
       .catch((err) => console.log(err));
   };
   render() {

@@ -25,9 +25,6 @@ public class CreditCardController {
     public CreditCardController(CreditCardService creditCardService) {
         this.creditCardService = creditCardService;
     }
-
-
-
 @PostMapping
 @CrossOrigin("http://localhost:3000")
 public  CreditCard saveCreditCard(@RequestBody CreditCard creditCard , HttpServletRequest request) {
@@ -42,12 +39,10 @@ public  CreditCard saveCreditCard(@RequestBody CreditCard creditCard , HttpServl
     return null;
 }
 
-
-
 @GetMapping("/{creditCardId}")
 @CrossOrigin("http://localhost:3000")
     public   CreditCard findCardById(@PathVariable String creditCardId){
-        return  creditCardService.getCreditCards(creditCardId);
+        return  creditCardService.getCreditCard(creditCardId);
 }
 @GetMapping
 @CrossOrigin("http://localhost:3000")
@@ -57,7 +52,7 @@ public  CreditCard saveCreditCard(@RequestBody CreditCard creditCard , HttpServl
 
     @PutMapping("/{creditCardId}")
     public   CreditCard updateCreditCard(@PathVariable String creditCardId, @RequestBody CreditCard creditCard){
-        return  creditCardService.updateCreditCard(creditCard);
+        return  creditCardService.updateCreditCardLocal(creditCard, creditCardId);
     }
 
     @PutMapping("/")

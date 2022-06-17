@@ -41,7 +41,7 @@ class AddBookingForm extends React.Component {
 
     console.log(bookingDetails);
     axios
-      .post("http://localhost:8999/", bookingDetails, {
+      .post("http://localhost:8999/front", bookingDetails, {
         headers: {
           Headers: localStorage.getItem("variableName").replace(/"/g, ""),
           // withCredentials: true,
@@ -77,7 +77,7 @@ class AddBookingForm extends React.Component {
     axios
       .get("http://localhost:9001/creditcards", {
         headers: {
-          Authorization: localStorage.getItem("variableName").replace(/"/g, ""),
+          Headers: localStorage.getItem("subo8"),
         },
       })
       .then((res) => {

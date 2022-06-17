@@ -14,7 +14,7 @@ class RoomsList extends React.Component {
     axios
       .get("http://localhost:8088/room", {
         headers: {
-          Headers: localStorage.getItem("variableName").replace(/"/g, ""),
+          Headers: localStorage.getItem("subo8"),
         },
       })
       .then((res) => {
