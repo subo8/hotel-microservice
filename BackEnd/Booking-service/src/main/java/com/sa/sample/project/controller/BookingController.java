@@ -33,8 +33,8 @@ public class BookingController {
 
     @PostMapping("/front")
     @CrossOrigin("http://localhost:3000")
-    public ResponseEntity<?> saveBookingFrontEnd(@RequestBody Booking booking, HttpServletRequest request ) throws JsonProcessingException {
-        return bookingService.save(booking,request);
+    public ResponseEntity<?> saveBookingFrontEnd(@RequestBody Booking booking ) throws JsonProcessingException {
+        return bookingService.saveBackend(booking);
     }
 
 @CrossOrigin("http://localhost:3000")
