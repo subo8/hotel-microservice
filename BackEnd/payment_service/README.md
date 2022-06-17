@@ -14,31 +14,30 @@ $ docker push --all-tags xocbayar/payment-service
 ## Kubernetes
 ```
 $ helm repo add bitnami https://charts.bitnami.com/bitnami
-$ helm install hotel-payment-mongodb \
-    --set auth.rootPassword=secretpassword,auth.username=hoteluser,auth.password=hotelpass,auth.database=payment_DB \
-    bitnami/mongodb
+$ helm install hotel-mongodb --set auth.rootPassword=secretpassword bitnami/mongodb
 
 $ kubectl create deployment payment-service --image=xocbayar/payment-service --dry-run=client -o=yaml > payment-deployment.yaml 
 
 $ echo --- >> payment-deployment.yaml
 
-$ kubectl create service clusterip payment-service --tcp=9004:9004 --dry-run=client -o=yaml >> payment-deployment.yaml
+$ kubectl create service loadbalancer payment-service --tcp=9004:9004 --dry-run=client -o=yaml >> payment-deployment.yaml
 
 $ kubectl apply -f payment-deployment.yaml
 
+$ minikube tunnel
 $ kubectl port-forward svc/payment-service 9004:9004
 ```
 ### Application properties
 ```
-spring.data.mongodb.uri=mongodb://hoteluser:hotelpass@hotel-payment-mongodb.default.svc.cluster.local:27017/payment_DB
+spring.data.mongodb.uri=mongodb://root:secretpassword@hotel-mongodb.default.svc.cluster.local:27017/paypal_DB?authSource=admin
 ```
-#About Payment Service
--we have added three payment services as a dummy services(bankAccount,credit card and paypal)
--if we want to pay money from any of the payment methods first it will validate that the given payment information is valid or not(like whether sufficient balance or not,expiry date,information)
--if information is not valid then it will show error message with status failure
--if it is valid then it will give transaction information with status success
+# About Payment Service
+- We have added three payment services as a dummy services(bankAccount,credit card and paypal)
+- If we want to pay money from any of the payment methods first it will validate that the given payment information is valid or not(like whether sufficient balance or not,expiry date,information)
+- If information is not valid then it will show error message with status failure
+- If it is valid then it will give transaction information with status success
 
-#To verify and pay money from creditcard
+# To verify and pay money from creditcard
 --------------------------------------
 POST: localhost:9004/api/v1/payments/creditcard
 
@@ -51,7 +50,7 @@ POST: localhost:9004/api/v1/payments/creditcard
 }
 
 
-#To verify and pay money from Paypal
+# To verify and pay money from Paypal
 --------------------------------------
 POST: localhost:9004/api/v1/payments/paypal
 
@@ -63,7 +62,7 @@ POST: localhost:9004/api/v1/payments/paypal
 
 }
 
-#To verify and pay money from bank account
+# To verify and pay money from bank account
 --------------------------------------
 POST: localhost:9004/api/v1/payments/bankaccount
 
@@ -76,7 +75,7 @@ POST: localhost:9004/api/v1/payments/bankaccount
 "type":"CHECKING"
 }
 
-#To find information with transaction code
+# To find information with transaction code
 --------------------------------------
 GET: localhost:9004/api/v1/payments/{transaction code}
 eg//
@@ -85,7 +84,7 @@ GET: localhost:9004/api/v1/payments/P110
 -if there is information with request transaction code then it will show data relate to that transaciton code
 -if there is no information then it will show error message
 
-#To delete all the data from the table
+# To delete all the data from the table
 --------------------------------------
 DELETE: localhost:9004/api/v1/payments
 

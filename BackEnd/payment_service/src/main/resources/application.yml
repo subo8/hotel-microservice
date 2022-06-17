@@ -4,12 +4,11 @@ server:
 spring:
   application:
     name: payment-service
-  data:
-    mongodb:
-      host: localhost
-      port: 27017
-      database: PaymentInformation
-# spring:
-#   data:
-#     mongodb:
-#       uri: mongodb://hoteluser:hotelpass@hotel-payment-mongodb.default.svc.cluster.local.local:27017/payment_DB
+    data:
+      mongodb:
+        uri: mongodb://root:secretpassword@hotel-mongodb.default.svc.cluster.local:27017/paypal_DB?authSource=admin
+  # data:
+  #   mongodb:
+  #     host: localhost
+  #     port: 27017
+  #     database: PaymentInformation
