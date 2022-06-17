@@ -7,8 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class ResponseEntityDTO {
-    private Booking booking;
-    private Room room;
-    private CookiesInfo cookiesInfo;
+public class CookiesInfo {
+    private String email;
+    private String fullName;
 }

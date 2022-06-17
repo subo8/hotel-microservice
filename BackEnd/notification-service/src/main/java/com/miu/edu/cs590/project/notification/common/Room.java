@@ -9,8 +9,8 @@ import org.springframework.data.annotation.Id;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Room {
-
-    private Long roomId;
+    @Id
+    private String roomId;
     private Integer roomNumber;
     private String type;
     private Double price;

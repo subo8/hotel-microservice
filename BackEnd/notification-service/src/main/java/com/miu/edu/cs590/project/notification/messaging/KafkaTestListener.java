@@ -4,7 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.miu.edu.cs590.project.notification.common.ResponseEntityDTO;
 import com.miu.edu.cs590.project.notification.exception.NotificationException;
-import com.miu.edu.cs590.project.notification.model.InformationTest;
+import com.miu.edu.cs590.project.notification.model.KafkaPackage;
 import com.miu.edu.cs590.project.notification.model.NotificationAdapter;
 import com.miu.edu.cs590.project.notification.model.NotificationInfo;
 import com.miu.edu.cs590.project.notification.service.EmailService;
@@ -30,15 +30,18 @@ public class KafkaTestListener {
     private String eventNotReceived;
 
     @KafkaListener(topics = "#{'${spring.kafka.template.default-topic}'}")
-    public void handleMessage(String notificationInfoString) {
+    public void handleMessage(String kafkaPackageSender) {
 
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.findAndRegisterModules();
 
         try {
-//            ResponseEntityDTO responseEntityDTO = objectMapper.readValue(notificationInfoString, ResponseEntityDTO.class);
-//            NotificationInfo notificationInfo = NotificationAdapter.convertToNotificationInfoFromResponseEntityDTO(responseEntityDTO);
-            NotificationInfo notificationInfo = objectMapper.readValue(notificationInfoString, NotificationInfo.class);
+            KafkaPackage kafkaPackage = objectMapper.readValue(kafkaPackageSender, KafkaPackage.class);
+            ResponseEntityDTO responseEntityDTO = new ResponseEntityDTO();
+            responseEntityDTO.setBooking(kafkaPackage.getBooking());
+            responseEntityDTO.setRoom(kafkaPackage.getRoom());
+            responseEntityDTO.setCookiesInfo(kafkaPackage.getCookiesInfo());
+            NotificationInfo notificationInfo = NotificationAdapter.convertToNotificationInfoFromResponseEntityDTO(responseEntityDTO);
             log.info(eventReceivedSuccessfully);
             String informationBooking = EmailTemplate.createCustomerEmail(notificationInfo);
             emailService.sendEmailWithImage(informationBooking, notificationInfo);

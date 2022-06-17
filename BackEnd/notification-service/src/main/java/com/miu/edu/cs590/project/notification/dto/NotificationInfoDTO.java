@@ -10,7 +10,8 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @NoArgsConstructor
 public class NotificationInfoDTO {
-
+    private String bookingId;
+    private String roomId;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate dateOfArrival;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
@@ -18,8 +19,9 @@ public class NotificationInfoDTO {
     private String email;
     private int numberOfRooms;
     private String otherReservations;
-    private String userName;
+    private String fullName;
     private Integer roomNumber;
+    private Double amount;
     private String type;
     private Double price;
     private String bedType;
@@ -28,4 +30,7 @@ public class NotificationInfoDTO {
     private boolean smoking;
     private String description;
 
+    public boolean getSmoking() {
+        return this.smoking;
+    }
 }

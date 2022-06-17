@@ -6,6 +6,9 @@ import com.sa.sample.project.dto.CreditCardDto;
 import com.sa.sample.project.dto.ResponseEntityDTO;
 import com.sa.sample.project.dto.Room;
 import com.sa.sample.project.jwt.JwtUtils;
+import com.sa.sample.project.kafka.CookiesInfo;
+import com.sa.sample.project.kafka.KafkaPackage;
+import com.sa.sample.project.kafka.KafkaSenderService;
 import com.sa.sample.project.model.Booking;
 import com.sa.sample.project.repository.BookingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +32,8 @@ public class BookingHotelService {
     @Autowired
     RestTemplate restTemplate;
 
+    @Autowired
+    KafkaSenderService kafkaSenderService;
     @Autowired
     JwtUtils jwtUtils;
 
@@ -85,6 +90,19 @@ public class BookingHotelService {
             responseEntityDTO.setRoom(room.getBody());
             responseEntityDTO.setPaymentMethod(creditCardDto);
             System.out.println("++++++++++++ Room After" + room);
+
+            // Samuel's Part
+            String fullName = jwtUtils.getFullNameFromJwtToken(jwt);
+            String email = jwtUtils.getEmailFromJwtToken(jwt);
+            KafkaPackage kafkaPackage = new KafkaPackage();
+            kafkaPackage.setBooking(booking);
+            kafkaPackage.setRoom(room);
+            CookiesInfo cookiesInfo = new CookiesInfo();
+            cookiesInfo.setFullName(fullName);
+            cookiesInfo.setEmail(email);
+            kafkaPackage.setCookiesInfo(cookiesInfo);
+            kafkaSenderService.receiveEvent(kafkaPackage);
+
 //            if (!room.isAvailable()) {
 //           //     return new ResponseEntity<>("Room already booked", HttpStatus.NOT_ACCEPTABLE);
 //                return null;
