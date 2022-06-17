@@ -1,5 +1,7 @@
-package com.miu.edu.cs590.project.notification.common;
+package com.sa.sample.project.kafka;
 
+import com.sa.sample.project.dto.Room;
+import com.sa.sample.project.model.Booking;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -7,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class ResponseEntityDTO {
+public class KafkaPackage {
     private Booking booking;
     private Room room;
     private CookiesInfo cookiesInfo;

@@ -18,7 +18,7 @@ spec:
         app: notification-service
     spec:
       containers:
-      - image: xocbayar/notification-service
+      - image: samueletedocker/notification-service:2.0
         name: notification-service
         resources: {}
 status: {}
@@ -38,6 +38,6 @@ spec:
     targetPort: 8110
   selector:
     app: notification-service
-  type: ClusterIP
+  type: LoadBalancer
 status:
   loadBalancer: {}

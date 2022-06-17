@@ -19,6 +19,7 @@ import java.time.LocalDate;
 public class Booking {
 //    @Transient
 //    public static final String SEQUENCE_NAME = "booking_sequence";
+    @Id
     private String bookingId;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate dateOfArrival;
@@ -28,7 +29,10 @@ public class Booking {
     private String otherReservations;
     private String userName;
     private String roomId;
-    private String email;
+    private Double amount;
+   private String creditCardId;
+
+
     public Booking(LocalDate of, LocalDate of1, int i, String any_other_reservation) {
         this.dateOfArrival = of;
         this.dateOfDeparture = of1;

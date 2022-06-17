@@ -37,14 +37,9 @@ public class JwtUtils {
 
   public ResponseCookie generateJwtCookie(UserDetailsImpl userPrincipal) {
     List<?> list = new ArrayList<>(userPrincipal.getAuthorities());
-<<<<<<< HEAD
-    String jwt = generateTokenFromUsername(userPrincipal.getUsername(), userPrincipal.getId(), list, userPrincipal.getFullname());
-    return ResponseCookie.from(jwtCookie, jwt).path("/api").maxAge(24 * 60 * 60).httpOnly(true).build();
-=======
     String jwt = generateTokenFromUsername(userPrincipal.getUsername(), userPrincipal.getId(), list, userPrincipal.getFullname(), userPrincipal.getEmail());
     ResponseCookie cookie = ResponseCookie.from(jwtCookie, jwt).path("/").maxAge(24 * 60 * 60).httpOnly(true).build();
     return cookie;
->>>>>>> 8e009ef5a0c13f90704fbcf73922b89f78c1b589
   }
 
   public ResponseCookie getCleanJwtCookie() {

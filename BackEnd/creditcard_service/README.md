@@ -20,7 +20,7 @@ $ kubectl create deployment creditcard-service --image=xocbayar/creditcard-servi
 
 $ echo --- >> creditcard-deployment.yaml
 
-$ kubectl create service clusterip creditcard-service --tcp=9001:9001 --dry-run=client -o=yaml >> creditcard-deployment.yaml
+$ kubectl create service loadbalancer creditcard-service --tcp=9001:9001 --dry-run=client -o=yaml >> creditcard-deployment.yaml
 
 $ kubectl apply -f creditcard-deployment.yaml
 

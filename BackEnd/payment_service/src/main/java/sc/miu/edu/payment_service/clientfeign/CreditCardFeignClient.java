@@ -9,8 +9,10 @@ import sc.miu.edu.payment_service.dto.CreditCardDto;
 import sc.miu.edu.payment_service.dto.PaymentInformationResponse;
 import sc.miu.edu.payment_service.dto.PaypalDto;
 
-@FeignClient(name = "creditcard-service" , url = "localhost:9001/creditcards")
+@FeignClient(name = "creditcard-service", url = "creditcard-service.default.svc.cluster.local:9001/creditcards")
+// @FeignClient(name = "creditcard-service" , url =
+// "localhost:9001/creditcards")
 public interface CreditCardFeignClient {
     @PostMapping("/verify-purchase")
-    public ResponseEntity<PaymentInformationResponse> check(@RequestBody CreditCardDto creditCardDto) ;
+    public ResponseEntity<PaymentInformationResponse> check(@RequestBody CreditCardDto creditCardDto);
 }

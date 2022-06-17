@@ -9,7 +9,9 @@ import sc.miu.edu.payment_service.dto.BankAccountDto;
 import sc.miu.edu.payment_service.dto.CreditCardDto;
 import sc.miu.edu.payment_service.dto.PaymentInformationResponse;
 
-@FeignClient(name = "bankaccount-service" , url = "localhost:9003/bankaccounts")
+@FeignClient(name = "bankaccount-service", url = "bankaccount-service.default.svc.cluster.local:9003/bankaccounts")
+// @FeignClient(name = "bankaccount-service" , url =
+// "localhost:9003/bankaccounts")
 public interface BankAccountFeignClient {
     @PutMapping("/verify-purchase")
     public ResponseEntity<PaymentInformationResponse> verifyPayment(@RequestBody BankAccountDto bankAccountDto);

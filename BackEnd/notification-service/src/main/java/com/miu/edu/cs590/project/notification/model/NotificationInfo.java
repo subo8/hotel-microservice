@@ -25,8 +25,9 @@ public class NotificationInfo {
     private String email;
     private int numberOfRooms;
     private String otherReservations;
-    private String userName;
+    private String fullName;
     private Integer roomNumber;
+    private Double amount;
     private String type;
     private Double price;
     private String bedType;

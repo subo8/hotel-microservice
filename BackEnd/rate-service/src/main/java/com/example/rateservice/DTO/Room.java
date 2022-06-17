@@ -2,7 +2,6 @@ package com.example.rateservice.DTO;
 import lombok.AllArgsConstructor;
 import org.springframework.data.annotation.Id;
 
-@AllArgsConstructor
 public class Room {
 
     @Id
@@ -18,6 +17,22 @@ public class Room {
     private boolean available;
     private String roomRating;
     private  Integer totalRatings;
+
+    public Room(){}
+    public Room(String roomId, Integer roomNumber, String type, Double price, String bedType, Integer numberOfBeds, Integer maxNumberOfGuests, boolean smoking, String description, boolean available, String roomRating, Integer totalRatings) {
+        this.roomId = roomId;
+        this.roomNumber = roomNumber;
+        this.type = type;
+        this.price = price;
+        this.bedType = bedType;
+        this.numberOfBeds = numberOfBeds;
+        this.maxNumberOfGuests = maxNumberOfGuests;
+        this.smoking = smoking;
+        this.description = description;
+        this.available = available;
+        this.roomRating = roomRating;
+        this.totalRatings = totalRatings;
+    }
 
     public String getRoomId() {
         return roomId;

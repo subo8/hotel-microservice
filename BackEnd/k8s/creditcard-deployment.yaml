@@ -38,6 +38,6 @@ spec:
     targetPort: 9001
   selector:
     app: creditcard-service
-  type: ClusterIP
+  type: LoadBalancer
 status:
   loadBalancer: {}
