@@ -1,7 +1,6 @@
 package com.miu.edu.cs590.project.notification.service;
 
 import com.miu.edu.cs590.project.notification.dto.NotificationInfoDTO;
-import com.miu.edu.cs590.project.notification.model.InformationTest;
 import com.miu.edu.cs590.project.notification.model.NotificationAdapter;
 import com.miu.edu.cs590.project.notification.model.NotificationInfo;
 import com.miu.edu.cs590.project.notification.repository.NotificationInfoRepository;
@@ -26,8 +25,8 @@ public class NotificationInfoServiceImpl implements NotificationInfoService {
     }
 
     @Override
-    public NotificationInfoDTO getByUserName(String userName) {
-        return NotificationAdapter.convertToNotificationInfoDTOFromNotificationInfo(notificationInfoRepository.findByUserName(userName));
+    public NotificationInfoDTO getByFullName(String userName) {
+        return NotificationAdapter.convertToNotificationInfoDTOFromNotificationInfo(notificationInfoRepository.findByFullName(userName));
     }
 
     @Override
