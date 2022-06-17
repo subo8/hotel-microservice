@@ -105,5 +105,7 @@ GET http://localhost:8088/room/checkout/1
 
 ### For Controller Testing
 ~~~
-Run Room Service for RoomControllerTest
+Run Room Service for RoomControllerTest if not cannot run test case
+
+
 ~~~
