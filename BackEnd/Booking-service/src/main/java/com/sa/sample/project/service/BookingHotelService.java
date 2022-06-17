@@ -96,7 +96,7 @@ public class BookingHotelService {
             String email = jwtUtils.getEmailFromJwtToken(jwt);
             KafkaPackage kafkaPackage = new KafkaPackage();
             kafkaPackage.setBooking(booking);
-            kafkaPackage.setRoom(room);
+            kafkaPackage.setRoom(room.getBody());
             CookiesInfo cookiesInfo = new CookiesInfo();
             cookiesInfo.setFullName(fullName);
             cookiesInfo.setEmail(email);
@@ -111,31 +111,32 @@ public class BookingHotelService {
         }else
         return new ResponseEntity<String>("Please Login", HttpStatus.FORBIDDEN);
     }
-    public ResponseEntity<?> saveBackend(Booking booking, HttpServletRequest request) throws JsonProcessingException {
+    public ResponseEntity<?> saveBackend(Booking booking) throws JsonProcessingException {
         ObjectMapper objectMapper = new ObjectMapper();
         ResponseEntityDTO responseEntityDTO = new ResponseEntityDTO();
         Booking booking1 = new Booking();
-        HttpHeaders headers = new HttpHeaders();
-        HttpEntity<?> entity = new HttpEntity<>(headers);
-            String username = jwtUtils.getUserNameFromJwtToken("Godwin");
-            booking.setUserName(username);
-            ResponseEntity<Room> room = restTemplate.exchange("http://localhost:8088/room/{roomId}", HttpMethod.GET, entity, Room.class, booking.getRoomId());
+//        HttpHeaders headers = new HttpHeaders();
+//        HttpEntity<?> entity = new HttpEntity<>(headers);
+         //   String username = jwtUtils.getUserNameFromJwtToken("Godwin");
+            booking.setUserName("Godwin");
+            Room room = restTemplate.getForObject("http://localhost:8088/room/{roomId}",  Room.class, booking.getRoomId());
             CreditCardDto creditCardDto = restTemplate.getForObject("http://localhost:9001/creditcards/{creditCardId}", CreditCardDto.class, booking.getCreditCardId());
-                System.out.println("++++++++++++ Room Before" + room.getBody().isAvailable());
+        assert room != null;
+        System.out.println("++++++++++++ Room Before" + room.isAvailable());
             // assert room != null;
-            room.getBody().setAvailable(false);
+            room.setAvailable(false);
             assert creditCardDto != null;
-            if (booking.getAmount() > creditCardDto.getBalance() || !room.getBody().isAvailable()){
+            if (booking.getAmount() > creditCardDto.getBalance() && !room.isAvailable()){
                 System.out.println("You have  insufficient amount Or the room is already booked");
                 return null;
             }else
                 creditCardDto.setBalance(creditCardDto.getBalance()-booking.getAmount());
-            String roomString = objectMapper.writeValueAsString(room.getBody());
+            String roomString = objectMapper.writeValueAsString(room);
             String creditCardString = objectMapper.writeValueAsString(creditCardDto);
             restTemplate.put("http://localhost:8088/room/", roomString, String.class);
             restTemplate.put("http://localhost:9001/creditcards/", creditCardString, String.class);
             responseEntityDTO.setBooking(booking1);
-            responseEntityDTO.setRoom(room.getBody());
+            responseEntityDTO.setRoom(room);
             responseEntityDTO.setPaymentMethod(creditCardDto);
             System.out.println("++++++++++++ Room After" + room);
             return new ResponseEntity<>(bookingRepository.save(booking), HttpStatus.CREATED);

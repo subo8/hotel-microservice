@@ -25,6 +25,8 @@ class Login extends React.Component {
       // .post(BACK_END_URL + "/api/authenticate", temp)
       .then((res) => {
         localStorage.setItem("subo8", JSON.stringify(res.data));
+        const userDetails = localStorage.getItem("subo8");
+        console.log("User details: " + userDetails);
         // let head = res.headers;
         // console.log(head);
         //this.cookies.set("subo8", JSON.stringify(res.data));

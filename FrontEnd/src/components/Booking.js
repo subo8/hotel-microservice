@@ -29,10 +29,6 @@ class Booking extends React.Component {
   changeHandler = (event) => {
     this.setState({ [event.target.name]: event.target.value });
   };
-
-  componentDidMount() {
-    this.getRooms();
-  }
   notlogin = () => {
     if (this.setState({ loggedIn: false })) {
       window.location = "/login";
@@ -42,68 +38,68 @@ class Booking extends React.Component {
     window.location = "/";
   }
   else;
-  getRooms = () => {
-    axios
-      // .get(BACK_END_URL + "/api/rooms/", {
-      .get("http://localhost:8088/room", {
-        headers: {
-          Headers: this.cookies.get("subo8"),
-        },
-      })
-      .then((res) => {
-        this.setState({
-          rooms: res.data.map((room) => {
-            return {
-              ...room,
-              selected: false,
-            };
-          }),
-        }).catch((error) => console.log(error));
-      });
-  };
+  // getRooms = () => {
+  //   axios
+  //     // .get(BACK_END_URL + "/api/rooms/", {
+  //     .get("http://localhost:8088/room", {
+  //       headers: {
+  //         Headers: this.cookies.get("subo8"),
+  //       },
+  //     })
+  //     .then((res) => {
+  //       this.setState({
+  //         rooms: res.data.map((room) => {
+  //           return {
+  //             ...room,
+  //             selected: false,
+  //           };
+  //         }),
+  //       }).catch((error) => console.log(error));
+  //     });
+  // };
 
-  addRoom = (room) => {
-    room.selected = true;
-    let { selectedRooms } = this.state;
-    if (selectedRooms && selectedRooms.length > 0) {
-      selectedRooms = [
-        ...this.state.selectedRooms.filter(
-          (aRoom) => aRoom.roomNumber !== room.roomNumber
-        ),
-        room,
-      ];
-    } else {
-      selectedRooms = [room];
-    }
-    this.setState({
-      selectedRooms,
-      rooms: [
-        room,
-        ...this.state.rooms.filter(
-          (aRoom) => aRoom.roomNumber !== room.roomNumber
-        ),
-      ],
-    });
-  };
+  // addRoom = (room) => {
+  //   room.selected = true;
+  //   let { selectedRooms } = this.state;
+  //   if (selectedRooms && selectedRooms.length > 0) {
+  //     selectedRooms = [
+  //       ...this.state.selectedRooms.filter(
+  //         (aRoom) => aRoom.roomNumber !== room.roomNumber
+  //       ),
+  //       room,
+  //     ];
+  //   } else {
+  //     selectedRooms = [room];
+  //   }
+  //   this.setState({
+  //     selectedRooms,
+  //     rooms: [
+  //       room,
+  //       ...this.state.rooms.filter(
+  //         (aRoom) => aRoom.roomNumber !== room.roomNumber
+  //       ),
+  //     ],
+  //   });
+  // };
 
   cookies = new Cookies();
 
-  removeRoom = (room) => {
-    room.selected = false;
-    this.setState({
-      selectedRooms: [
-        ...this.state.selectedRooms.filter(
-          (aRoom) => aRoom.roomNumber !== room.roomNumber
-        ),
-      ],
-      rooms: [
-        room,
-        ...this.state.rooms.filter(
-          (aRoom) => aRoom.roomNumber !== room.roomNumber
-        ),
-      ],
-    });
-  };
+  // removeRoom = (room) => {
+  //   room.selected = false;
+  //   this.setState({
+  //     selectedRooms: [
+  //       ...this.state.selectedRooms.filter(
+  //         (aRoom) => aRoom.roomNumber !== room.roomNumber
+  //       ),
+  //     ],
+  //     rooms: [
+  //       room,
+  //       ...this.state.rooms.filter(
+  //         (aRoom) => aRoom.roomNumber !== room.roomNumber
+  //       ),
+  //     ],
+  //   });
+  // };
   render() {
     const { rooms, selectedRooms } = this.state;
     return (
@@ -136,19 +132,9 @@ class Booking extends React.Component {
           </Row>
           <Row>
             <Col sm={12} md={6}>
-              <AddBookingForm rooms={selectedRooms} />
+              <AddBookingForm />
             </Col>
-            <Col>
-              {rooms.length > 0 ? (
-                <AvailableRoomList
-                  rooms={this.state.rooms}
-                  addRoom={this.addRoom}
-                  removeRoom={this.removeRoom}
-                />
-              ) : (
-                <>No Rooms available</>
-              )}
-            </Col>
+            <Col></Col>
           </Row>
         </Container>
       </div>
