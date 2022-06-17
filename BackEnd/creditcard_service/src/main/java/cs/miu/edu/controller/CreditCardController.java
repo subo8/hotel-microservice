@@ -3,14 +3,22 @@ package cs.miu.edu.controller;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import cs.miu.edu.domain.CreditCard;
+import cs.miu.edu.jwt.JwtUtils;
 import cs.miu.edu.service.CreditCardService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.util.WebUtils;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 @RestController
 @RequestMapping("/creditcards")
 public class CreditCardController {
+
+    @Autowired
+    JwtUtils jwtUtils;
 
     private final CreditCardService creditCardService;
 
@@ -19,23 +27,32 @@ public class CreditCardController {
     }
 
 
-//    public CreditCardController(CreditCardService creditCardService) {
-//        this.creditCardService = creditCardService;
-//    }
 
-    //    @PostMapping
-//    public ResponseEntity<?> savePaypal(@RequestBody CreditCardDto paypalDto){
-//        ResponseEntity<?> response= new ResponseEntity<>(creditCardService.saveCreditCard(paypalDto), HttpStatus.OK);
-//        return response;
-//    }
 @PostMapping
-public  CreditCard saveCreditCard(@RequestBody CreditCard creditCard , HttpServletRequest httpServletRequest){
-    return creditCardService.saveCreditCard(creditCard, httpServletRequest);
+@CrossOrigin("http://localhost:3000")
+public  CreditCard saveCreditCard(@RequestBody CreditCard creditCard , HttpServletRequest request) {
+
+    Cookie cookie = WebUtils.getCookie(request, "subo8");
+    if (cookie != null) {
+        String jwt = cookie.getValue();
+        String username = jwtUtils.getUserNameFromJwtToken(jwt);
+        return creditCardService.saveCreditCard(creditCard, username);
+
+    }
+    return null;
 }
 
+
+
 @GetMapping("/{creditCardId}")
+@CrossOrigin("http://localhost:3000")
     public   CreditCard findCardById(@PathVariable String creditCardId){
         return  creditCardService.getCreditCards(creditCardId);
+}
+@GetMapping
+@CrossOrigin("http://localhost:3000")
+    public List<CreditCard> getCreditCards(){
+        return creditCardService.getCreditCards();
 }
 
     @PutMapping("/{creditCardId}")

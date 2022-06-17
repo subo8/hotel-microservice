@@ -34,10 +34,11 @@ $ kubectl create deployment user-service --image=xocbayar/user-service --dry-run
 
 $ echo --- >> user-deployment.yaml
 
-$ kubectl create service clusterip user-service --tcp=8080:8080 --dry-run=client -o=yaml >> user-deployment.yaml
+$ kubectl create service loadbalancer user-service --tcp=8080:8080 --dry-run=client -o=yaml >> user-deployment.yaml
 
 $ kubectl apply -f user-deployment.yaml
 
+$ minikube tunnel
 $ kubectl port-forward svc/user-service 8080:8080
 ```
 #### Application properties

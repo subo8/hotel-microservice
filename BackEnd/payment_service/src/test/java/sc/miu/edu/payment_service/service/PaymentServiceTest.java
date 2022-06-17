@@ -122,7 +122,7 @@ class PaymentServiceTest {
                 .bankAccountNumber("22222222")
                 .balance(30.9)
                 .emailAddress("giri@gmail.com")
-                .routingNumber("1111")
+                .routingNumber(1111)
                 .type(BankAccountType.SAVING).build();
         PaymentInformationResponse response= paymentService.verifyBankAccountAndSavePayment(bankAccountDto);
         assertThat(response.getStatus()).isEqualTo(Status.FAILURE);
@@ -148,7 +148,7 @@ class PaymentServiceTest {
                 .bankAccountNumber("11111111")
                 .balance(30.9)
                 .emailAddress("giri@gmail.com")
-                .routingNumber("1111")
+                .routingNumber(1111)
                 .type(BankAccountType.SAVING).build();
         PaymentInformationResponse response = paymentService.verifyBankAccountAndSavePayment(bankAccountDto);
 

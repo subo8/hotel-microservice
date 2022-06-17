@@ -4,22 +4,24 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
-import javax.persistence.*;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 
-@Entity
+
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 @Data
+@Document
 public class BankAccount {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private String id;
+    private String userName;
     private Integer routingNumber;
     private String accountNumber;
-    private String firstName;
-    private String lastName;
     private String emailAddress;
     private Double balance;
     @Enumerated(EnumType.STRING)

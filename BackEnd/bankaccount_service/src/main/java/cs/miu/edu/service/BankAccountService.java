@@ -1,43 +1,61 @@
 package cs.miu.edu.service;
 
 import cs.miu.edu.domain.BankAccount;
-import cs.miu.edu.dto.BankAccountDto;
-import cs.miu.edu.dto.Status;
-import cs.miu.edu.dto.ResponseStatus;
+
 
 import cs.miu.edu.repository.BankAccountRepo;
+
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
+
+
+import java.util.List;
 
 
 @Service
 public class BankAccountService {
 
-    @Autowired
-    private BankAccountRepo bankAccountRepo;
+
+@Autowired
+    private final BankAccountRepo bankAccountRepo;
 
 
 
 
-    //to verify account
-    public ResponseStatus verifyPurchase(BankAccountDto bankAccountDto) {
-        Optional<BankAccount> bankAccountOptional = bankAccountRepo.getBankaccountByAccountNoAccountTypeRoutingNo(bankAccountDto.getBankAccountNumber(),
-                bankAccountDto.getType(), bankAccountDto.getRoutingNumber());
-        if (bankAccountOptional.isEmpty()) {
-            System.out.println("Invalid account");
-            return new ResponseStatus(Status.FAILURE);
-        }
-        BankAccount bankAccount = bankAccountOptional.get();
-        Double bankAccountBalance = bankAccount.getBalance() - bankAccountDto.getBalance();
-        if (bankAccountBalance < 0) {
-            System.out.println("Insufficient balance to purchase item");
-            return new ResponseStatus(Status.FAILURE);
-        }
-        bankAccount.setBalance(bankAccountBalance);
-        bankAccountRepo.save(bankAccount);
-        return new ResponseStatus(Status.SUCCESS);
+
+    public BankAccountService(BankAccountRepo bankAccountRepo) {
+        this.bankAccountRepo = bankAccountRepo;
     }
 
+
+
+    public BankAccount saveBankAccount(BankAccount bankAccount, String username) {
+
+            bankAccount.setUserName(username);
+            return bankAccountRepo.save(bankAccount);
+
+
+    }
+
+    public List<BankAccount> getCreditCards(){
+        return  bankAccountRepo.findAll();
+    }
+    public BankAccount getBankAccountById(String creditCardId) {
+        return bankAccountRepo.findById(creditCardId).get();
+    }
+
+    public BankAccount updateBankAccount(BankAccount bankAccount,String bankAccountId) {
+      BankAccount bankAccount1= getBankAccountById(bankAccountId);
+      if(bankAccount.getBalance() != null){
+          bankAccount1.setBalance(bankAccount.getBalance());
+      }
+      return bankAccountRepo.save(bankAccount);
+    }
+
+    public  BankAccount updateBankAccountCommunication(BankAccount bankAccount){
+
+        return  bankAccountRepo.save(bankAccount);
+    }
 }

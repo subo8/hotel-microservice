@@ -2,7 +2,7 @@ import { Route, useHistory, Redirect } from "react-router-dom";
 
 const AllRoute = ({ component: Component, ...props }) => {
   let history = useHistory();
-  if (localStorage.getItem("access-token")) {
+  if (localStorage.getItem("subo8")) {
     return localStorage.getItem("role").replace(/"/g, "") === "ROLE_ADMIN" ||
       localStorage.getItem("role").replace(/"/g, "") === "USER" ? (
       <Route

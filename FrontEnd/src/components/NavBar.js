@@ -14,14 +14,14 @@ class NavBar extends React.Component {
   }
   componentDidMount() {
     //localStorage.getItem("access-token");
-    const accessToken = localStorage.getItem("variableName");
+    const accessToken = localStorage.getItem("subo8");
     if (accessToken != undefined) {
       this.setState({ loggedIn: true });
     }
   }
 
   logout = () => {
-    localStorage.removeItem("variableName");
+    localStorage.removeItem("subo8");
     this.setState({ loggedIn: false });
     window.location = "/";
   };

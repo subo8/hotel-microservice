@@ -38,6 +38,6 @@ spec:
     targetPort: 9002
   selector:
     app: paypal-service
-  type: ClusterIP
+  type: LoadBalancer
 status:
   loadBalancer: {}

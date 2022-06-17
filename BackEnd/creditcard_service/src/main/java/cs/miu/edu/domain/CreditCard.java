@@ -19,13 +19,15 @@ import java.util.Date;
 //@Builder
 @Document
 @Data
-public class CreditCard {
+@Builder
+public class    CreditCard {
     @Id
 
     private String creditCardId;
    //private String roomId;
     private String userName;
     private String cardNumber;
+    private String cardName;
     private String ccv;
     private Double cardLimit;
     @DateTimeFormat(pattern = "yyyy-MM-dd")

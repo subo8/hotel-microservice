@@ -1,45 +1,49 @@
 package cs.miu.edu.service;
 
 import cs.miu.edu.domain.Paypal;
-import cs.miu.edu.dto.PaypalDto;
-import cs.miu.edu.dto.ResponseStatus;
-import cs.miu.edu.dto.Status;
-import cs.miu.edu.mapper.Mapper;
+
 import cs.miu.edu.repository.PaypalRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.Optional;
+import java.util.List;
 
 
 @Service
+
 public class PaypalService {
-
     @Autowired
-    private PaypalRepo paypalRepo;
-    @Autowired
-    private Mapper mapper;
+    private final PaypalRepo paypalRepo;
 
-    public PaypalDto savePaypal(PaypalDto paypalDto) {
-        Paypal paypal = mapper.mapToPaypal(paypalDto);
-        paypalRepo.save(paypal);
-        return paypalDto;
+
+    public PaypalService(PaypalRepo paypalRepo) {
+        this.paypalRepo = paypalRepo;
     }
 
-    public ResponseStatus verifyPurchase(PaypalDto paypalDto) {
-        Optional<Paypal> paypalOptional = paypalRepo.getPaypal(paypalDto.getEmailAddress(), paypalDto.getSecureKey());
-        if (paypalOptional.isEmpty()) {
-            System.out.println("Invalid account");
-            return new ResponseStatus(Status.FAILURE);
-        }
-        Paypal paypal = paypalOptional.get();
-        Double paypalBalanceAccount = paypal.getBalance() - paypalDto.getBalance();
-        if (paypalBalanceAccount < 0) {
-            System.out.println("Insufficient balance to purchase item");
-            return new ResponseStatus(Status.FAILURE);
-        }
-        paypal.setBalance(paypalBalanceAccount);
-        paypalRepo.save(paypal);
-        return new ResponseStatus(Status.SUCCESS);
+
+    public Paypal savePaypal(Paypal paypal, String username) {
+       paypal.setUserName(username);
+        return paypalRepo.save(paypal);
+
+
+    }
+
+    public List<Paypal> getPaypals() {
+        return paypalRepo.findAll();
+    }
+
+
+    public Paypal paypalById(String paypalId) {
+        return paypalRepo.findById(paypalId).get();
+    }
+
+    public Paypal updatePaypal(Paypal paypal, String paypalId) {
+        Paypal paypal1 = paypalById(paypalId);
+        if (paypal.getBalance() != null) ;
+        paypal1.setBalance(paypal.getBalance());
+        return paypalRepo.save(paypal1);
+    }
+
+    public Paypal updatePayPalCommunticateion(Paypal paypal) {
+        return paypalRepo.save(paypal);
     }
 }

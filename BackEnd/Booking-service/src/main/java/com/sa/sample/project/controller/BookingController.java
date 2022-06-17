@@ -18,6 +18,7 @@ import java.util.List;
 @AllArgsConstructor
 @RequestMapping("/")
 @RestController
+@CrossOrigin(origins = "http://localhost:3000", allowCredentials = "true")
 public class BookingController {
      private final BookingHotelService bookingService;
 
@@ -25,6 +26,7 @@ public class BookingController {
              JwtUtils jwtUtils;
 
     @PostMapping("/")
+    @CrossOrigin("http://localhost:3000")
     public ResponseEntity<?> saveBooking(@RequestBody Booking booking, HttpServletRequest request ) throws JsonProcessingException {
 //        Cookie cookie = WebUtils.getCookie(request, "subo8");
 //        if (cookie !=null){
@@ -41,6 +43,7 @@ public class BookingController {
     private List<Booking> bookings() {
         return bookingService.findAll();
     }
+
     @GetMapping("/{bookingId}")
     private ResponseEntityDTO findBookingById(@PathVariable ("bookingId") String bookingId) {
         return bookingService.findById(bookingId);

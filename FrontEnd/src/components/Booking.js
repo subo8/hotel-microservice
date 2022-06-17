@@ -7,6 +7,7 @@ import AddBookingForm from "./AddBookingForm";
 import AvailableRoomList from "./AvailableRoomList";
 import axios from "axios";
 import BACK_END_URL from "../services/api";
+import Cookies from "universal-cookie";
 
 class Booking extends React.Component {
   constructor(props) {
@@ -46,8 +47,7 @@ class Booking extends React.Component {
       // .get(BACK_END_URL + "/api/rooms/", {
       .get("http://localhost:8088/room", {
         headers: {
-          Authorization:
-            "Bearer " + localStorage.getItem("variableName").replace(/"/g, ""),
+          Authorization: "Bearer " + this.cookies.get("subo8"),
         },
       })
       .then((res) => {
@@ -85,6 +85,8 @@ class Booking extends React.Component {
       ],
     });
   };
+
+  cookies = new Cookies();
 
   removeRoom = (room) => {
     room.selected = false;

@@ -14,9 +14,7 @@ $ docker push --all-tags xocbayar/notification-service
 ## Kubernetes
 ```
 $ helm repo add bitnami https://charts.bitnami.com/bitnami
-$ helm install hotel-notification-mongodb \
-    --set auth.rootPassword=secretpassword,auth.username=hoteluser,auth.password=hotelpass,auth.database=notification_DB \
-    bitnami/mongodb
+$ helm install hotel-notification-mongodb --set auth.rootPassword=secretpassword,auth.username=hoteluser,auth.password=hotelpass,auth.database=notification_DB bitnami/mongodb
 
 $ kubectl create deployment notification-service --image=xocbayar/notification-service --dry-run=client -o=yaml > notification-service-deployment.yaml 
 

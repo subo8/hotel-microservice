@@ -38,6 +38,6 @@ spec:
     targetPort: 8088
   selector:
     app: room-service
-  type: ClusterIP
+  type: LoadBalancer
 status:
   loadBalancer: {}
