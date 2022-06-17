@@ -69,13 +69,7 @@ public  CreditCard saveCreditCard(@RequestBody CreditCard creditCard , HttpServl
 
     }
 
-//@PostMapping("/verify-purchase")
-//public ResponseEntity<?> check(@RequestBody CreditCardDto creditCardDto) {
-//    ResponseStatus responseStatus =new ResponseStatus(creditCardService.verifyPurchase(creditCardDto));
-//    ResponseEntity<?> response = new ResponseEntity<>(responseStatus, HttpStatus.OK);
-//
-//    return response;
-//}
+
 
 
 }

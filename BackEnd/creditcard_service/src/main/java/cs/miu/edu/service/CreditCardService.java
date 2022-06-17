@@ -55,13 +55,8 @@ public class CreditCardService {
        creditCard1.setBalance(creditCard1.getBalance()+creditCard.getBalance());
         creditCard.setCreditCardId(creditCardId);
         creditCard.setBalance(creditCard1.getBalance());
-
-//        creditCardRepository.findById(creditCardId);
-//        creditCard.setCreditCardId(creditCardId);
         return creditCardRepository.save(creditCard);
 
-// @Autowired
-//    private CreditCardRepo creditCardRepo;
 
     }
 
