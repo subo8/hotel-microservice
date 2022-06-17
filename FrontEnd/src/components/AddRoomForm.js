@@ -52,8 +52,7 @@ class AddRoomForm extends React.Component {
     axios
       .post("http://localhost:8088/", roomDetails, {
         headers: {
-          Authorization:
-            "Bearer " + localStorage.getItem("variableName").replace(/"/g, ""),
+          Authorization: localStorage.getItem("subo8").replace(/"/g, ""),
         },
       })
       .then((res) => {

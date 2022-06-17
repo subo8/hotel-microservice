@@ -5,12 +5,13 @@ import Container from "react-bootstrap/Container";
 import { Row, Col, Form, Button } from "react-bootstrap";
 import NavBar from "./NavBar";
 import BACK_END_URL from "../services/api";
+import Cookies from "universal-cookie";
 class Login extends React.Component {
   state = {
     username: "",
     password: "",
   };
-
+  cookies = new Cookies();
   changeHandler = (event) => {
     this.setState({ [event.target.name]: event.target.value });
   };
@@ -22,9 +23,12 @@ class Login extends React.Component {
       .post("http://localhost:8080/auth/signin", temp)
       // .post(BACK_END_URL + "/api/authenticate", temp)
       .then((res) => {
-        console.log(res);
         localStorage.setItem("variableName", JSON.stringify(res.data));
-        window.location = "/booking";
+        // let head = res.headers;
+        // console.log(head);
+        this.cookies.set("subo8", JSON.stringify(res.data));
+        console.log(res.data);
+        // window.location = "/booking";
       })
       .catch((err) => console.log(err));
   };
