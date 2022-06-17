@@ -96,7 +96,7 @@ public class BookingHotelService {
             String email = jwtUtils.getEmailFromJwtToken(jwt);
             KafkaPackage kafkaPackage = new KafkaPackage();
             kafkaPackage.setBooking(booking);
-            kafkaPackage.setRoom(room);
+            kafkaPackage.setRoom(room.getBody());
             CookiesInfo cookiesInfo = new CookiesInfo();
             cookiesInfo.setFullName(fullName);
             cookiesInfo.setEmail(email);
