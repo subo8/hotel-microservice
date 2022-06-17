@@ -14,15 +14,13 @@ $ docker push --all-tags xocbayar/booking-service
 ## Kubernetes
 ```
 $ helm repo add bitnami https://charts.bitnami.com/bitnami
-$ helm install hotel-booking-mongodb \
-    --set auth.rootPassword=secretpassword,auth.username=hoteluser,auth.password=hotelpass,auth.database=booking_DB \
-    bitnami/mongodb
+$ helm install hotel-booking-mongodb --set auth.rootPassword=secretpassword bitnami/mongodb
 
 $ kubectl create deployment booking-service --image=xocbayar/booking-service --dry-run=client -o=yaml > booking-deployment.yaml 
 
 $ echo --- >> booking-deployment.yaml
 
-$ kubectl create service clusterip booking-service --tcp=8999:8999 --dry-run=client -o=yaml >> booking-deployment.yaml
+$ kubectl create service loadbalancer booking-service --tcp=8999:8999 --dry-run=client -o=yaml >> booking-deployment.yaml
 
 $ kubectl apply -f booking-deployment.yaml
 
