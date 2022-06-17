@@ -96,7 +96,7 @@ class CreditCardServiceTest {
                 .ccv("2222")
                 .build();
         when(creditCardRepository.findById("62ab8fc1b379c861c190520e")).thenReturn(Optional.of(creditCard));
-        CreditCard response = creditCardService.getCreditCards("62ab8fc1b379c861c190520e");
+        CreditCard response = creditCardService.getCreditCard("62ab8fc1b379c861c190520e");
         assertThat(response).isNotNull();
         assertThat(response.getCreditCardId()).isEqualTo("62ab8fc1b379c861c190520e");
 
@@ -124,4 +124,55 @@ class CreditCardServiceTest {
         assertThat(response.getBalance()).isEqualTo(50.0);
     }
 
+    @Test
+    void should_return_update_creditcard_by_id_updateCreditCardLocal_when_it_is_called() {
+        CreditCard creditCard1 = CreditCard.builder()
+                .cardLimit(2000.0)
+                .cardNumber("22222222")
+                .userName("admin12")
+                .creditCardId("62ab8fc1b379c861c190520e")
+                .balance(30.0)
+                .ccv("2222")
+                .build();
+        String creditCardId = "62ab8fc1b379c861c190520e";
+        when(creditCardRepository.findById(creditCardId)).thenReturn(Optional.of(creditCard1));
+        CreditCard creditCard = CreditCard.builder()
+                .cardLimit(2000.0)
+                .cardNumber("22222222")
+                .userName("admin12")
+                .creditCardId("62ab8fc1b379c861c190520e")
+                .balance(1000.0)
+                .ccv("2222")
+                .build();
+        CreditCard savedCreditCard = CreditCard.builder()
+                .cardLimit(2000.0)
+                .cardNumber("22222222")
+                .userName("admin12")
+                .creditCardId("62ab8fc1b379c861c190520e")
+                .balance(1030.0)
+                .ccv("2222")
+                .build();
+        when(creditCardRepository.save(creditCardArgumentCaptor.capture())).thenReturn(savedCreditCard);
+        CreditCard response = creditCardService.updateCreditCardLocal(creditCard, creditCardId);
+        assertThat(response).isNotNull();
+        assertThat(response.getBalance()).isEqualTo(1030.0);
+
+    }
+
+    @Test
+    void should_return_creditcard_when_getcreditcard_is_called_by_creditcard_id() {
+        CreditCard creditCard = CreditCard.builder()
+                .cardLimit(2000.0)
+                .cardNumber("22222222")
+                .userName("admin12")
+                .creditCardId("62ab8fc1b379c861c190520e")
+                .balance(30.0)
+                .ccv("2222")
+                .build();
+        when(creditCardRepository.findById("62ab8fc1b379c861c190520e")).thenReturn(Optional.of(creditCard));
+        CreditCard response = creditCardService.getCreditCards("62ab8fc1b379c861c190520e");
+        assertThat(response).isNotNull();
+        assertThat(response.getCreditCardId()).isEqualTo("62ab8fc1b379c861c190520e");
+
+    }
 }

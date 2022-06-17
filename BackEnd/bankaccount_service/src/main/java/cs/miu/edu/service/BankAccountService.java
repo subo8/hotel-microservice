@@ -49,7 +49,7 @@ public class BankAccountService {
     public BankAccount updateBankAccount(BankAccount bankAccount,String bankAccountId) {
       BankAccount bankAccount1= getBankAccountById(bankAccountId);
       if(bankAccount.getBalance() != null){
-          bankAccount1.setBalance(bankAccount.getBalance());
+          bankAccount1.setBalance(bankAccount.getBalance()+bankAccount1.getBalance());
       }
       return bankAccountRepo.save(bankAccount);
     }

@@ -102,7 +102,7 @@ class BankAccountServiceTest {
     }
 
     @Test
-    void return_bank_account_object_with_banka_account_Id_getBankAccountById_is_call_with_id() {
+    void return_bank_account_object_with_bank_account_Id_getBankAccountById_is_call_with_id() {
      Optional<BankAccount> bankAccount= Optional.of(BankAccount.builder()
              .id("62ab55fe7255fa4f2e123d73")
              .accountNumber("11111111")
@@ -142,13 +142,22 @@ class BankAccountServiceTest {
                 .type(AccountType.CHECKING)
                 .userName("admin12")
                 .build() ;
+        BankAccount updatedBankAccount1= BankAccount.builder()
+                .id("62ab55fe7255fa4f2e123d73")
+                .accountNumber("11111111")
+                .balance(15000.0)
+                .emailAddress("giriPriya@gamil.com")
+                .routingNumber(1111)
+                .type(AccountType.CHECKING)
+                .userName("admin12")
+                .build() ;
         String bankAccountId="62ab55fe7255fa4f2e123d73";
         bankAccountService= new BankAccountService(bankAccountRepo);
         when(bankAccountRepo.findById(bankAccountId)).thenReturn(bankAccount);
-        when(bankAccountRepo.save(bankAccountArgumentCaptor.capture())).thenReturn(updatedBankAccount);
+        when(bankAccountRepo.save(bankAccountArgumentCaptor.capture())).thenReturn(updatedBankAccount1);
         BankAccount response= bankAccountService.updateBankAccount(updatedBankAccount,bankAccountId);
         assertThat(response).isNotNull();
-        assertThat(response.getBalance()).isEqualTo(7000.0);
+        assertThat(response.getBalance()).isEqualTo(15000.0);
 
     }
 

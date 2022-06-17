@@ -107,7 +107,7 @@ class PaypalServiceTest {
     @Test
     void should_return_updated_paypal_object_when_updatePaypal_is_called_by_paypal_id() {
         Optional<Paypal> paypalOptional=  Optional.of(Paypal.builder()
-                .balance(1111.1)
+                .balance(1111.0)
                 .emailAddress("giri@gmail.com")
                 .secureKey("1111")
                 .id("62ab81206ecf2333f9f3cf63")
@@ -121,14 +121,22 @@ class PaypalServiceTest {
                 .id("62ab81206ecf2333f9f3cf63")
                 .userName("admin11")
                 .build();
+        Paypal updatedPaypal1=Paypal.builder()
+                .balance(21111.0)
+                .emailAddress("giri@gmail.com")
+                .secureKey("1111")
+                .id("62ab81206ecf2333f9f3cf63")
+                .userName("admin11")
+                .build();
+
 
         String paypalId= "62ab81206ecf2333f9f3cf63";
         when(paypalRepo.findById(paypalId)).thenReturn(paypalOptional);
-        when(paypalRepo.save(paypalArgumentCaptor.capture())).thenReturn(updatedPaypal);
+        when(paypalRepo.save(paypalArgumentCaptor.capture())).thenReturn(updatedPaypal1);
         Paypal response= paypalService.updatePaypal(updatedPaypal,paypalId);
 
         assertThat(response).isNotNull();
-        assertThat(response.getBalance()).isEqualTo(20000.0);
+        assertThat(response.getBalance()).isEqualTo(21111.0);
     }
 
     @Test
