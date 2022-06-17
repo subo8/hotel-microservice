@@ -18,7 +18,7 @@ spec:
         app: notification-service
     spec:
       containers:
-      - image: xocbayar/notification-service
+      - image: samueletedocker/notification-service:2.0
         name: notification-service
         resources: {}
 status: {}
