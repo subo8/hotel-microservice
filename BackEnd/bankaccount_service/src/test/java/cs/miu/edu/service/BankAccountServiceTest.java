@@ -102,7 +102,7 @@ class BankAccountServiceTest {
     }
 
     @Test
-    void return_bank_account_object_with_banka_account_Id_getBankAccountById_is_call_with_id() {
+    void return_bank_account_object_with_bank_account_Id_getBankAccountById_is_call_with_id() {
      Optional<BankAccount> bankAccount= Optional.of(BankAccount.builder()
              .id("62ab55fe7255fa4f2e123d73")
              .accountNumber("11111111")
