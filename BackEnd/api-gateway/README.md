@@ -17,7 +17,7 @@ $ kubectl create deployment apigateway --image=xocbayar/apigateway --dry-run=cli
 
 $ echo --- >> apigateway-deployment.yaml
 
-$ kubectl create service clusterip apigateway --tcp=8762:8762 --dry-run=client -o=yaml >> apigateway-deployment.yaml
+$ kubectl create service loadbalancer apigateway --tcp=8762:8762 --dry-run=client -o=yaml >> apigateway-deployment.yaml
 
 $ kubectl apply -f apigateway-deployment.yaml
 

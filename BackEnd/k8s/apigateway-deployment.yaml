@@ -38,6 +38,6 @@ spec:
     targetPort: 8762
   selector:
     app: apigateway
-  type: ClusterIP
+  type: LoadBalancer
 status:
   loadBalancer: {}
