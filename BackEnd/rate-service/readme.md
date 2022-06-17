@@ -16,15 +16,13 @@ $ docker push --all-tags xocbayar/rate-service
 ## Kubernetes
 ```
 $ helm repo add bitnami https://charts.bitnami.com/bitnami
-$ helm install hotel-rate-mongodb \
-    --set auth.rootPassword=secretpassword,auth.username=hoteluser,auth.password=hotelpass,auth.database=rate_DB \
-    bitnami/mongodb
+$ helm install hotel-mongodb --set auth.rootPassword=secretpassword bitnami/mongodb
 
 $ kubectl create deployment rate-service --image=xocbayar/rate-service --dry-run=client -o=yaml > rate-deployment.yaml 
 
 $ echo --- >> rate-deployment.yaml
 
-$ kubectl create service clusterip rate-service --tcp=8099:8099 --dry-run=client -o=yaml >> rate-deployment.yaml
+$ kubectl create service loadbalancer rate-service --tcp=8099:8099 --dry-run=client -o=yaml >> rate-deployment.yaml
 
 $ kubectl apply -f rate-deployment.yaml
 
