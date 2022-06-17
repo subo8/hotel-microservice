@@ -50,12 +50,12 @@ public class RoomController {
     @PostMapping("/")
     public Room createRoom(HttpServletRequest request,@RequestBody Room room) throws AuthenticationException
     {
-        Cookie cookie = WebUtils.getCookie(request, "subo8");
-        String jwt = cookie.getValue();
-        String userRole = jwtUtils.getUserRoleFromJwtToken(jwt);
-        //System.out.println("User Role "+userRole);
-        if(!userRole.equals("ROLE_ADMIN"))
-            throw new AuthenticationException();
+//        Cookie cookie = WebUtils.getCookie(request, "subo8");
+//        String jwt = cookie.getValue();
+//        String userRole = jwtUtils.getUserRoleFromJwtToken(jwt);
+//        //System.out.println("User Role "+userRole);
+//        if(!userRole.equals("ROLE_ADMIN"))
+//            throw new AuthenticationException();
 
         return roomService.createRoom(room);
     }
